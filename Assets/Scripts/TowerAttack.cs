@@ -50,7 +50,7 @@ public class TowerAttack : MonoBehaviour
     {
         if(!charging)
         {
-            projectiles.Insert(0, Instantiate(projectilePrefab, transform.position + Vector3.up * (transform.localScale.y) / 3, Quaternion.Euler(0, 0, 0)));
+            projectiles.Insert(0, Instantiate(projectilePrefab, transform.position + Vector3.back + Vector3.up * (transform.localScale.y) / 3, Quaternion.Euler(0, 0, 0)));
             charging = true;
         }
 

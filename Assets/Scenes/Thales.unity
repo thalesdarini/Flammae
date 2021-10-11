@@ -470,8 +470,8 @@ MonoBehaviour:
   - {fileID: 196897629182774099, guid: 132f05b138cf9c145b99823023a86df2, type: 3}
   - {fileID: 8635346094592820262, guid: 132f05b138cf9c145b99823023a86df2, type: 3}
   - {fileID: 5785456136004109582, guid: 132f05b138cf9c145b99823023a86df2, type: 3}
-  dashSpeed: 14
-  dashDistance: 3.2
+  dashSpeed: 15
+  dashDistance: 3
   dashCooldown: 0.7
 --- !u!114 &1358627397
 MonoBehaviour:

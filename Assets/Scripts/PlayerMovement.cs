@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] private float moveSpeed;
+    [SerializeField] private Sprite[] sprites;
 
     [Header("Dash")]
     [SerializeField] private float dashSpeed;
@@ -26,16 +27,19 @@ public class PlayerMovement : MonoBehaviour
 
     // Cached references
     Rigidbody2D rb2D;
+    SpriteRenderer spriteRenderer;
 
     private void Awake()
     {
         // Get components
         rb2D = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
     {
         ManageInput();
+        //FlipPlayer();
     }
 
     private void FixedUpdate()
@@ -114,8 +118,23 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public Vector2 GetFacingDirection()
+    private void FlipPlayer()
     {
-        return facingDirection;
+        if (facingDirection.x > 0)
+        {
+            spriteRenderer.sprite = sprites[1];
+        }
+        else if (facingDirection.x < 0)
+        {
+            spriteRenderer.sprite = sprites[3];
+        }
+        else if (facingDirection.y < 0)
+        {
+            spriteRenderer.sprite = sprites[0];
+        }
+        else if (facingDirection.y > 0)
+        {
+            spriteRenderer.sprite = sprites[2];
+        }
     }
 }

@@ -6,7 +6,7 @@ public class TowerSelectionButton : MonoBehaviour
 {
     [SerializeField] TowerBuilder towerBuilder;
 
-    public void buttonTowerCerberusPressed()
+    public void ButtonTowerCerberusPressed()
     {
         towerBuilder.BuildTowerCerberus();
     }

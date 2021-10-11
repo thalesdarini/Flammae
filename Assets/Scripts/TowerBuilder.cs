@@ -8,14 +8,15 @@ public class TowerBuilder : MonoBehaviour
     [SerializeField] GameObject indicatorToBuild;
     [SerializeField] GameObject pressToBuildUI;
     [SerializeField] GameObject chooseTowerUI;
+
     Renderer areaRenderer;
     bool playerInArea;
 
     // Start is called before the first frame update
     void Start()
     {
-        playerInArea = false;
         areaRenderer = GetComponent<Renderer>();
+        playerInArea = false;
     }
 
     // Update is called once per frame
@@ -58,8 +59,7 @@ public class TowerBuilder : MonoBehaviour
     public void BuildTowerCerberus()
     {
         chooseTowerUI.SetActive(false);
-        Destroy(indicatorToBuild);
-        Instantiate(towerCerberus, indicatorToBuild.transform.position + Vector3.up*(towerCerberus.transform.localScale.y - indicatorToBuild.transform.localScale.y)/2, indicatorToBuild.transform.rotation);
+        Instantiate(towerCerberus, indicatorToBuild.transform.position + Vector3.up * (towerCerberus.transform.localScale.y - indicatorToBuild.transform.localScale.y) / 2, indicatorToBuild.transform.rotation);
         Destroy(transform.parent.gameObject);
     }
 }

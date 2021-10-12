@@ -46,6 +46,15 @@ public class TowerAttack : MonoBehaviour
         projectiles.RemoveAll(item => item == null);
     }
 
+    private void OnDestroy()
+    {
+        if(charging || charged)
+        {
+            Destroy(projectiles[0]);
+            projectiles.RemoveAll(item => item == null);
+        }
+    }
+
     void PrepareShot()
     {
         if(!charging)

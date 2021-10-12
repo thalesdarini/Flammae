@@ -28,7 +28,7 @@ public class Soul : MonoBehaviour
     {
         if (objectThatEntered.tag == "Player")
         {
-            objectThatEntered.GetComponent<PlayerControlTest>().CollectSouls(1);
+            objectThatEntered.GetComponent<PlayerSoulCounter>().CollectSouls(1);
             Destroy(gameObject);
         }
     }

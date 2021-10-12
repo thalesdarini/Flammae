@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2323064552734554948}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1503, y: 1327, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2323064553931095392}
@@ -61,15 +61,15 @@ RectTransform:
   m_GameObject: {fileID: 2323064552876578184}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.0625, y: 1.7497, z: 1}
+  m_LocalScale: {x: 0.71764, y: 0.71764, z: 0.71764}
   m_Children: []
   m_Father: {fileID: 2323064554508815481}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -308, y: 130.00006}
-  m_SizeDelta: {x: 215.6118, y: 63.7754}
+  m_AnchoredPosition: {x: -1.62, y: 1.76}
+  m_SizeDelta: {x: 3, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2323064552876578187
 CanvasRenderer:
@@ -104,9 +104,9 @@ MonoBehaviour:
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 1
-    m_MaxSize: 50
-    m_Alignment: 0
+    m_MinSize: 0
+    m_MaxSize: 240
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -140,15 +140,15 @@ RectTransform:
   m_GameObject: {fileID: 2323064553191222013}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.625, y: 1.625, z: 1.625}
+  m_LocalScale: {x: 0.61, y: 0.61, z: 0.61}
   m_Children: []
   m_Father: {fileID: 2323064553931095392}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 148.00012, y: 241.00012}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 2.9196, y: 2.28}
+  m_SizeDelta: {x: 2.8119, y: 0.8551}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2323064553191222000
 CanvasRenderer:
@@ -183,15 +183,15 @@ MonoBehaviour:
     m_FontSize: 24
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 2
-    m_MaxSize: 40
-    m_Alignment: 0
+    m_MinSize: 0
+    m_MaxSize: 300
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0 Almas
+  m_Text: 3 Almas
 --- !u!1 &2323064553246265721
 GameObject:
   m_ObjectHideFlags: 0
@@ -221,7 +221,7 @@ RectTransform:
   m_GameObject: {fileID: 2323064553246265721}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.463, y: 1.463, z: 1.463}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2323064554393570503}
   m_Father: {fileID: 2323064553931095392}
@@ -229,8 +229,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -145.99988, y: 247.00012}
-  m_SizeDelta: {x: 131.3627, y: 65.7966}
+  m_AnchoredPosition: {x: 1, y: 2.33}
+  m_SizeDelta: {x: 1.6, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2323064553246265725
 CanvasRenderer:
@@ -260,7 +260,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -269,7 +269,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 100
 --- !u!114 &2323064553246265723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -315,8 +315,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2323064553246265726}
-        m_TargetAssemblyTypeName: TowerSelectionButton, Assembly-CSharp
-        m_MethodName: ButtonTowerCerberusPressed
+        m_TargetAssemblyTypeName: TowerUIButton, Assembly-CSharp
+        m_MethodName: BuildTowerCerberusPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -339,6 +339,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerBuilder: {fileID: 2323064554358366064}
+  towerUpgrader: {fileID: 0}
 --- !u!1 &2323064553635120190
 GameObject:
   m_ObjectHideFlags: 0
@@ -364,8 +365,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2323064553635120190}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10, y: 99, z: 0}
-  m_LocalScale: {x: 155.97939, y: 200.3382, z: 0}
+  m_LocalPosition: {x: 0, y: 0.75, z: 0}
+  m_LocalScale: {x: 1, y: 1.5, z: 0}
   m_Children: []
   m_Father: {fileID: 2323064552734554949}
   m_RootOrder: 2
@@ -448,15 +449,15 @@ RectTransform:
   m_GameObject: {fileID: 2323064553770960966}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.81521, y: 0.81521, z: 0.81521}
   m_Children: []
   m_Father: {fileID: 2323064553931095392}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -25, y: 242}
-  m_SizeDelta: {x: 644.2581, y: 299.5612}
+  m_AnchoredPosition: {x: 1.93, y: 2.37}
+  m_SizeDelta: {x: 5, y: 3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2323064553770961017
 CanvasRenderer:
@@ -534,8 +535,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 20.18518, y: 128.84338}
-  m_SizeDelta: {x: 684.5997, y: 565.6377}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &2323064553931095395
 Canvas:
@@ -556,7 +557,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &2323064553931095394
 MonoBehaviour:
@@ -579,7 +580,7 @@ MonoBehaviour:
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 1
+  m_DynamicPixelsPerUnit: 1000
   m_PresetInfoIsWorld: 1
 --- !u!114 &2323064553931095393
 MonoBehaviour:
@@ -625,15 +626,15 @@ RectTransform:
   m_GameObject: {fileID: 2323064554182554846}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6.376327, y: 1.5106515, z: 1.8268}
+  m_LocalScale: {x: 0.71764, y: 0.71764, z: 0.71764}
   m_Children: []
   m_Father: {fileID: 2323064554508815481}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -373, y: 145}
-  m_SizeDelta: {x: 67.5671, y: 83.7134}
+  m_AnchoredPosition: {x: -1.62, y: 1.76}
+  m_SizeDelta: {x: 3, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2323064554182554833
 CanvasRenderer:
@@ -701,7 +702,7 @@ Transform:
   m_GameObject: {fileID: 2323064554358366077}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 477.40732, y: 159.69508, z: 0}
+  m_LocalScale: {x: 3, y: 1, z: 0}
   m_Children: []
   m_Father: {fileID: 2323064552734554949}
   m_RootOrder: 3
@@ -713,7 +714,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2323064554358366077}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -769,8 +770,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 636400de91a09554c8f804fecbb65e36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerCerberus: {fileID: 4136713172692854997, guid: 90a4243b256c04d4da8bb0f3a74dd6fe, type: 3}
-  indicatorToBuild: {fileID: 2323064553635120190}
+  towerCerberus:
+    towerPrefab: {fileID: 1304542104357237022, guid: 90a4243b256c04d4da8bb0f3a74dd6fe, type: 3}
+    towerCost: 3
+    towerCostText: {fileID: 2323064553191222015}
   pressToBuildUI: {fileID: 2323064554508815429}
   chooseTowerUI: {fileID: 2323064553931095407}
 --- !u!60 &2323064554358366065
@@ -865,15 +868,15 @@ RectTransform:
   m_GameObject: {fileID: 2323064554393570502}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.55065, y: 0.55065, z: 0.55065}
   m_Children: []
   m_Father: {fileID: 2323064553246265722}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0.00000029802322, y: -0.0000014305115}
+  m_SizeDelta: {x: 1.3057, y: 0.81604}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2323064554393570553
 CanvasRenderer:
@@ -905,11 +908,11 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 24
+    m_FontSize: 1
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 2
-    m_MaxSize: 40
+    m_MinSize: 0
+    m_MaxSize: 90
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -945,7 +948,7 @@ RectTransform:
   m_GameObject: {fileID: 2323064554508815429}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1.0125, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2323064554182554847}
   - {fileID: 2323064552876578185}
@@ -954,8 +957,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 15.9083, y: 130.3332}
-  m_SizeDelta: {x: 674.933, y: 561.5048}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &2323064554508815480
 Canvas:
@@ -976,7 +979,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &2323064554508815431
 MonoBehaviour:
@@ -999,7 +1002,7 @@ MonoBehaviour:
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 1
+  m_DynamicPixelsPerUnit: 1000
   m_PresetInfoIsWorld: 1
 --- !u!114 &2323064554508815430
 MonoBehaviour:

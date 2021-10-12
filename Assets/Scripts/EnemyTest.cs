@@ -42,7 +42,8 @@ public class EnemyTest : MonoBehaviour
     public void TakeDamage(float amountOfDamage)
     {
         health -= amountOfDamage;
-        if(health <= 0)
+        GetComponent<Animator>().SetTrigger("Damage");
+        if (health <= 0)
         {
             Die();
         }

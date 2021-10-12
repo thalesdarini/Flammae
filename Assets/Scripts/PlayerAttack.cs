@@ -7,6 +7,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] GameObject sword;
     [SerializeField] ContactFilter2D cf2d;
     [SerializeField] private Sprite[] sprites;
+    [SerializeField] float damage;
     PolygonCollider2D swordCollider;
     SpriteRenderer spriteRenderer;
 
@@ -35,7 +36,7 @@ public class PlayerAttack : MonoBehaviour
             {
                 if (cd != null)
                 {
-                    cd.gameObject.GetComponent<TakeDamage>().DamageMe();
+                    cd.gameObject.GetComponent<EnemyTest>().TakeDamage(damage);
                 }
             }
 

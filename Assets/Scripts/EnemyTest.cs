@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pathfinding;
 
 public class EnemyTest : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class EnemyTest : MonoBehaviour
     [SerializeField] int soulDrop;
     [SerializeField] float soulDropRange;
     [SerializeField] GameObject soulPrefab;
+    private AIDestinationSetter enemyDestination;
 
     void Awake()
     {
@@ -19,13 +21,13 @@ public class EnemyTest : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        enemyDestination = GetComponent<AIDestinationSetter>();
+        enemyDestination.target = GameObject.Find("EnemyDestination").transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     void Die()

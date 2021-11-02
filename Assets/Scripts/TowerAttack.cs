@@ -86,7 +86,7 @@ public class TowerAttack : MonoBehaviour
         GameObject nearestEnemy = null;
         float smallestDistance = Mathf.Infinity;
 
-        foreach(GameObject currentEnemy in EnemyList.enemiesAlive)
+        foreach(GameObject currentEnemy in CharacterList.enemiesAlive)
         {
             float currentDistance = (transform.position - currentEnemy.transform.position).magnitude;
             if(currentDistance < smallestDistance)

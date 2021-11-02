@@ -124,8 +124,9 @@ GameObject:
   - component: {fileID: 2323064553191222014}
   - component: {fileID: 2323064553191222000}
   - component: {fileID: 2323064553191222015}
+  - component: {fileID: 5298697575810889435}
   m_Layer: 5
-  m_Name: Almas
+  m_Name: CerberusSoulCost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -147,8 +148,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 120, y: 0.0000023842}
-  m_SizeDelta: {x: 240.01, y: 88.52}
+  m_AnchoredPosition: {x: 135.21, y: 0.0000052005}
+  m_SizeDelta: {x: 382.96, y: 85.12}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2323064553191222000
 CanvasRenderer:
@@ -171,7 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8396226, g: 0.8331914, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -191,7 +192,20 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 3 Almas
+  m_Text: 
+--- !u!114 &5298697575810889435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2323064553191222013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6809e1026067764fa4fd3e00bf5c372, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerRef: {fileID: 8371883190748300302, guid: 90a4243b256c04d4da8bb0f3a74dd6fe, type: 3}
 --- !u!1 &2323064553246265721
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,7 +220,7 @@ GameObject:
   - component: {fileID: 2323064553246265723}
   - component: {fileID: 2323064553246265726}
   m_Layer: 5
-  m_Name: BotaoTorre
+  m_Name: CerberusButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -229,8 +243,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -108.52, y: -1.22}
-  m_SizeDelta: {x: 217.03, y: 137.1}
+  m_AnchoredPosition: {x: -197, y: 0.0000052005}
+  m_SizeDelta: {x: 239.52, y: 137.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2323064553246265725
 CanvasRenderer:
@@ -338,8 +352,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4a40ba1ea2ce4447a03aeea9c9d53fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerBuilder: {fileID: 2323064554358366064}
-  towerUpgrader: {fileID: 0}
 --- !u!1 &2323064553635120190
 GameObject:
   m_ObjectHideFlags: 0
@@ -350,6 +362,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2323064553635120191}
   - component: {fileID: 2323064553635120176}
+  - component: {fileID: 8794247103044759021}
   m_Layer: 0
   m_Name: IndicatorToBuild
   m_TagString: Untagged
@@ -422,6 +435,32 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!61 &8794247103044759021
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2323064553635120190}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.3513211}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.2973578}
+  m_EdgeRadius: 0
 --- !u!1 &2323064553770960966
 GameObject:
   m_ObjectHideFlags: 0
@@ -456,8 +495,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0000076293945, y: 0.0000038146973}
-  m_SizeDelta: {x: 480, y: 270}
+  m_AnchoredPosition: {x: -0.000035762787, y: 0.0000023842}
+  m_SizeDelta: {x: 693.62, y: 270}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2323064553770961017
 CanvasRenderer:
@@ -510,7 +549,7 @@ GameObject:
   - component: {fileID: 2323064553931095394}
   - component: {fileID: 2323064553931095393}
   m_Layer: 5
-  m_Name: BuildingWindow
+  m_Name: Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -535,8 +574,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 2.438, y: 2.871}
-  m_SizeDelta: {x: 480, y: 270}
+  m_AnchoredPosition: {x: 3.2819, y: 2.58}
+  m_SizeDelta: {x: 693.6156, y: 270}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &2323064553931095395
 Canvas:
@@ -684,10 +723,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2323064554358366079}
   - component: {fileID: 2323064554358366078}
-  - component: {fileID: 2323064554358366064}
   - component: {fileID: 2323064554358366065}
+  - component: {fileID: 2323064554358366064}
   m_Layer: 0
-  m_Name: AreaToBuild
+  m_Name: AreaToInteract
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -758,24 +797,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2323064554358366064
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2323064554358366077}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 636400de91a09554c8f804fecbb65e36, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  towerCerberus:
-    towerPrefab: {fileID: 1304542104357237022, guid: 90a4243b256c04d4da8bb0f3a74dd6fe, type: 3}
-    towerCost: 3
-    towerCostText: {fileID: 2323064553191222015}
-  pressToBuildUI: {fileID: 2323064554508815429}
-  chooseTowerUI: {fileID: 2323064553931095407}
 --- !u!60 &2323064554358366065
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -841,6 +862,19 @@ PolygonCollider2D:
       - {x: 0.09375, y: -0.49609375}
       - {x: 0.14453125, y: -0.484375}
       - {x: 0.19921875, y: -0.46875}
+--- !u!114 &2323064554358366064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2323064554358366077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 636400de91a09554c8f804fecbb65e36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerCerberus: {fileID: 8371883190748300302, guid: 90a4243b256c04d4da8bb0f3a74dd6fe, type: 3}
 --- !u!1 &2323064554393570502
 GameObject:
   m_ObjectHideFlags: 0
@@ -852,6 +886,7 @@ GameObject:
   - component: {fileID: 2323064554393570503}
   - component: {fileID: 2323064554393570553}
   - component: {fileID: 2323064554393570552}
+  - component: {fileID: 7350579640538214249}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -899,7 +934,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8517658, g: 0.8867924, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -919,7 +954,20 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Torre de Ataque
+  m_Text: 
+--- !u!114 &7350579640538214249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2323064554393570502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c54b86523d538e94095f8ba70358e532, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerRef: {fileID: 8371883190748300302, guid: 90a4243b256c04d4da8bb0f3a74dd6fe, type: 3}
 --- !u!1 &2323064554508815429
 GameObject:
   m_ObjectHideFlags: 0
@@ -933,7 +981,7 @@ GameObject:
   - component: {fileID: 2323064554508815431}
   - component: {fileID: 2323064554508815430}
   m_Layer: 5
-  m_Name: PressEToBuild
+  m_Name: PressE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -4,24 +4,18 @@ using UnityEngine;
 
 public class PlayerSoulCounter : MonoBehaviour
 {
-    SoulTextUI soulTextUI;
     int numSouls;
 
-    private void Awake()
-    {
-        numSouls = 2;
-    }
+    public int NumSouls { get => numSouls; }
 
-    private void Start()
+    void Awake()
     {
-        soulTextUI = FindObjectOfType<SoulTextUI>();
-        soulTextUI.UpdateText(numSouls);
+        numSouls = 20;
     }
 
     public void CollectSouls(int number)
     {
         numSouls += number;
-        soulTextUI.UpdateText(numSouls);
     }
 
     public bool SpendSouls(int number)
@@ -29,7 +23,6 @@ public class PlayerSoulCounter : MonoBehaviour
         if(numSouls >= number)
         {
             numSouls -= number;
-            soulTextUI.UpdateText(numSouls);
             return true;
         }
         return false;

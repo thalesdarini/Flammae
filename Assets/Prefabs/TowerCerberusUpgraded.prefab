@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1416462716565444569}
   - component: {fileID: 1416462716565444570}
   m_Layer: 5
-  m_Name: BotaoDesconstruir
+  m_Name: DeconstructButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37,8 +37,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -108.51, y: 0}
-  m_SizeDelta: {x: 217.03, y: 61.31}
+  m_AnchoredPosition: {x: -226, y: 0.00001049}
+  m_SizeDelta: {x: 246.25, y: 74.09}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1416462716565444583
 CanvasRenderer:
@@ -146,8 +146,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4a40ba1ea2ce4447a03aeea9c9d53fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerBuilder: {fileID: 0}
-  towerUpgrader: {fileID: 1416462716796037777}
 --- !u!1 &1416462716687129779
 GameObject:
   m_ObjectHideFlags: 0
@@ -182,8 +180,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.9299994, y: -0.0000038146973}
-  m_SizeDelta: {x: 480, y: 130}
+  m_AnchoredPosition: {x: 0.0000014305, y: 0.0004015}
+  m_SizeDelta: {x: 780.36, y: 154.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1416462716687129776
 CanvasRenderer:
@@ -236,7 +234,7 @@ GameObject:
   - component: {fileID: 1416462716796037776}
   - component: {fileID: 1416462716796037777}
   m_Layer: 0
-  m_Name: AreaToInfo
+  m_Name: AreaToInteract
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -384,14 +382,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 890abae64d32bab44b71dca1911ff219, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgrade:
-    towerPrefab: {fileID: 0}
-    upgradeCost: 0
-    upgradeCostText: {fileID: 0}
-  pressToUpgradeUI: {fileID: 1416462717344743255}
-  upgradeUI: {fileID: 1416462717948070693}
-  buildTowerPrefab: {fileID: 2323064552734554948, guid: c0becc1a26833e346924562add3909c2, type: 3}
-  deconstructionBonus: 4
+  upgrade: {fileID: 0}
 --- !u!1 &1416462716883191406
 GameObject:
   m_ObjectHideFlags: 0
@@ -459,7 +450,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 35
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -559,7 +550,7 @@ GameObject:
   - component: {fileID: 1416462717344743253}
   - component: {fileID: 1416462717344743254}
   m_Layer: 5
-  m_Name: PressEToInfo
+  m_Name: PressE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -579,7 +570,7 @@ RectTransform:
   - {fileID: 1416462717343277996}
   - {fileID: 1416462718166063936}
   m_Father: {fileID: 1416462717787058889}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -658,8 +649,9 @@ GameObject:
   - component: {fileID: 1416462717435787326}
   - component: {fileID: 1416462717435787324}
   - component: {fileID: 1416462717435787325}
+  - component: {fileID: 4249555184583707014}
   m_Layer: 5
-  m_Name: Almas (1)
+  m_Name: DeconstructSoulBonus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -681,8 +673,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 90.19001, y: 0}
-  m_SizeDelta: {x: 180.37, y: 88.52}
+  m_AnchoredPosition: {x: 146.88, y: 0.00019736}
+  m_SizeDelta: {x: 444.87, y: 74.09}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1416462717435787324
 CanvasRenderer:
@@ -705,7 +697,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8396226, g: 0.8331914, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -714,18 +706,31 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 35
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 300
-    m_Alignment: 4
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: +4 Almas
+  m_Text: 
+--- !u!114 &4249555184583707014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1416462717435787327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0443046b4936b1d45849384f7056d236, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerReference: {fileID: 7689684604389223333}
 --- !u!1 &1416462717787058890
 GameObject:
   m_ObjectHideFlags: 0
@@ -735,6 +740,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1416462717787058889}
+  - component: {fileID: 7689684604389223333}
   m_Layer: 0
   m_Name: TowerCerberusUpgraded
   m_TagString: Untagged
@@ -753,13 +759,30 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1416462718438537910}
   - {fileID: 1416462717948070689}
   - {fileID: 1416462717344743251}
+  - {fileID: 1416462718438537910}
   - {fileID: 1416462716796037778}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7689684604389223333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1416462717787058890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e17d7ffb63f5abb469edaae63e5f68c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerName: "Fogo de C\xE9rbero II"
+  towerPrefab: {fileID: 1416462717787058890}
+  constructionCost: 5
+  towerBuilderReference: {fileID: 2323064552734554948, guid: c0becc1a26833e346924562add3909c2, type: 3}
+  deconstructionBonus: 3
 --- !u!1 &1416462717948070693
 GameObject:
   m_ObjectHideFlags: 0
@@ -773,7 +796,7 @@ GameObject:
   - component: {fileID: 1416462717948070691}
   - component: {fileID: 1416462717948070692}
   m_Layer: 5
-  m_Name: InfoWindow
+  m_Name: Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -794,12 +817,12 @@ RectTransform:
   - {fileID: 1416462716565444571}
   - {fileID: 1416462717435787326}
   m_Father: {fileID: 1416462717787058889}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 2.438, y: 2.871}
-  m_SizeDelta: {x: 480, y: 130}
+  m_AnchoredPosition: {x: 3.8513, y: 3.22}
+  m_SizeDelta: {x: 780.36, y: 154.8032}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &1416462717948070690
 Canvas:
@@ -952,6 +975,7 @@ GameObject:
   - component: {fileID: 1416462718438537910}
   - component: {fileID: 1416462718438537908}
   - component: {fileID: 1416462718438537909}
+  - component: {fileID: 2054808322466216450}
   m_Layer: 0
   m_Name: Tower
   m_TagString: Untagged
@@ -971,7 +995,7 @@ Transform:
   m_LocalScale: {x: 2, y: 3, z: 1}
   m_Children: []
   m_Father: {fileID: 1416462717787058889}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1416462718438537908
 SpriteRenderer:
@@ -1040,3 +1064,29 @@ MonoBehaviour:
   delayToReloadTime: 0.5
   reloadTime: 0.4
   projectilePrefab: {fileID: 7788712066885603422, guid: f5a098ceb29077c4caaae8f3dcf9088f, type: 3}
+--- !u!61 &2054808322466216450
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1416462718438537911}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.36607853}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.26784295}
+  m_EdgeRadius: 0

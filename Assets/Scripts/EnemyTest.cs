@@ -22,7 +22,7 @@ public class EnemyTest : MonoBehaviour
     void Start()
     {
         enemyDestination = GetComponent<AIDestinationSetter>();
-        enemyDestination.target = GameObject.Find("EnemyDestination").transform;
+        enemyDestination.target = GameObject.Find("Waypoint").transform;
     }
 
     // Update is called once per frame

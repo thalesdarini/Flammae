@@ -1064,6 +1064,7 @@ MonoBehaviour:
   delayToReloadTime: 0.5
   reloadTime: 0.4
   projectilePrefab: {fileID: 7788712066885603422, guid: f5a098ceb29077c4caaae8f3dcf9088f, type: 3}
+  enemyList: {fileID: 11400000, guid: 62dd169dace6dd246acc344069cb0d9d, type: 2}
 --- !u!61 &2054808322466216450
 BoxCollider2D:
   m_ObjectHideFlags: 0

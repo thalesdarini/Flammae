@@ -4,20 +4,38 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public float firstSpawnTime = 10f;
-    public GameObject enemyPrefab;
-    private float spawnTime;
-    private float lastTimeSpawn;
-    private float enemySpawnCooldown = 2.5f;
-    private float spawnCount = 0;
-    private float currSpawnSize = 4;
-    private float gameTime;
+    [Header("Enemies")]
+    [SerializeField] GameObject enemyPrefab;
+
+    [Header("Wave Times")]
+    [SerializeField] float firstWaveStartingTime;
+    [SerializeField] float timeBetweenWaves;
+
+    [Header("Wave Sizes")]
+    [SerializeField] int initialSpawnSize;
+    [SerializeField] int spawnSizeIncrease;
+    [SerializeField] int maximumSpawnSize;
+
+    [Header("Enemy Spawn Cooldown")]
+    [SerializeField] float initialEnemySpawnCooldown;
+    [SerializeField] float enemySpawnCooldownReduction;
+    [SerializeField] float minimumEnemySpawnCooldown;
+
+    float spawnTime;
+    float enemySpawnCooldown;
+    float lastTimeSpawn;
+    float gameTime;
+    int spawnCount;
+    int currSpawnSize;
 
     void Start()
     {
+        spawnTime = firstWaveStartingTime;
+        enemySpawnCooldown = initialEnemySpawnCooldown;
+        lastTimeSpawn = firstWaveStartingTime - enemySpawnCooldown;
         gameTime = 0f;
-        spawnTime = firstSpawnTime;
-        lastTimeSpawn = firstSpawnTime-1;
+        spawnCount = 0;
+        currSpawnSize = initialSpawnSize;
     }
 
     void FixedUpdate()
@@ -29,12 +47,28 @@ public class EnemySpawner : MonoBehaviour
             GameObject enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity) as GameObject;
             lastTimeSpawn = gameTime;
             spawnCount++;
-            if(spawnCount > currSpawnSize)
+            if(spawnCount >= currSpawnSize)
             {
-                if(enemySpawnCooldown > 0.6f) enemySpawnCooldown -= 0.8f;
                 spawnCount = 0;
-                spawnTime += 35;
-                currSpawnSize += 2;
+                spawnTime += timeBetweenWaves;
+
+                if (enemySpawnCooldown - enemySpawnCooldownReduction >= minimumEnemySpawnCooldown)
+                {
+                    enemySpawnCooldown -= enemySpawnCooldownReduction;
+                }
+                else
+                {
+                    enemySpawnCooldown = minimumEnemySpawnCooldown;
+                }
+
+                if (currSpawnSize + spawnSizeIncrease <= maximumSpawnSize)
+                {
+                    currSpawnSize += spawnSizeIncrease;
+                }
+                else
+                {
+                    currSpawnSize = maximumSpawnSize;
+                }
             }
         }
     }

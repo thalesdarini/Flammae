@@ -11,11 +11,12 @@ public class EnemyTest : MonoBehaviour
     [SerializeField] int soulDrop;
     [SerializeField] float soulDropRange;
     [SerializeField] GameObject soulPrefab;
-    private AIDestinationSetter enemyDestination;
+
+    AIDestinationSetter enemyDestination;
 
     void Awake()
     {
-        EnemyList.enemiesAlive.Add(gameObject);
+        CharacterList.enemiesAlive.Add(gameObject);
     }
 
     // Start is called before the first frame update
@@ -32,7 +33,7 @@ public class EnemyTest : MonoBehaviour
 
     void Die()
     {
-        EnemyList.enemiesAlive.Remove(gameObject);
+        CharacterList.enemiesAlive.Remove(gameObject);
         for(int i=0; i<soulDrop; i++)
         {
             Vector3 randomDisplacement = new Vector3(Random.Range(-soulDropRange, soulDropRange), Random.Range(-soulDropRange/2, soulDropRange/2), 0);

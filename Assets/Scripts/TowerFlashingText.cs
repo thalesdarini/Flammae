@@ -3,16 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TowerFlashingText : MonoBehaviour
+abstract public class TowerFlashingText : MonoBehaviour
 {
-    protected Tower towerReference;
+    protected Tower towerRef;
     protected TowerInteractor towerInteractorReference;
     protected Text text;
     protected bool isFlashing;
 
+    protected Color baseColor;
+    Color redForFlash = new Color(194f / 256f, 24f / 256f, 7f / 256f);
+
+    abstract public void DisplayText();
+
+    public Tower TowerRef { set => towerRef = value; }
+
     void OnEnable()
     {
-        text.color = new Color(214f / 256f, 212f / 256f, 0f / 256f);
+        text.color = baseColor;
         towerInteractorReference.TowerPurchaseFail += FlashText;
     }
 
@@ -23,7 +30,7 @@ public class TowerFlashingText : MonoBehaviour
 
     void FlashText(string towerName)
     {
-        if (towerName == towerReference.TowerName && !isFlashing)
+        if (towerName == towerRef.TowerName && !isFlashing)
         {
             StartCoroutine(TextColorFlashRed());
         }
@@ -34,13 +41,10 @@ public class TowerFlashingText : MonoBehaviour
         isFlashing = true;
         for (int i = 0; i < 100; i++)
         {
-            float currentR = (194 + (214 - 194) * (i / 100f)) / 256;
-            float currentG = (24 + (212 - 24) * (i / 100f)) / 256;
-            float currentB = (7 + (0 - 7) * (i / 100f)) / 256;
-            text.color = new Color(currentR, currentG, currentB);
+            text.color = Color.Lerp(redForFlash, baseColor, i / 100f);
             yield return new WaitForSeconds(0.007f);
         }
-        text.color = new Color(214f / 256f, 212f / 256f, 0f / 256f);
+        text.color = baseColor;
         isFlashing = false;
         yield return null;
     }

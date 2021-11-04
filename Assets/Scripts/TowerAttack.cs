@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerAttack : MonoBehaviour
+public class TowerAttack : TowerBehaviour
 {
     [SerializeField] float range;
     [SerializeField] float delayToReloadTime;
@@ -14,6 +14,15 @@ public class TowerAttack : MonoBehaviour
     float nextTimeToReload;
     bool charging;
     bool charged;
+
+    override public void DefineBehaviourVariables()
+    {
+        behaviour = "attack";
+        shootingRange = range;
+        shotsPerSec = 1 / (delayToReloadTime + reloadTime);
+        projectileDamage = projectilePrefab.GetComponent<Projectile>().Damage;
+        projectileSpeed = projectilePrefab.GetComponent<Projectile>().Speed;
+    }
 
     // Start is called before the first frame update
     void Start()

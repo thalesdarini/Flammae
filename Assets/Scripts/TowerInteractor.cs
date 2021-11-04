@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerInteractor : MonoBehaviour
+abstract public class TowerInteractor : MonoBehaviour
 {
     protected GameObject pressUI;
     protected GameObject windowUI;

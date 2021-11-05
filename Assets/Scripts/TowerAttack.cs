@@ -55,11 +55,14 @@ public class TowerAttack : TowerBehaviour
         projectiles.RemoveAll(item => item == null);
     }
 
-    private void OnDestroy()
+    void OnDestroy()
     {
         if(charging || charged)
         {
-            Destroy(projectiles[0]);
+            if(projectiles[0] != null)
+            {
+                projectiles[0].GetComponent<Projectile>().CommandDestruction();
+            }
             projectiles.RemoveAll(item => item == null);
         }
     }
@@ -68,7 +71,7 @@ public class TowerAttack : TowerBehaviour
     {
         if(!charging)
         {
-            projectiles.Insert(0, Instantiate(projectilePrefab, transform.position + Vector3.up * (transform.localScale.y) / 3, Quaternion.Euler(0, 0, 0)));
+            projectiles.Insert(0, Instantiate(projectilePrefab, transform.position + Vector3.up * (transform.localScale.y) * 0.7f, Quaternion.Euler(0, 0, 0)));
             charging = true;
         }
 
@@ -85,9 +88,9 @@ public class TowerAttack : TowerBehaviour
 
     void Shoot()
     {
+        charged = false;
         projectiles[0].GetComponent<Projectile>().Target = currentTarget;
         nextTimeToReload = Time.time + delayToReloadTime;
-        charged = false;
     }
 
     void SetNewTarget()
@@ -124,7 +127,7 @@ public class TowerAttack : TowerBehaviour
                 }
                 if (currentTarget == null)
                 {
-                    Destroy(projectiles[i]);
+                    projectiles[i].GetComponent<Projectile>().CommandDestruction();
                 }
                 else
                 {

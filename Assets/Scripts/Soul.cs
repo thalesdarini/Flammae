@@ -13,14 +13,14 @@ public class Soul : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        oscillationTimeBegin = Time.time + Random.Range(-1, 1);
+        oscillationTimeBegin = Time.time + Random.Range(0, oscillationTime);
         oscillationHeightBegin = transform.position.y;
     }
 
     // Update is called once per frame
     void Update()
     {
-        float heightFunction = oscillationHeightBegin + oscillationHeight * Mathf.Sin((2 * Mathf.PI / oscillationTime) * (Time.time - oscillationTimeBegin));
+        float heightFunction = oscillationHeightBegin + oscillationHeight * Mathf.Sin((2 * Mathf.PI / oscillationTime) * (Time.time + oscillationTimeBegin));
         transform.position = new Vector2(transform.position.x, heightFunction);
     }
 

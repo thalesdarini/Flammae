@@ -459,7 +459,7 @@ GameObject:
   - component: {fileID: 2323064553635120176}
   - component: {fileID: 8794247103044759021}
   m_Layer: 0
-  m_Name: IndicatorToBuild
+  m_Name: Tower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -970,6 +970,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 636400de91a09554c8f804fecbb65e36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firePillar: {fileID: 4590576867815397524, guid: 99ee99d648cd6ba409fd7fb3a55b81af, type: 3}
   towerCerberus: {fileID: 8371883190748300302, guid: 90a4243b256c04d4da8bb0f3a74dd6fe, type: 3}
 --- !u!1 &2323064554393570502
 GameObject:

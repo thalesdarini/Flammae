@@ -8,17 +8,16 @@ public class TowerBuilder : TowerInteractor
 {
     [SerializeField] Tower towerCerberus;
 
+    void InstantiateTowerCerberus() { InstantiateBuilding(towerCerberus.TowerPrefab); }
     public void BuildTowerCerberus()
     {
         if (playerInArea.GetComponent<PlayerSoulCounter>().SpendSouls(towerCerberus.ConstructionCost))
         {
-            windowUI.SetActive(false);
-            Instantiate(towerCerberus.TowerPrefab, transform.position, transform.rotation);
-            Destroy(transform.parent.gameObject);
+            CreateBuilding(towerCerberus.TowerPrefab, nameof(InstantiateTowerCerberus), Mathf.Max(transform.parent.Find("Tower").localScale.x, towerCerberus.transform.Find("Tower").localScale.x), towerCerberus.ConstructionTime);
         }
         else
         {
-            callEventTowerPurchaseFail(towerCerberus.TowerName);
+            CallEventTowerPurchaseFail(towerCerberus.TowerName);
         }
     }
 }

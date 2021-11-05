@@ -8,6 +8,7 @@ public class Tower : MonoBehaviour
     [SerializeField] TowerBehaviour towerBehaviourScript;
     [SerializeField] GameObject towerPrefab;
     [SerializeField] int constructionCost;
+    [SerializeField] float constructionTime;
     [SerializeField] GameObject towerBuilderReference;
     [SerializeField] int deconstructionBonus;
 
@@ -15,6 +16,7 @@ public class Tower : MonoBehaviour
     public TowerBehaviour TowerBehaviourScript { get => towerBehaviourScript; }
     public GameObject TowerPrefab { get => towerPrefab; }
     public int ConstructionCost { get => constructionCost; }
+    public float ConstructionTime { get => constructionTime; }
     public GameObject TowerBuilderReference { get => towerBuilderReference; }
     public int DeconstructionBonus { get => deconstructionBonus; }
 }

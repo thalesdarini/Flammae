@@ -24,18 +24,18 @@ public class TowerButtonHandler : MonoBehaviour
         towerUpgrader.UpgradeTower();
     }
 
+    public void DeconstructTowerPressed()
+    {
+        towerUpgrader.DeconstructTower();
+    }
+
     public void UpgradeTowerHoverEnter()
     {
-        towerUpgrader.callEventTowerUpgradeButtonHoverEnter();
+        towerUpgrader.CallEventTowerUpgradeButtonHoverEnter();
     }
 
     public void UpgradeTowerHoverExit()
     {
-        towerUpgrader.callEventTowerUpgradeButtonHoverExit();
-    }
-
-    public void DeconstructTowerPressed()
-    {
-        towerUpgrader.DeconstructTower();
+        towerUpgrader.CallEventTowerUpgradeButtonHoverExit();
     }
 }

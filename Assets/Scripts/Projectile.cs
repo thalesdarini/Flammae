@@ -9,7 +9,9 @@ public class Projectile : MonoBehaviour
 
     GameObject target;
     Animator animatorReference;
-    bool animationFired;
+    bool shotFired;
+    bool shotHit;
+    bool destructionCommanded;
 
     public GameObject Target { set => target = value; }
     public float Damage { get => damage; }
@@ -20,29 +22,44 @@ public class Projectile : MonoBehaviour
     {
         target = null;
         animatorReference = transform.Find("Animation").GetComponent<Animator>();
-        animationFired = false;
+        shotFired = false;
+        shotHit = false;
+        destructionCommanded = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (target != null)
+        if (target != null && !shotHit)
         {
-            if (!animationFired)
+            if (!shotFired)
             {
+                shotFired = true;
                 animatorReference.SetTrigger("Shoot");
             }
             transform.Translate((target.transform.position - transform.position).normalized * speed * Time.deltaTime, Space.World);
             transform.localEulerAngles = Vector3.forward * Vector2.SignedAngle(Vector2.up, target.transform.position - transform.position);
         }
+
+        if(destructionCommanded && ( (!shotHit) || (shotHit && animatorReference.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1) ))
+        {
+            Destroy(gameObject);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D objectThatEntered)
     {
-        if (objectThatEntered.gameObject == target)
+        if (objectThatEntered.gameObject == target && !shotHit)
         {
+            shotHit = true;
+            animatorReference.SetTrigger("Hit");
             objectThatEntered.GetComponent<EnemyTest>().TakeDamage(damage);
-            Destroy(gameObject);
+            CommandDestruction();
         }
+    }
+
+    public void CommandDestruction()
+    {
+        destructionCommanded = true;
     }
 }

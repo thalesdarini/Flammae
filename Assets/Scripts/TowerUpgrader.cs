@@ -12,35 +12,33 @@ public class TowerUpgrader : TowerInteractor
     public event TowerUpgradeButtonHoverAction TowerUpgradeButtonHoverEnter;
     public event TowerUpgradeButtonHoverAction TowerUpgradeButtonHoverExit;
 
+    void InstantiateTowerUpgrade() { InstantiateBuilding(upgrade.TowerPrefab); }
     public void UpgradeTower()
     {
         if (playerInArea.GetComponent<PlayerSoulCounter>().SpendSouls(upgrade.ConstructionCost))
         {
-            windowUI.SetActive(false);
-            Instantiate(upgrade.TowerPrefab, transform.position, transform.rotation);
-            Destroy(transform.parent.gameObject);
+            CreateBuilding(upgrade.TowerPrefab, nameof(InstantiateTowerUpgrade), Mathf.Max(transform.parent.Find("Tower").localScale.x, upgrade.transform.Find("Tower").localScale.x), upgrade.ConstructionTime);
         }
         else
         {
-            callEventTowerPurchaseFail(upgrade.TowerName);
+            CallEventTowerPurchaseFail(upgrade.TowerName);
         }
     }
 
-    public void callEventTowerUpgradeButtonHoverEnter()
+    void InstantiateTowerBuilder() { InstantiateBuilding(transform.parent.GetComponent<Tower>().TowerBuilderReference); }
+    public void DeconstructTower()
+    {
+        playerInArea.GetComponent<PlayerSoulCounter>().CollectSouls(transform.parent.GetComponent<Tower>().DeconstructionBonus);
+        CreateBuilding(transform.parent.GetComponent<Tower>().TowerBuilderReference, nameof(InstantiateTowerBuilder), Mathf.Max(transform.parent.Find("Tower").localScale.x, transform.parent.GetComponent<Tower>().TowerBuilderReference.transform.Find("Tower").localScale.x), 0.7f);
+    }
+
+    public void CallEventTowerUpgradeButtonHoverEnter()
     {
         TowerUpgradeButtonHoverEnter();
     }
 
-    public void callEventTowerUpgradeButtonHoverExit()
+    public void CallEventTowerUpgradeButtonHoverExit()
     {
         TowerUpgradeButtonHoverExit();
-    }
-
-    public void DeconstructTower()
-    {
-        windowUI.SetActive(false);
-        playerInArea.GetComponent<PlayerSoulCounter>().CollectSouls(transform.parent.GetComponent<Tower>().DeconstructionBonus);
-        Instantiate(transform.parent.GetComponent<Tower>().TowerBuilderReference, transform.position, transform.rotation);
-        Destroy(transform.parent.gameObject);
     }
 }

@@ -3,46 +3,44 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MovementScript
 {
-    [Header("Movement")]
-    [SerializeField] private float moveSpeed;
-    [SerializeField] private Sprite[] sprites;
-
     [Header("Dash")]
-    [SerializeField] private float dashSpeed;
-    [SerializeField] private float dashDistance;
-    [SerializeField] private float dashCooldown;
+    [SerializeField] float dashSpeed;
+    [SerializeField] float dashDistance;
+    [SerializeField] float dashCooldown;
 
     // Input variables
-    private Vector2 moveDirection;
-    private Vector2 facingDirection = new Vector2(0, -1);
-    private bool dashKey = false;
+    Vector2 moveDirection;
+    Vector2 facingDirection = new Vector2(0, -1);
+    bool dashKey = false;
 
     // Current state variables
-    private bool canMove = true;
-    private bool dashAvailable = true;
-    private bool isDashing = false;
-    private Vector2 dashDirection;
+    bool canMove = true;
+    bool dashAvailable = true;
+    bool isDashing = false;
+    Vector2 dashDirection;
 
     // Cached references
     Rigidbody2D rb2D;
     SpriteRenderer spriteRenderer;
 
-    private void Awake()
+    // Start is called before the first frame update
+    override protected void Start()
     {
-        // Get components
+        base.Start();
         rb2D = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    private void Update()
+    // Update is called once per frame
+    void Update()
     {
         ManageInput();
         //FlipPlayer();
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         if (canMove)
         {
@@ -65,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
         dashKey = false;
     }
 
-    private IEnumerator StartDash()
+    IEnumerator StartDash()
     {
         dashAvailable = false;
         isDashing = true;
@@ -81,14 +79,14 @@ public class PlayerMovement : MonoBehaviour
         dashAvailable = true;
     }
 
-    private void Dash()
+    void Dash()
     {
         rb2D.velocity = dashDirection * dashSpeed;
     }
 
-    private void Move()
+    void Move()
     {
-        rb2D.velocity = moveDirection * moveSpeed;
+        rb2D.velocity = moveDirection * movementSpeed;
     }
 
     public void PauseMovement(bool pauseIt)
@@ -96,7 +94,7 @@ public class PlayerMovement : MonoBehaviour
         canMove = !pauseIt;
     }
 
-    private void ManageInput()
+    void ManageInput()
     {
         //Movement
         float xAxisMove = Input.GetAxisRaw("Horizontal");
@@ -118,23 +116,23 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void FlipPlayer()
+    void FlipPlayer()
     {
         if (facingDirection.x > 0)
         {
-            spriteRenderer.sprite = sprites[1];
+            spriteRenderer.sprite = walkSprites[1];
         }
         else if (facingDirection.x < 0)
         {
-            spriteRenderer.sprite = sprites[3];
+            spriteRenderer.sprite = walkSprites[3];
         }
         else if (facingDirection.y < 0)
         {
-            spriteRenderer.sprite = sprites[0];
+            spriteRenderer.sprite = walkSprites[0];
         }
         else if (facingDirection.y > 0)
         {
-            spriteRenderer.sprite = sprites[2];
+            spriteRenderer.sprite = walkSprites[2];
         }
     }
 }

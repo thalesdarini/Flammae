@@ -12,7 +12,7 @@ abstract public class TowerBehaviour : MonoBehaviour
     protected float projectileSpeed;
 
     protected float buffingRange;
-    protected float buffedStat;
+    protected string buffedStat;
     protected float buffAmount;
 
     protected float timeToHeal;
@@ -25,7 +25,7 @@ abstract public class TowerBehaviour : MonoBehaviour
     public float ProjectileDamage { get => projectileDamage; }
     public float ProjectileSpeed { get => projectileSpeed; }
     public float BuffingRange { get => buffingRange; }
-    public float BuffedStat { get => buffedStat; }
+    public string BuffedStat { get => buffedStat; }
     public float BuffAmount { get => buffAmount; }
     public float TimeToHeal { get => timeToHeal; }
 }

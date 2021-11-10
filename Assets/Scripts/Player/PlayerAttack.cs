@@ -2,18 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttack : MonoBehaviour
+public class PlayerAttack : AttackScript
 {
     [SerializeField] GameObject sword;
     [SerializeField] ContactFilter2D cf2d;
-    [SerializeField] private Sprite[] sprites;
-    [SerializeField] float damage;
+
     PolygonCollider2D swordCollider;
     SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
-    void Start()
+    override protected void Start()
     {
+        base.Start();
         swordCollider = sword.GetComponent<PolygonCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
@@ -44,23 +44,23 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    private void FlipPlayer(float angle)
+    void FlipPlayer(float angle)
     {
         if (angle <= 135 && angle > 45) // right
         {
-            spriteRenderer.sprite = sprites[0];
+            spriteRenderer.sprite = attackSprites[0];
         }
         else if (angle <= 45 && angle > -45) // down
         {
-            spriteRenderer.sprite = sprites[1];
+            spriteRenderer.sprite = attackSprites[1];
         }
         else if (angle <= -45 && angle > -135 ) // left
         {
-            spriteRenderer.sprite = sprites[2];
+            spriteRenderer.sprite = attackSprites[2];
         }
         else // up
         {
-            spriteRenderer.sprite = sprites[3];
+            spriteRenderer.sprite = attackSprites[3];
         }
     }
 }

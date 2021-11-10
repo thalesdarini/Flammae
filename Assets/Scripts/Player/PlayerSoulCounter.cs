@@ -8,7 +8,8 @@ public class PlayerSoulCounter : MonoBehaviour
 
     public int NumSouls { get => numSouls; }
 
-    void Awake()
+    // Start is called before the first frame update
+    void Start()
     {
         numSouls = 20;
     }
@@ -18,9 +19,18 @@ public class PlayerSoulCounter : MonoBehaviour
         numSouls += number;
     }
 
+    public void LoseSouls(int number)
+    {
+        if (numSouls >= number)
+        {
+            numSouls -= number;
+        }
+        numSouls = 0;
+    }
+
     public bool SpendSouls(int number)
     {
-        if(numSouls >= number)
+        if (numSouls >= number)
         {
             numSouls -= number;
             return true;

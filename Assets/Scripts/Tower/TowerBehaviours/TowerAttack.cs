@@ -37,17 +37,17 @@ public class TowerAttack : TowerBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(currentTarget == null)
+        if (currentTarget == null)
         {
             SetNewTarget();
         }
 
-        if(Time.time >= nextTimeToReload && !charged)
+        if (Time.time >= nextTimeToReload && !charged)
         {
             PrepareShot();
         }
 
-        if(charged && currentTarget != null)
+        if (charged && currentTarget != null)
         {
             Shoot();
         }
@@ -57,9 +57,9 @@ public class TowerAttack : TowerBehaviour
 
     void OnDestroy()
     {
-        if(charging || charged)
+        if (charging || charged)
         {
-            if(projectiles[0] != null)
+            if (projectiles[0] != null)
             {
                 projectiles[0].GetComponent<Projectile>().CommandDestruction();
             }
@@ -69,7 +69,7 @@ public class TowerAttack : TowerBehaviour
 
     void PrepareShot()
     {
-        if(!charging)
+        if (!charging)
         {
             projectiles.Insert(0, Instantiate(projectilePrefab, transform.position + Vector3.up * (transform.localScale.y) * 0.7f, Quaternion.Euler(0, 0, 0)));
             charging = true;
@@ -79,7 +79,7 @@ public class TowerAttack : TowerBehaviour
         float scaleFunctionY = projectilePrefab.transform.localScale.y * (Time.time - nextTimeToReload) / reloadTime;
         projectiles[0].transform.localScale = new Vector2(scaleFunctionX, scaleFunctionY);
         
-        if(Time.time >= nextTimeToReload + reloadTime)
+        if (Time.time >= nextTimeToReload + reloadTime)
         {
             charging = false;
             charged = true;
@@ -98,17 +98,17 @@ public class TowerAttack : TowerBehaviour
         GameObject nearestEnemy = null;
         float smallestDistance = Mathf.Infinity;
 
-        foreach(GameObject currentEnemy in CharacterList.enemiesAlive)
+        foreach (GameObject currentEnemy in CharacterList.enemiesAlive)
         {
             float currentDistance = (transform.position - currentEnemy.transform.position).magnitude;
-            if(currentDistance < smallestDistance)
+            if (currentDistance < smallestDistance)
             {
                 smallestDistance = currentDistance;
                 nearestEnemy = currentEnemy;
             }
         }
 
-        if(smallestDistance <= range)
+        if (smallestDistance <= range)
         {
             currentTarget = nearestEnemy;
         }
@@ -117,11 +117,11 @@ public class TowerAttack : TowerBehaviour
             currentTarget = null;
         }
 
-        if(projectiles.Count > 0)
+        if (projectiles.Count > 0)
         {
-            for(int i=0; i<projectiles.Count; i++)
+            for (int i=0; i<projectiles.Count; i++)
             {
-                if((i == 0 && (charging || charged)) || projectiles[i] == null)
+                if ((i == 0 && (charging || charged)) || projectiles[i] == null)
                 {
                     continue;
                 }

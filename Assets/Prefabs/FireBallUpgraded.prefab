@@ -114,7 +114,7 @@ GameObject:
   - component: {fileID: 7355411150411952545}
   - component: {fileID: 2406328309177224259}
   m_Layer: 0
-  m_Name: FireBallUpgraded
+  m_Name: FireballUpgraded
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

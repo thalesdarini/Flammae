@@ -26,20 +26,9 @@ public class EnemyTest : MonoBehaviour
         enemyDestination.target = GameObject.Find("Waypoint").transform;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
-    void Die()
+    void OnDestroy()
     {
         CharacterList.enemiesAlive.Remove(gameObject);
-        for(int i=0; i<soulDrop; i++)
-        {
-            Vector3 randomDisplacement = new Vector3(Random.Range(-soulDropRange, soulDropRange), Random.Range(-soulDropRange/2, soulDropRange/2), 0);
-            Instantiate(soulPrefab, transform.position + randomDisplacement, Quaternion.Euler(0, 0, 0));
-        }
-        Destroy(gameObject);
     }
 
     public void TakeDamage(float amountOfDamage)
@@ -50,5 +39,15 @@ public class EnemyTest : MonoBehaviour
         {
             Die();
         }
+    }
+
+    void Die()
+    {
+        for (int i = 0; i < soulDrop; i++)
+        {
+            Vector3 randomDisplacement = new Vector3(Random.Range(-soulDropRange, soulDropRange), Random.Range(-soulDropRange / 2, soulDropRange / 2), 0);
+            Instantiate(soulPrefab, transform.position + randomDisplacement, Quaternion.Euler(0, 0, 0));
+        }
+        Destroy(gameObject);
     }
 }

@@ -322,7 +322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e17d7ffb63f5abb469edaae63e5f68c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerName: "Fogo de C\xE9rbero"
+  towerName: "Fogo do C\xE9rbero"
   towerBehaviourScript: {fileID: 6726191573666978291}
   towerPrefab: {fileID: 1304542104357237022}
   constructionCost: 3
@@ -840,7 +840,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.89, y: 2.28}
+  m_AnchoredPosition: {x: -1.93, y: 2.95}
   m_SizeDelta: {x: 248.1801, y: 249.2822}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &3584538953095162238
@@ -1023,7 +1023,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5977475033257120563}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1

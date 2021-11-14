@@ -5,14 +5,13 @@ using UnityEngine.UI;
 
 public class TowerInfoText : TowerFlashingText
 {
-    [SerializeField] Tower towerReference;
-
     void Awake()
     {
-        towerRef = towerReference;
         towerInteractorReference = transform.parent.parent.Find("AreaToInteract").GetComponent<TowerInteractor>();
+        towerReference = towerInteractorReference.TowerCurrentlyOnTextDisplay;
         text = GetComponent<Text>();
         isFlashing = false;
+        isUpdateable = true;
         baseColor = new Color(214f / 256f, 212f / 256f, 0f / 256f);
 
         DisplayText();
@@ -20,29 +19,29 @@ public class TowerInfoText : TowerFlashingText
 
     override public void DisplayText()
     {
-        towerRef.TowerBehaviourScript.DefineBehaviourVariables();
+        towerReference.TowerBehaviourScript.DefineBehaviourVariables();
         text.text = InfoTextForBehaviour();
     }
 
     string InfoTextForBehaviour()
     {
-        if (towerRef.TowerBehaviourScript.Behaviour == "attack")
+        if (towerReference.TowerBehaviourScript.Behaviour == "attack")
         {
-            return "\nTiros por segundo:\n" + towerRef.TowerBehaviourScript.ShotsPerSec.ToString("F2") +
-            "\nAlcance:\n" + towerRef.TowerBehaviourScript.ShootingRange.ToString("F2") + "\n" +
+            return "\nTiros por segundo:\n" + towerReference.TowerBehaviourScript.ShotsPerSec.ToString("F2") +
+            "\nAlcance:\n" + towerReference.TowerBehaviourScript.ShootingRange.ToString("F2") + "\n" +
             "\nProjétil:\n" + "Dano        Velocidade\n" +
-            towerRef.TowerBehaviourScript.ProjectileDamage.ToString("F2") + "              " +
-            towerRef.TowerBehaviourScript.ProjectileSpeed.ToString("F2") + "    ";
+            towerReference.TowerBehaviourScript.ProjectileDamage.ToString("F2") + "              " +
+            towerReference.TowerBehaviourScript.ProjectileSpeed.ToString("F2") + "    ";
         }
-        else if (towerRef.TowerBehaviourScript.Behaviour == "buff")
+        else if (towerReference.TowerBehaviourScript.Behaviour == "buff")
         {
-            return "Buff:\n+" + towerRef.TowerBehaviourScript.BuffAmount.ToString("F2") +
-            " pontos de " + towerRef.TowerBehaviourScript.BuffedStat +
-            "\nRaio de efeito:\n" + towerRef.TowerBehaviourScript.BuffingRange.ToString("F2");
+            return "\nBuff:\n+" + towerReference.TowerBehaviourScript.BuffAmount.ToString("F2") + " pontos de\n" +
+            towerReference.TowerBehaviourScript.BuffedStat + "\n" +
+            "\nRaio de efeito:\n" + towerReference.TowerBehaviourScript.BuffingRange.ToString("F2");
         }
-        else if (towerRef.TowerBehaviourScript.Behaviour == "heal")
+        else if (towerReference.TowerBehaviourScript.Behaviour == "heal")
         {
-            return "Tempo até cura completa (0 a 100%):\n" + towerRef.TowerBehaviourScript.TimeToHeal.ToString("F2") + " s";
+            return "\nTempo até cura completa (0 a 100%):\n" + towerReference.TowerBehaviourScript.TimeToHeal.ToString("F2") + " s";
         }
         else
         {

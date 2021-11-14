@@ -5,8 +5,9 @@ using UnityEngine;
 
 abstract public class TowerInteractor : MonoBehaviour
 {
-    [SerializeField] protected GameObject firePillar;
+    [SerializeField] GameObject firePillar;
 
+    protected Tower towerCurrentlyOnTextDisplay;
     protected GameObject pressUI;
     protected GameObject windowUI;
     protected Renderer areaRenderer;
@@ -16,6 +17,10 @@ abstract public class TowerInteractor : MonoBehaviour
     protected FirePillar thisFirePillar3;
     protected bool alreadyBuilding;
 
+    public Tower TowerCurrentlyOnTextDisplay { get => towerCurrentlyOnTextDisplay; }
+
+    public delegate void AskForTextUpdateAction();
+    public event AskForTextUpdateAction UpdateText;
     public delegate void PurchaseFailAction(string towerName);
     public event PurchaseFailAction TowerPurchaseFail;
 
@@ -89,6 +94,11 @@ abstract public class TowerInteractor : MonoBehaviour
         thisFirePillar2.CommandStop();
         thisFirePillar3.CommandStop();
         Destroy(transform.parent.gameObject);
+    }
+
+    protected void CallEventUpdateText()
+    {
+        UpdateText();
     }
 
     protected void CallEventTowerPurchaseFail(string towerName)

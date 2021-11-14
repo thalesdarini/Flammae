@@ -29,7 +29,7 @@ public class TowerAttack : TowerBehaviour
     {
         currentTarget = null;
         projectiles = new List<GameObject>();
-        nextTimeToReload = Time.time;
+        nextTimeToReload = Time.time + delayToReloadTime;
         charging = false;
         charged = false;
     }
@@ -67,33 +67,55 @@ public class TowerAttack : TowerBehaviour
         }
     }
 
+    void SetNewTarget()
+    {
+        FindNearestEnemyAsTarget();
+
+        if (projectiles.Count > 0)
+        {
+            for (int i = 0; i < projectiles.Count; i++)
+            {
+                if ((i == 0 && (charging || charged)) || projectiles[i] == null)
+                {
+                    continue;
+                }
+                if (currentTarget == null)
+                {
+                    projectiles[i].GetComponent<Projectile>().CommandDestruction();
+                }
+                else
+                {
+                    projectiles[i].GetComponent<Projectile>().Target = currentTarget;
+                }
+            }
+        }
+    }
+
     void PrepareShot()
     {
         if (!charging)
         {
-            projectiles.Insert(0, Instantiate(projectilePrefab, transform.position + Vector3.up * (transform.localScale.y) * 0.7f, Quaternion.Euler(0, 0, 0)));
             charging = true;
+            projectiles.Insert(0, Instantiate(projectilePrefab, transform.position + Vector3.up * (transform.localScale.y) * 0.7f, Quaternion.Euler(0, 0, 0)));
         }
 
-        float scaleFunctionX = projectilePrefab.transform.localScale.x * (Time.time - nextTimeToReload) / reloadTime;
-        float scaleFunctionY = projectilePrefab.transform.localScale.y * (Time.time - nextTimeToReload) / reloadTime;
-        projectiles[0].transform.localScale = new Vector2(scaleFunctionX, scaleFunctionY);
+        projectiles[0].transform.localScale = Vector3.Lerp(new Vector3(0f, 0f, 1f), projectilePrefab.transform.localScale, (Time.time - nextTimeToReload) / reloadTime);
         
         if (Time.time >= nextTimeToReload + reloadTime)
         {
-            charging = false;
             charged = true;
+            charging = false;
         }
     }
 
     void Shoot()
     {
+        nextTimeToReload = Time.time + delayToReloadTime;
         charged = false;
         projectiles[0].GetComponent<Projectile>().Target = currentTarget;
-        nextTimeToReload = Time.time + delayToReloadTime;
     }
 
-    void SetNewTarget()
+    void FindNearestEnemyAsTarget()
     {
         GameObject nearestEnemy = null;
         float smallestDistance = Mathf.Infinity;
@@ -115,25 +137,6 @@ public class TowerAttack : TowerBehaviour
         else
         {
             currentTarget = null;
-        }
-
-        if (projectiles.Count > 0)
-        {
-            for (int i=0; i<projectiles.Count; i++)
-            {
-                if ((i == 0 && (charging || charged)) || projectiles[i] == null)
-                {
-                    continue;
-                }
-                if (currentTarget == null)
-                {
-                    projectiles[i].GetComponent<Projectile>().CommandDestruction();
-                }
-                else
-                {
-                    projectiles[i].GetComponent<Projectile>().Target = currentTarget;
-                }
-            }
         }
     }
 }

@@ -524,7 +524,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c54b86523d538e94095f8ba70358e532, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerReference: {fileID: 7689684604389223333}
 --- !u!1 &1416462716796037779
 GameObject:
   m_ObjectHideFlags: 0
@@ -577,7 +576,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 16149fe8bbe2c1046ba85e47e2d671f2, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -598,8 +597,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 27fa8d7967fb10b449762c4bdfb97507, type: 3}
+  m_Color: {r: 0.9056604, g: 0.72350127, b: 0.18454969, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1166,12 +1165,12 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: fd08f41838ebe634d98542ee00fddc4e, type: 3}
-    m_FontSize: 28
+    m_FontSize: 27
     m_FontStyle: 0
-    m_BestFit: 1
+    m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 300
-    m_Alignment: 1
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -1190,7 +1189,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6edde88eb09b218478eafa96ef164b41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerReference: {fileID: 7689684604389223333}
 --- !u!1 &3837437138699486917
 GameObject:
   m_ObjectHideFlags: 0
@@ -1868,8 +1866,8 @@ MonoBehaviour:
   m_SpriteState:
     m_HighlightedSprite: {fileID: 21300000, guid: cd44330aaf49deb459f10bee013e5321, type: 3}
     m_PressedSprite: {fileID: 21300000, guid: 1bd5245a6924d8e4c93ffb89a05774e0, type: 3}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 21300000, guid: 1bd5245a6924d8e4c93ffb89a05774e0, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: 1bd5245a6924d8e4c93ffb89a05774e0, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -2253,4 +2251,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0443046b4936b1d45849384f7056d236, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerReference: {fileID: 7689684604389223333}

@@ -5,14 +5,13 @@ using UnityEngine.UI;
 
 public class TowerNameText : TowerFlashingText
 {
-    [SerializeField] Tower towerReference;
-
     void Awake()
     {
-        towerRef = towerReference;
         towerInteractorReference = transform.parent.parent.Find("AreaToInteract").GetComponent<TowerInteractor>();
+        towerReference = towerInteractorReference.TowerCurrentlyOnTextDisplay;
         text = GetComponent<Text>();
         isFlashing = false;
+        isUpdateable = true;
         baseColor = new Color(214f / 256f, 212f / 256f, 0f / 256f);
 
         DisplayText();
@@ -20,6 +19,6 @@ public class TowerNameText : TowerFlashingText
 
     override public void DisplayText()
     {
-        text.text = towerRef.TowerName;
+        text.text = towerReference.TowerName;
     }
 }

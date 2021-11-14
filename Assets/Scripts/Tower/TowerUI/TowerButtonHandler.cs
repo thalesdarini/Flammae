@@ -14,9 +14,19 @@ public class TowerButtonHandler : MonoBehaviour
         towerUpgrader = transform.parent.parent.Find("AreaToInteract").gameObject.GetComponent<TowerUpgrader>();
     }
 
-    public void BuildTowerCerberusPressed()
+    public void BuildSpecificTowerPressed()
     {
-        towerBuilder.BuildTowerCerberus();
+        towerBuilder.BuildSpecificTower();
+    }
+
+    public void NextTowerPressed()
+    {
+        towerBuilder.NextTower();
+    }
+
+    public void PreviousTowerPressed()
+    {
+        towerBuilder.PreviousTower();
     }
 
     public void UpgradeTowerPressed()
@@ -31,11 +41,11 @@ public class TowerButtonHandler : MonoBehaviour
 
     public void UpgradeTowerHoverEnter()
     {
-        towerUpgrader.CallEventTowerUpgradeButtonHoverEnter();
+        towerUpgrader.TowerUpgradeButtonHoverEnter();
     }
 
     public void UpgradeTowerHoverExit()
     {
-        towerUpgrader.CallEventTowerUpgradeButtonHoverExit();
+        towerUpgrader.TowerUpgradeButtonHoverExit();
     }
 }

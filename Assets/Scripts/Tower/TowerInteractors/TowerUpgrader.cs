@@ -8,9 +8,12 @@ public class TowerUpgrader : TowerInteractor
 {
     [SerializeField] Tower upgrade;
 
-    public delegate void TowerUpgradeButtonHoverAction();
-    public event TowerUpgradeButtonHoverAction TowerUpgradeButtonHoverEnter;
-    public event TowerUpgradeButtonHoverAction TowerUpgradeButtonHoverExit;
+    public Tower Upgrade { get => upgrade; }
+
+    void Awake()
+    {
+        towerCurrentlyOnTextDisplay = transform.parent.GetComponent<Tower>();
+    }
 
     void InstantiateTowerUpgrade() { InstantiateBuilding(upgrade.TowerPrefab); }
     public void UpgradeTower()
@@ -32,13 +35,15 @@ public class TowerUpgrader : TowerInteractor
         CreateBuilding(transform.parent.GetComponent<Tower>().TowerBuilderReference, nameof(InstantiateTowerBuilder), Mathf.Max(transform.parent.Find("Tower").localScale.x, transform.parent.GetComponent<Tower>().TowerBuilderReference.transform.Find("Tower").localScale.x), 0.7f);
     }
 
-    public void CallEventTowerUpgradeButtonHoverEnter()
+    public void TowerUpgradeButtonHoverEnter()
     {
-        TowerUpgradeButtonHoverEnter();
+        towerCurrentlyOnTextDisplay = upgrade;
+        CallEventUpdateText();
     }
 
-    public void CallEventTowerUpgradeButtonHoverExit()
+    public void TowerUpgradeButtonHoverExit()
     {
-        TowerUpgradeButtonHoverExit();
+        towerCurrentlyOnTextDisplay = transform.parent.GetComponent<Tower>();
+        CallEventUpdateText();
     }
 }

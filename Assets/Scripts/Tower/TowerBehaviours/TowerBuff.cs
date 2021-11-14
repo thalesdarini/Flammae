@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class TowerBuff : TowerBehaviour
 {
-    [SerializeField] float range;
     [SerializeField] string whichStat;
     [SerializeField] float buffingAmount;
+    [SerializeField] float range;
+    [SerializeField] float delayBetweenPulses;
     [SerializeField] GameObject indicatorParticlePrefab;
+    [SerializeField] GameObject pulsePrefab;
 
     List<GameObject> alliesBuffedByThisTower;
+    GameObject pulseWave;
+    float nextTimeToPulse;
 
     override public void DefineBehaviourVariables()
     {
@@ -23,12 +27,40 @@ public class TowerBuff : TowerBehaviour
     void Start()
     {
         alliesBuffedByThisTower = new List<GameObject>();
+        pulseWave = null;
+        nextTimeToPulse = Time.time + delayBetweenPulses;
     }
 
     // Update is called once per frame
     void Update()
     {
-        UpdateBuffs();
+        if (Time.time >= nextTimeToPulse)
+        {
+            Pulse();
+        }
+    }
+
+    void OnDestroy()
+    {
+        Destroy(pulseWave);
+        RemoveAllBuffs();
+    }
+
+    void Pulse()
+    {
+        if (pulseWave == null)
+        {
+            pulseWave = Instantiate(pulsePrefab, transform.position + Vector3.up * (transform.localScale.y) * 0.5f, Quaternion.Euler(0, 0, 0));
+        }
+
+        pulseWave.transform.localScale = Vector3.Lerp(new Vector3(0f, 0f, 1f), new Vector3(2 * range, 2 * range, 1f), (Time.time - nextTimeToPulse) / (delayBetweenPulses * 0.25f));
+
+        if (Time.time >= nextTimeToPulse + delayBetweenPulses * 0.25f)
+        {
+            nextTimeToPulse = Time.time + delayBetweenPulses * 0.75f;
+            Destroy(pulseWave);
+            UpdateBuffs();
+        }
     }
 
     void UpdateBuffs()
@@ -49,38 +81,54 @@ public class TowerBuff : TowerBehaviour
         }
     }
 
+    void RemoveAllBuffs()
+    {
+        foreach (GameObject currentAlly in CharacterList.alliesAlive)
+        {
+            bool alreadyBuffedByThisTower = alliesBuffedByThisTower.Contains(currentAlly);
+
+            if (alreadyBuffedByThisTower)
+            {
+                ResetBuffAndIndicator(currentAlly);
+            }
+        }
+    }
+
     void SetBuffAndIndicator(GameObject ally)
     {
         if (!CheckBuffed(ally))
         {
-            Instantiate(indicatorParticlePrefab, ally.transform);
+            GameObject indicatorParticle = Instantiate(indicatorParticlePrefab, ally.transform);
+            indicatorParticle.transform.localPosition += Vector3.down * 0.51f;
         }
 
-        Buff(ally);
+        ApplyBuff(ally);
+        alliesBuffedByThisTower.Add(ally);
     }
 
     void ResetBuffAndIndicator(GameObject ally)
     {
         RemoveBuff(ally);
+        alliesBuffedByThisTower.Remove(ally);
 
         if (!CheckBuffed(ally))
         {
             if (whichStat == "Ataque")
             {
-                Destroy(ally.transform.Find("AttackBuffIndicator").gameObject);
+                Destroy(ally.transform.Find("AttackBuffIndicator(Clone)").gameObject);
             }
             else if (whichStat == "Velocidade")
             {
-                Destroy(ally.transform.Find("SpeedBuffIndicator").gameObject);
+                Destroy(ally.transform.Find("SpeedBuffIndicator(Clone)").gameObject);
             }
             else if (whichStat == "Vida")
             {
-                Destroy(ally.transform.Find("HealthBuffIndicator").gameObject);
+                Destroy(ally.transform.Find("HealthBuffIndicator(Clone)").gameObject);
             }
         }
     }
 
-    void Buff(GameObject ally)
+    void ApplyBuff(GameObject ally)
     {
         if (whichStat == "Ataque")
         {
@@ -128,7 +176,7 @@ public class TowerBuff : TowerBehaviour
         }
         else
         {
-            return false;
+            return false; //NAO VAI ACONTECER (ESPERO)
         }
     }
 }

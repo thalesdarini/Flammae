@@ -422,7 +422,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c54b86523d538e94095f8ba70358e532, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerReference: {fileID: 7689684604389223333}
 --- !u!1 &1416462716796037779
 GameObject:
   m_ObjectHideFlags: 0
@@ -451,7 +450,7 @@ Transform:
   m_GameObject: {fileID: 1416462716796037779}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 8, y: 3, z: 0}
+  m_LocalScale: {x: 7.6, y: 3.2, z: 0}
   m_Children: []
   m_Father: {fileID: 1416462717787058889}
   m_RootOrder: 3
@@ -475,7 +474,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 16149fe8bbe2c1046ba85e47e2d671f2, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -496,8 +495,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 27fa8d7967fb10b449762c4bdfb97507, type: 3}
+  m_Color: {r: 0.9056604, g: 0.72350127, b: 0.18454969, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -636,8 +635,8 @@ MonoBehaviour:
   towerName: Grito de Ares II
   towerBehaviourScript: {fileID: 457723757122260741}
   towerPrefab: {fileID: 1416462717787058890}
-  constructionCost: 5
-  constructionTime: 2
+  constructionCost: 10
+  constructionTime: 5
   towerBuilderReference: {fileID: 2323064552734554948, guid: c0becc1a26833e346924562add3909c2, type: 3}
   deconstructionBonus: 3
 --- !u!1 &1416462718438537911
@@ -738,7 +737,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.098307855}
+  m_Offset: {x: 0.008622766, y: 0.057641603}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.45921275, y: 0.2100124}
@@ -749,7 +748,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.31070936}
+  m_Size: {x: 0.91377234, y: 0.32176363}
   m_EdgeRadius: 0
 --- !u!114 &457723757122260741
 MonoBehaviour:
@@ -763,10 +762,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a792808d0efa234c832b7b590a9dbbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 30
   whichStat: Ataque
   buffingAmount: 18
+  range: 30
+  delayBetweenPulses: 3
   indicatorParticlePrefab: {fileID: 8638897406381042544, guid: 444e0ed825268ab41a562c3176e152bd, type: 3}
+  pulsePrefab: {fileID: 744869459545516268, guid: 38fd15b4b584ad6419a615acc1a5690d, type: 3}
 --- !u!1 &1632393439051660075
 GameObject:
   m_ObjectHideFlags: 0
@@ -1016,12 +1017,12 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: fd08f41838ebe634d98542ee00fddc4e, type: 3}
-    m_FontSize: 28
+    m_FontSize: 27
     m_FontStyle: 0
-    m_BestFit: 1
+    m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 300
-    m_Alignment: 1
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -1040,7 +1041,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6edde88eb09b218478eafa96ef164b41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerReference: {fileID: 7689684604389223333}
 --- !u!1 &3809128033737365627
 GameObject:
   m_ObjectHideFlags: 0
@@ -1067,7 +1067,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3809128033737365627}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.007, y: 0.308, z: 0}
+  m_LocalPosition: {x: -0.007, y: 0.21, z: 0}
   m_LocalScale: {x: 0.18012938, y: 0.1902443, z: 1.1024}
   m_Children: []
   m_Father: {fileID: 7819953224696148094}
@@ -1247,7 +1247,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4975188252046085865}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.1, z: 0}
+  m_LocalPosition: {x: 0, y: -0.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4683512775902769150}
@@ -1455,8 +1455,8 @@ MonoBehaviour:
   m_SpriteState:
     m_HighlightedSprite: {fileID: 21300000, guid: cd44330aaf49deb459f10bee013e5321, type: 3}
     m_PressedSprite: {fileID: 21300000, guid: 1bd5245a6924d8e4c93ffb89a05774e0, type: 3}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 21300000, guid: 1bd5245a6924d8e4c93ffb89a05774e0, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: 1bd5245a6924d8e4c93ffb89a05774e0, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -1738,4 +1738,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0443046b4936b1d45849384f7056d236, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerReference: {fileID: 7689684604389223333}

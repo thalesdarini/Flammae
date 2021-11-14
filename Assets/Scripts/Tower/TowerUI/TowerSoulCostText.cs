@@ -5,14 +5,13 @@ using UnityEngine.UI;
 
 public class TowerSoulCostText : TowerFlashingText
 {
-    [SerializeField] Tower towerReference;
-
     void Awake()
     {
-        towerRef = towerReference;
         towerInteractorReference = transform.parent.parent.parent.Find("AreaToInteract").GetComponent<TowerInteractor>();
+        towerReference = towerInteractorReference is TowerBuilder ? towerInteractorReference.TowerCurrentlyOnTextDisplay : ((TowerUpgrader) towerInteractorReference).Upgrade;
         text = GetComponent<Text>();
         isFlashing = false;
+        isUpdateable = towerInteractorReference is TowerBuilder ? true : false;
         baseColor = new Color(214f / 256f, 212f / 256f, 0f / 256f);
 
         DisplayText();
@@ -20,6 +19,6 @@ public class TowerSoulCostText : TowerFlashingText
 
     override public void DisplayText()
     {
-        text.text = towerRef.ConstructionCost.ToString();
+        text.text = towerReference.ConstructionCost.ToString();
     }
 }

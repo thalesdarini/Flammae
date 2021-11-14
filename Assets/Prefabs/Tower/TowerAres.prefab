@@ -199,7 +199,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0443046b4936b1d45849384f7056d236, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerReference: {fileID: 8371883190748300302}
 --- !u!1 &834677035803392831
 GameObject:
   m_ObjectHideFlags: 0
@@ -325,8 +324,8 @@ MonoBehaviour:
   towerName: Grito de Ares
   towerBehaviourScript: {fileID: 4587600111758847037}
   towerPrefab: {fileID: 1304542104357237022}
-  constructionCost: 3
-  constructionTime: 2
+  constructionCost: 5
+  constructionTime: 4
   towerBuilderReference: {fileID: 2323064552734554948, guid: c0becc1a26833e346924562add3909c2, type: 3}
   deconstructionBonus: 2
 --- !u!1 &2237507226960620337
@@ -440,8 +439,8 @@ MonoBehaviour:
   m_SpriteState:
     m_HighlightedSprite: {fileID: 21300000, guid: cd44330aaf49deb459f10bee013e5321, type: 3}
     m_PressedSprite: {fileID: 21300000, guid: 1bd5245a6924d8e4c93ffb89a05774e0, type: 3}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 21300000, guid: 1bd5245a6924d8e4c93ffb89a05774e0, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: 1bd5245a6924d8e4c93ffb89a05774e0, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -802,7 +801,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6809e1026067764fa4fd3e00bf5c372, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerReference: {fileID: 7689684604389223333, guid: eb4dd5fcf1f83ca47972277188871959, type: 3}
 --- !u!1 &4852972791477528830
 GameObject:
   m_ObjectHideFlags: 0
@@ -1011,7 +1009,7 @@ Transform:
   m_GameObject: {fileID: 5977475033257120563}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6.5, y: 2.4, z: 0}
+  m_LocalScale: {x: 6.2, y: 2.5, z: 0}
   m_Children: []
   m_Father: {fileID: 2037987889673379841}
   m_RootOrder: 3
@@ -1035,7 +1033,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 16149fe8bbe2c1046ba85e47e2d671f2, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1056,8 +1054,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 27fa8d7967fb10b449762c4bdfb97507, type: 3}
+  m_Color: {r: 0.9056604, g: 0.72350127, b: 0.18454969, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1145,7 +1143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePillar: {fileID: 4590576867815397524, guid: 99ee99d648cd6ba409fd7fb3a55b81af, type: 3}
-  upgrade: {fileID: 7689684604389223333, guid: b730dd43432b08846a432c2e148a84f9, type: 3}
+  upgrade: {fileID: 7689684604389223333, guid: eb4dd5fcf1f83ca47972277188871959, type: 3}
 --- !u!1 &6191784666442356238
 GameObject:
   m_ObjectHideFlags: 0
@@ -1397,7 +1395,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0027976036, y: 0.063679814}
+  m_Offset: {x: 0.009795427, y: 0.05980305}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.45743936, y: 0.20347132}
@@ -1408,7 +1406,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.999048, y: 0.320996}
+  m_Size: {x: 0.9010782, y: 0.3254229}
   m_EdgeRadius: 0
 --- !u!114 &4587600111758847037
 MonoBehaviour:
@@ -1422,10 +1420,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a792808d0efa234c832b7b590a9dbbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 15
   whichStat: Ataque
   buffingAmount: 8
+  range: 15
+  delayBetweenPulses: 2
   indicatorParticlePrefab: {fileID: 8638897406381042544, guid: 444e0ed825268ab41a562c3176e152bd, type: 3}
+  pulsePrefab: {fileID: 744869459545516268, guid: 38fd15b4b584ad6419a615acc1a5690d, type: 3}
 --- !u!1 &6671179868942676976
 GameObject:
   m_ObjectHideFlags: 0
@@ -1538,8 +1538,8 @@ MonoBehaviour:
   m_SpriteState:
     m_HighlightedSprite: {fileID: 21300000, guid: cd44330aaf49deb459f10bee013e5321, type: 3}
     m_PressedSprite: {fileID: 21300000, guid: 1bd5245a6924d8e4c93ffb89a05774e0, type: 3}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 21300000, guid: 1bd5245a6924d8e4c93ffb89a05774e0, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: 1bd5245a6924d8e4c93ffb89a05774e0, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -1786,7 +1786,6 @@ GameObject:
   - component: {fileID: 1394312390648882893}
   - component: {fileID: 3926297352718287621}
   - component: {fileID: 1220248018849208005}
-  - component: {fileID: 5066874613038083791}
   m_Layer: 5
   m_Name: TowerName
   m_TagString: Untagged
@@ -1867,21 +1866,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c54b86523d538e94095f8ba70358e532, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerReference: {fileID: 8371883190748300302}
---- !u!114 &5066874613038083791
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8096057787534983911}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd5f6ca9e5332b14b985969e43677159, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentTower: {fileID: 8371883190748300302}
-  upgradedTower: {fileID: 7689684604389223333, guid: eb4dd5fcf1f83ca47972277188871959, type: 3}
 --- !u!1 &8923865963085961220
 GameObject:
   m_ObjectHideFlags: 0
@@ -1894,7 +1878,6 @@ GameObject:
   - component: {fileID: 1483312774455350194}
   - component: {fileID: 712094343630145674}
   - component: {fileID: 7224960638370893842}
-  - component: {fileID: 5811084202683420464}
   m_Layer: 5
   m_Name: TowerInfo
   m_TagString: Untagged
@@ -1951,12 +1934,12 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: fd08f41838ebe634d98542ee00fddc4e, type: 3}
-    m_FontSize: 28
+    m_FontSize: 27
     m_FontStyle: 0
-    m_BestFit: 1
+    m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 300
-    m_Alignment: 1
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -1975,21 +1958,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6edde88eb09b218478eafa96ef164b41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerReference: {fileID: 8371883190748300302}
---- !u!114 &5811084202683420464
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8923865963085961220}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd5f6ca9e5332b14b985969e43677159, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentTower: {fileID: 8371883190748300302}
-  upgradedTower: {fileID: 7689684604389223333, guid: eb4dd5fcf1f83ca47972277188871959, type: 3}
 --- !u!1 &8964068513675650983
 GameObject:
   m_ObjectHideFlags: 0

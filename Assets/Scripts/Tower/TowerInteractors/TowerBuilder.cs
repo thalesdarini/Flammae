@@ -6,18 +6,42 @@ using UnityEngine.UI;
 
 public class TowerBuilder : TowerInteractor
 {
-    [SerializeField] Tower towerCerberus;
+    [SerializeField] List<Tower> buildableTowers;
 
-    void InstantiateTowerCerberus() { InstantiateBuilding(towerCerberus.TowerPrefab); }
-    public void BuildTowerCerberus()
+    int currentTowerIndex;
+
+    void Awake()
     {
-        if (playerInArea.GetComponent<PlayerSoulCounter>().SpendSouls(towerCerberus.ConstructionCost))
+        currentTowerIndex = 0;
+        towerCurrentlyOnTextDisplay = buildableTowers[currentTowerIndex];
+    }
+
+    void InstantiateSpecificTower() { InstantiateBuilding(buildableTowers[currentTowerIndex].TowerPrefab); }
+    public void BuildSpecificTower()
+    {
+        if (playerInArea.GetComponent<PlayerSoulCounter>().SpendSouls(buildableTowers[currentTowerIndex].ConstructionCost))
         {
-            CreateBuilding(towerCerberus.TowerPrefab, nameof(InstantiateTowerCerberus), Mathf.Max(transform.parent.Find("Tower").localScale.x, towerCerberus.transform.Find("Tower").localScale.x), towerCerberus.ConstructionTime);
+            CreateBuilding(buildableTowers[currentTowerIndex].TowerPrefab, nameof(InstantiateSpecificTower), Mathf.Max(transform.parent.Find("Tower").localScale.x, buildableTowers[currentTowerIndex].transform.Find("Tower").localScale.x), buildableTowers[currentTowerIndex].ConstructionTime);
         }
         else
         {
-            CallEventTowerPurchaseFail(towerCerberus.TowerName);
+            CallEventTowerPurchaseFail(buildableTowers[currentTowerIndex].TowerName);
         }
+    }
+
+    public void NextTower()
+    {
+        currentTowerIndex = (currentTowerIndex + 1) % buildableTowers.Count;
+
+        towerCurrentlyOnTextDisplay = buildableTowers[currentTowerIndex];
+        CallEventUpdateText();
+    }
+
+    public void PreviousTower()
+    {
+        currentTowerIndex = (currentTowerIndex - 1 + buildableTowers.Count) % buildableTowers.Count;
+
+        towerCurrentlyOnTextDisplay = buildableTowers[currentTowerIndex];
+        CallEventUpdateText();
     }
 }

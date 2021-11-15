@@ -6,7 +6,6 @@ abstract public class HealthScript : MonoBehaviour
 {
     [Header("Life")]
     [SerializeField] float defaultMaxHealth;
-    [SerializeField] protected Sprite[] deathSprites;
 
     protected float maxHealth;
     bool isBuffed;

@@ -38,13 +38,11 @@ public class PlayerHealth : HealthScript
         rb2D = GetComponent<Rigidbody2D>();
     }
 
-    float deathTime = 15f;
     private void Update()
     {
-        if (Time.time > deathTime)
+        if (Input.GetKeyDown(KeyCode.F))
         {
             StartCoroutine(Die());
-            deathTime += 20f;
         }
     }
 

@@ -4,8 +4,6 @@ using UnityEngine;
 
 abstract public class TowerBehaviour : MonoBehaviour
 {
-    protected string behaviour;
-
     protected float shootingRange;
     protected float shotsPerSec;
     protected float projectileDamage;
@@ -19,7 +17,6 @@ abstract public class TowerBehaviour : MonoBehaviour
 
     abstract public void DefineBehaviourVariables();
 
-    public string Behaviour { get => behaviour; }
     public float ShootingRange { get => shootingRange; }
     public float ShotsPerSec { get => shotsPerSec; }
     public float ProjectileDamage { get => projectileDamage; }

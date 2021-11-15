@@ -17,7 +17,6 @@ public class TowerBuff : TowerBehaviour
 
     override public void DefineBehaviourVariables()
     {
-        behaviour = "buff";
         buffingRange = range;
         buffedStat = whichStat;
         buffAmount = buffingAmount;
@@ -99,7 +98,7 @@ public class TowerBuff : TowerBehaviour
         if (!CheckBuffed(ally))
         {
             GameObject indicatorParticle = Instantiate(indicatorParticlePrefab, ally.transform);
-            indicatorParticle.transform.localPosition += Vector3.down * 0.51f;
+            indicatorParticle.transform.localPosition += Vector3.down * 0.6f;
         }
 
         ApplyBuff(ally);

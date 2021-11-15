@@ -28,6 +28,8 @@ public class PlayerAttack : AttackScript
     PlayerMovement playerMovement;
     Animator animator;
 
+    public float Damage { get => damage; }
+
     // Start is called before the first frame update
     override protected void Start()
     {

@@ -17,7 +17,6 @@ public class TowerAttack : TowerBehaviour
 
     override public void DefineBehaviourVariables()
     {
-        behaviour = "attack";
         shootingRange = range;
         shotsPerSec = 1 / (delayToReloadTime + reloadTime);
         projectileDamage = projectilePrefab.GetComponent<Projectile>().Damage;
@@ -57,14 +56,7 @@ public class TowerAttack : TowerBehaviour
 
     void OnDestroy()
     {
-        if (charging || charged)
-        {
-            if (projectiles[0] != null)
-            {
-                projectiles[0].GetComponent<Projectile>().CommandDestruction();
-            }
-            projectiles.RemoveAll(item => item == null);
-        }
+        DestroyProjectileNotShot();
     }
 
     void SetNewTarget()
@@ -113,6 +105,18 @@ public class TowerAttack : TowerBehaviour
         nextTimeToReload = Time.time + delayToReloadTime;
         charged = false;
         projectiles[0].GetComponent<Projectile>().Target = currentTarget;
+    }
+
+    void DestroyProjectileNotShot()
+    {
+        if (charging || charged)
+        {
+            if (projectiles[0] != null)
+            {
+                projectiles[0].GetComponent<Projectile>().CommandDestruction();
+            }
+            projectiles.RemoveAll(item => item == null);
+        }
     }
 
     void FindNearestEnemyAsTarget()

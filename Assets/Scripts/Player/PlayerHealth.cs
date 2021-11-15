@@ -9,9 +9,11 @@ public class PlayerHealth : HealthScript
     [SerializeField] float respawnTime;
 
     float healthPercentual;
+    bool isHealing;
 
     public float MaxHealth { get => maxHealth; }
     public float HealthPercentual { get => healthPercentual; }
+    public bool IsHealing { get => isHealing; set => isHealing = value; }
 
     // Cached references
     PlayerMovement playerMovement;
@@ -22,14 +24,14 @@ public class PlayerHealth : HealthScript
     void Awake()
     {
         CharacterList.alliesAlive.Add(gameObject);
+        CharacterList.playersAlive.Add(gameObject);
     }
 
     // Start is called before the first frame update
     override protected void Start()
     {
         base.Start();
-        healthPercentual = 1;
-
+        healthPercentual = 0.2f;
         playerMovement = GetComponent<PlayerMovement>();
         playerAttack = GetComponent<PlayerAttack>();
         animator = GetComponent<Animator>();
@@ -49,6 +51,7 @@ public class PlayerHealth : HealthScript
     void OnDestroy()
     {
         CharacterList.alliesAlive.Remove(gameObject);
+        CharacterList.playersAlive.Remove(gameObject);
     }
 
     public void TakeDamage(float amountOfDamage)

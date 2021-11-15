@@ -29,6 +29,8 @@ public class PlayerMovement : MovementScript
     Animator animator;
     SpriteRenderer spriteRenderer;
 
+    public float MovementSpeed { get => movementSpeed; }
+
     // Start is called before the first frame update
     override protected void Start()
     {

@@ -21,8 +21,12 @@ public class PlayerMovement : MovementScript
     bool isDashing = false;
     Vector2 dashDirection;
 
+    public bool IsDashing { get => isDashing; }
+
     // Cached references
     Rigidbody2D rb2D;
+    PlayerAttack playerAttack;
+    Animator animator;
     SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
@@ -30,6 +34,8 @@ public class PlayerMovement : MovementScript
     {
         base.Start();
         rb2D = GetComponent<Rigidbody2D>();
+        playerAttack = GetComponent<PlayerAttack>();
+        animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
@@ -37,14 +43,13 @@ public class PlayerMovement : MovementScript
     void Update()
     {
         ManageInput();
-        //FlipPlayer();
     }
 
     void FixedUpdate()
     {
         if (canMove)
         {
-            if (dashAvailable && dashKey)
+            if (dashAvailable && dashKey && !playerAttack.IsAttacking)
             {
                 StartCoroutine(StartDash());
             }
@@ -57,10 +62,32 @@ public class PlayerMovement : MovementScript
             {
                 Move();
             }
+
+            if (moveDirection != Vector2.zero)
+                animator.SetBool("running", true);
+            else
+                animator.SetBool("running", false);
+
+            if (!playerAttack.IsAttacking)
+                FlipSprite();
+        }
+        else
+        {
+            animator.SetBool("running", false);
+            animator.SetBool("isDashing", false);
+            rb2D.velocity = Vector2.zero;
         }
 
         // reset key even if not used
         dashKey = false;
+    }
+
+    private void FlipSprite()
+    {
+        if (moveDirection.x > 0)
+            spriteRenderer.flipX = false;
+        else if (moveDirection.x < 0)
+            spriteRenderer.flipX = true;
     }
 
     IEnumerator StartDash()
@@ -68,11 +95,15 @@ public class PlayerMovement : MovementScript
         dashAvailable = false;
         isDashing = true;
         dashDirection = facingDirection;
+        animator.SetBool("isDashing", true);
 
         //Let it be dashing until duration ends
         float dashDuration = dashDistance / dashSpeed;
+        animator.SetFloat("m_dash", 1 / dashDuration);
+        
         yield return new WaitForSeconds(dashDuration);
         isDashing = false;
+        animator.SetBool("isDashing", false);
 
         //Recharge dash after cooldown time has passed
         yield return new WaitForSeconds(dashCooldown - dashDuration);
@@ -100,9 +131,9 @@ public class PlayerMovement : MovementScript
         float xAxisMove = Input.GetAxisRaw("Horizontal");
         float yAxisMove = Input.GetAxisRaw("Vertical");
 
-        //Controller joystick deadzone
-        xAxisMove = (xAxisMove > 0.19f) ? 1 : (xAxisMove < -0.19f) ? -1 : 0;
-        yAxisMove = (yAxisMove > 0.19f) ? 1 : (yAxisMove < -0.19f) ? -1 : 0;
+        //Controller joystick snap
+        xAxisMove = (xAxisMove > 0.1f) ? 1 : (xAxisMove < -0.1f) ? -1 : 0;
+        yAxisMove = (yAxisMove > 0.1f) ? 1 : (yAxisMove < -0.1f) ? -1 : 0;
 
         moveDirection = new Vector2(xAxisMove, yAxisMove).normalized;
 
@@ -113,26 +144,6 @@ public class PlayerMovement : MovementScript
         if (Input.GetButtonDown("Jump"))
         {
             dashKey = true;
-        }
-    }
-
-    void FlipPlayer()
-    {
-        if (facingDirection.x > 0)
-        {
-            spriteRenderer.sprite = walkSprites[1];
-        }
-        else if (facingDirection.x < 0)
-        {
-            spriteRenderer.sprite = walkSprites[3];
-        }
-        else if (facingDirection.y < 0)
-        {
-            spriteRenderer.sprite = walkSprites[0];
-        }
-        else if (facingDirection.y > 0)
-        {
-            spriteRenderer.sprite = walkSprites[2];
         }
     }
 }

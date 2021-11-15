@@ -263,6 +263,7 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
+  meleeMaxEnemiesHit: 5
 --- !u!114 &5998035931535173570
 MonoBehaviour:
   m_ObjectHideFlags: 0

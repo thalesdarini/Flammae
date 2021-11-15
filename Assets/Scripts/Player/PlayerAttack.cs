@@ -1,14 +1,32 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAttack : AttackScript
 {
+    [Header("Sword attack")]
     [SerializeField] GameObject sword;
-    [SerializeField] ContactFilter2D cf2d;
+    [SerializeField] float attackTimeInputTolerance;
+    [SerializeField] float attackDuration;
+    [SerializeField] ContactFilter2D enemyFilter;
 
+    // Input variables
+    Vector2 aimDirection;
+    float swordAttackTimeInput = -1f; // just below 0 so it doesn't start attacking
+
+    // Current state variables
+    bool canAttack = true;
+    bool isAttacking = false;
+    float attackTimePassed = 0;
+
+    public bool IsAttacking { get => isAttacking; }
+
+    // Cached references
     PolygonCollider2D swordCollider;
     SpriteRenderer spriteRenderer;
+    PlayerMovement playerMovement;
+    Animator animator;
 
     // Start is called before the first frame update
     override protected void Start()
@@ -16,51 +34,81 @@ public class PlayerAttack : AttackScript
         base.Start();
         swordCollider = sword.GetComponent<PolygonCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        playerMovement = GetComponent<PlayerMovement>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 aimDirection = mousePosition - transform.position;
-        float angle = Vector2.SignedAngle(Vector2.down, aimDirection);
-        sword.transform.localRotation = Quaternion.Euler(0, 0, angle);
-        
-        FlipPlayer(angle);
+        ManageInput();
 
-        if (Input.GetButtonDown("Fire1"))
+        if (!playerMovement.IsDashing && canAttack)
         {
-            Collider2D[] results = new Collider2D[5];
-            swordCollider.OverlapCollider(cf2d, results);
-            foreach (Collider2D cd in results)
+            attackTimePassed -= Time.deltaTime;
+
+            if (attackTimePassed < 0)
             {
-                if (cd != null)
+                if (Time.time <= swordAttackTimeInput)
                 {
-                    cd.gameObject.GetComponent<EnemyTest>().TakeDamage(damage);
+                    isAttacking = true;
+                    animator.SetFloat("m_attack", 1 / attackDuration);
+                    animator.SetBool("attacking", true);
+
+                    attackTimePassed = attackDuration;
+                    SwordAttack();
+                }
+                else
+                {
+                    isAttacking = false;
+                    animator.SetBool("attacking", false);
                 }
             }
-
-            sword.GetComponent<Animator>().SetTrigger("Attack");
+        }
+        else
+        {
+            isAttacking = false;
+            animator.SetBool("attacking", false);
         }
     }
 
-    void FlipPlayer(float angle)
+    private void SwordAttack()
     {
-        if (angle <= 135 && angle > 45) // right
+        if (aimDirection.x >= 0)
         {
-            spriteRenderer.sprite = attackSprites[0];
+            sword.transform.localRotation = Quaternion.Euler(0, 0, 0);
+            spriteRenderer.flipX = false;
         }
-        else if (angle <= 45 && angle > -45) // down
+        else
         {
-            spriteRenderer.sprite = attackSprites[1];
+            sword.transform.localRotation = Quaternion.Euler(0, 0, 180);
+            spriteRenderer.flipX = true;
         }
-        else if (angle <= -45 && angle > -135 ) // left
+
+        Collider2D[] results = new Collider2D[5];
+        swordCollider.OverlapCollider(enemyFilter, results);
+        foreach (Collider2D cd in results)
         {
-            spriteRenderer.sprite = attackSprites[2];
+            if (cd != null)
+            {
+                cd.gameObject.GetComponent<EnemyTest>().TakeDamage(damage);
+            }
         }
-        else // up
+    }
+
+    public void StopAttack(bool stopIt)
+    {
+        canAttack = !stopIt;
+    }
+
+    private void ManageInput()
+    {
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        aimDirection = mousePosition - transform.position;
+
+        if (Input.GetButtonDown("Fire1"))
         {
-            spriteRenderer.sprite = attackSprites[3];
+            swordAttackTimeInput = Time.time + attackTimeInputTolerance;
         }
     }
 }

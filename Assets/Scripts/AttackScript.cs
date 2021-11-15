@@ -6,7 +6,6 @@ abstract public class AttackScript : MonoBehaviour
 {
     [Header("Attack")]
     [SerializeField] float defaultDamage;
-    [SerializeField] protected Sprite[] attackSprites;
 
     protected float damage;
     bool isBuffed;

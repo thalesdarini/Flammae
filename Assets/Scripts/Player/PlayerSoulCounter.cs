@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerSoulCounter : MonoBehaviour
 {
+    [SerializeField] int startingSouls = 20;
     int numSouls;
 
     public int NumSouls { get => numSouls; }
@@ -11,7 +12,7 @@ public class PlayerSoulCounter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        numSouls = 20;
+        numSouls = startingSouls;
     }
 
     public void CollectSouls(int number)

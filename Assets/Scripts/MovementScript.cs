@@ -6,7 +6,6 @@ abstract public class MovementScript : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] float defaultMovementSpeed;
-    [SerializeField] protected Sprite[] walkSprites;
 
     protected float movementSpeed;
     bool isBuffed;

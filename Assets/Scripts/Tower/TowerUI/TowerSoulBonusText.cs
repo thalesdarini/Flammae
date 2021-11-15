@@ -11,7 +11,7 @@ public class TowerSoulBonusText : TowerFlashingText
         towerReference = towerInteractorReference.TowerCurrentlyOnTextDisplay;
         text = GetComponent<Text>();
         isFlashing = true;
-        isUpdateable = false;
+        isUpdateable = towerInteractorReference is TowerBuilder ? true : false;
         baseColor = new Color(214f / 256f, 212f / 256f, 0f / 256f);
 
         DisplayText();

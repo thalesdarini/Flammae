@@ -11,7 +11,7 @@ public class UINumSoulsText : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerReference = FindObjectOfType<PlayerSoulCounter>();
+        playerReference = CharacterList.playersAlive[0].GetComponent<PlayerSoulCounter>();
         soulText = GetComponent<Text>();
     }
 

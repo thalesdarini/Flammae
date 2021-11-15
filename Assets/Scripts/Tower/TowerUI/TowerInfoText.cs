@@ -25,23 +25,23 @@ public class TowerInfoText : TowerFlashingText
 
     string InfoTextForBehaviour()
     {
-        if (towerReference.TowerBehaviourScript.Behaviour == "attack")
+        if (towerReference.TowerBehaviourScript is TowerAttack)
         {
-            return "\nTiros por segundo:\n" + towerReference.TowerBehaviourScript.ShotsPerSec.ToString("F2") +
+            return "Tiros por segundo:\n" + towerReference.TowerBehaviourScript.ShotsPerSec.ToString("F2") +
             "\nAlcance:\n" + towerReference.TowerBehaviourScript.ShootingRange.ToString("F2") + "\n" +
             "\nProjétil:\n" + "Dano        Velocidade\n" +
             towerReference.TowerBehaviourScript.ProjectileDamage.ToString("F2") + "              " +
             towerReference.TowerBehaviourScript.ProjectileSpeed.ToString("F2") + "    ";
         }
-        else if (towerReference.TowerBehaviourScript.Behaviour == "buff")
+        else if (towerReference.TowerBehaviourScript is TowerBuff)
         {
-            return "\nBuff:\n+" + towerReference.TowerBehaviourScript.BuffAmount.ToString("F2") + " pontos de\n" +
+            return "Buff:\n+" + towerReference.TowerBehaviourScript.BuffAmount.ToString("F2") + " pontos de\n" +
             towerReference.TowerBehaviourScript.BuffedStat + "\n" +
             "\nRaio de efeito:\n" + towerReference.TowerBehaviourScript.BuffingRange.ToString("F2");
         }
-        else if (towerReference.TowerBehaviourScript.Behaviour == "heal")
+        else if (towerReference.TowerBehaviourScript is TowerHeal)
         {
-            return "\nTempo até cura completa (0 a 100%):\n" + towerReference.TowerBehaviourScript.TimeToHeal.ToString("F2") + " s";
+            return "Tempo até cura completa\n(0 a 100%):\n" + towerReference.TowerBehaviourScript.TimeToHeal.ToString("F2") + "s";
         }
         else
         {

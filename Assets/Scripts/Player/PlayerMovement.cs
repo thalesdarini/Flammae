@@ -25,6 +25,8 @@ public class PlayerMovement : MovementScript
     Rigidbody2D rb2D;
     SpriteRenderer spriteRenderer;
 
+    public float MovementSpeed { get => movementSpeed; }
+
     // Start is called before the first frame update
     override protected void Start()
     {

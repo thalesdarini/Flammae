@@ -5,25 +5,29 @@ using UnityEngine;
 public class PlayerHealth : HealthScript
 {
     float healthPercentual;
+    bool isHealing;
 
     public float MaxHealth { get => maxHealth; }
     public float HealthPercentual { get => healthPercentual; }
+    public bool IsHealing { get => isHealing; set => isHealing = value; }
 
     void Awake()
     {
         CharacterList.alliesAlive.Add(gameObject);
+        CharacterList.playersAlive.Add(gameObject);
     }
 
     // Start is called before the first frame update
     override protected void Start()
     {
         base.Start();
-        healthPercentual = 1;
+        healthPercentual = 0.2f;
     }
 
     void OnDestroy()
     {
         CharacterList.alliesAlive.Remove(gameObject);
+        CharacterList.playersAlive.Remove(gameObject);
     }
 
     public void TakeDamage(float amountOfDamage)

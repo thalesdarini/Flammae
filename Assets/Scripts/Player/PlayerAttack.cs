@@ -10,6 +10,7 @@ public class PlayerAttack : AttackScript
     [SerializeField] float attackTimeInputTolerance;
     [SerializeField] float attackDuration;
     [SerializeField] ContactFilter2D enemyFilter;
+    [SerializeField] int meleeMaxEnemiesHit;
 
     // Input variables
     Vector2 aimDirection;
@@ -47,35 +48,48 @@ public class PlayerAttack : AttackScript
 
         if (!playerMovement.IsDashing && canAttack)
         {
-            attackTimePassed -= Time.deltaTime;
+            MeleeAttack();
+        }
+    }
 
-            if (attackTimePassed < 0)
+    private void MeleeAttack()
+    {
+        attackTimePassed -= Time.deltaTime;
+        if (attackTimePassed < 0) // not attacking anymore
+        {
+            if (Time.time <= swordAttackTimeInput) // has input for first or next attack
             {
-                if (Time.time <= swordAttackTimeInput)
+                if (!isAttacking)
                 {
                     isAttacking = true;
                     animator.SetFloat("m_attack", 1 / attackDuration);
                     animator.SetBool("attacking", true);
 
-                    attackTimePassed = attackDuration;
-                    SwordAttack();
+                    attackTimePassed = attackDuration; // begin first attack
                 }
-                else
+                else // used to play next attack animation
+                {
+                    animator.SetTrigger("attack");
+
+                    attackTimePassed += attackDuration; // begin next attack
+                }
+                
+                SwordAttack();
+            }
+            else // no more inputs for attack, stop
+            {
+                if (isAttacking)
                 {
                     isAttacking = false;
                     animator.SetBool("attacking", false);
                 }
             }
         }
-        else
-        {
-            isAttacking = false;
-            animator.SetBool("attacking", false);
-        }
     }
 
     private void SwordAttack()
     {
+        // Position collider and flip sprite
         if (aimDirection.x >= 0)
         {
             sword.transform.localRotation = Quaternion.Euler(0, 0, 0);
@@ -87,7 +101,8 @@ public class PlayerAttack : AttackScript
             spriteRenderer.flipX = true;
         }
 
-        Collider2D[] results = new Collider2D[5];
+        // Check for enemies hit
+        Collider2D[] results = new Collider2D[meleeMaxEnemiesHit];
         swordCollider.OverlapCollider(enemyFilter, results);
         foreach (Collider2D cd in results)
         {
@@ -100,6 +115,13 @@ public class PlayerAttack : AttackScript
 
     public void StopAttack(bool stopIt)
     {
+        if (stopIt)
+        {
+            // Reset variables and states
+            isAttacking = false;
+            animator.SetBool("attacking", false);
+            attackTimePassed = 0f;
+        }
         canAttack = !stopIt;
     }
 

@@ -13,7 +13,9 @@ public class EnemyLife : MonoBehaviour
     Animator enemyLifeAnimation;
     EnemyMovement enemyMovement;
     float stunTimer = 0.0f;
+    float deathTime = 1.0f;
     float maxSpeed;
+    bool isKilled;
 
     //On Start - Create gameObject
     void Awake()
@@ -24,13 +26,20 @@ public class EnemyLife : MonoBehaviour
     void Start(){
         enemyLifeAnimation = GetComponent<Animator>();
         enemyMovement = GetComponent<EnemyMovement>();
+        isKilled = false;
     }
 
     void Update(){
-        if(stunTimer > 0){
+        if(isKilled == false && stunTimer > 0){
             stunTimer -= Time.deltaTime;
             if(stunTimer <= 0){
                 enemyMovement.speed = maxSpeed;
+            }
+        }
+        if(isKilled == true){
+            deathTime -= Time.deltaTime;
+            if(deathTime <= 0){
+                Destroy(gameObject);
             }
         }
     }
@@ -45,15 +54,18 @@ public class EnemyLife : MonoBehaviour
     //Damage animation is played
     public void TakeDamage(float amountOfDamage)
     {
-        health -= amountOfDamage;
-        maxSpeed = enemyMovement.speed;
-        enemyMovement.speed = 0;
-        stunTimer = 0.4f;
 
-        enemyLifeAnimation.SetTrigger("takeDamage");
-        if (health <= 0)
-        {
-            Die();
+        if(isKilled == false){
+            health -= amountOfDamage;
+            maxSpeed = enemyMovement.speed;
+            enemyMovement.speed = 0.01f;
+            stunTimer = 0.4f;
+
+            enemyLifeAnimation.SetTrigger("takeDamage");
+            if (health <= 0)
+            {
+                Die();
+            }
         }
     }
 
@@ -66,6 +78,7 @@ public class EnemyLife : MonoBehaviour
             Vector3 randomDisplacement = new Vector3(Random.Range(-soulDropRange, soulDropRange), Random.Range(-soulDropRange / 2, soulDropRange / 2), 0);
             Instantiate(soulPrefab, transform.position + randomDisplacement, Quaternion.Euler(0, 0, 0));
         }
-        Destroy(gameObject);
+        enemyLifeAnimation.SetTrigger("dies");
+        isKilled = true;
     }
 }

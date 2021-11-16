@@ -16,10 +16,15 @@ public class EnemyMovement : MonoBehaviour
     List<GameObject> waypoints;
     int waypointIndex;
 
+    BoxCollider2D waypointArea;
+    Vector3 nextPosition;
+
     // Start is called before the first frame update
     void Start()
     {
         waypointIndex = 0;
+        waypointArea = waypoints[waypointIndex].GetComponent<BoxCollider2D>();
+        nextPosition = GetRandomPointInsideCollider(waypointArea);
         rb2d = GetComponent<Rigidbody2D>();
         moveAnimation = GetComponent<Animator>();
         sRenderer = GetComponent<SpriteRenderer>();
@@ -28,13 +33,35 @@ public class EnemyMovement : MonoBehaviour
     void Update()
     {
         MoveTowardsWaypoint();
+        print(waypointIndex);
+        print(nextPosition);
+    }
+
+    //Select random transform inside waypoint bounds.
+    public Vector3 GetRandomPointInsideCollider( BoxCollider2D boxCollider )
+    {
+        Vector3 extents = boxCollider.size / 2f;
+        Vector3 point = new Vector3(
+            Random.Range( -extents.x, extents.x ),
+            Random.Range( -extents.y, extents.y ),
+            Random.Range( -extents.z, extents.z )
+        );
+    
+        return boxCollider.transform.TransformPoint( point );
     }
 
     void MoveTowardsWaypoint()
     {
-        rb2d.velocity = (waypoints[waypointIndex].transform.position - transform.position).normalized * speed;
-		if ((waypoints[waypointIndex].transform.position - transform.position).magnitude < 0.02f && waypointIndex < waypoints.Count-1) {
+        rb2d.velocity = (nextPosition - transform.position).normalized * speed;
+		if ((nextPosition - transform.position).magnitude < 0.2f) {
 			waypointIndex += 1;
+            if(waypointIndex > waypoints.Count-1){
+                EnemyReachesEnd();
+            }
+            else{
+                waypointArea = waypoints[waypointIndex].GetComponent<BoxCollider2D>();
+                nextPosition = GetRandomPointInsideCollider(waypointArea);
+            }
 		}
 
         moveAnimation.SetBool("isMoving", true);
@@ -43,6 +70,9 @@ public class EnemyMovement : MonoBehaviour
             sRenderer.flipX = true;
         }
         else sRenderer.flipX = false;
-        
+    }
+
+    void EnemyReachesEnd(){
+        Destroy(gameObject);
     }
 }

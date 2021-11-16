@@ -21,6 +21,8 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] float enemySpawnCooldownReduction;
     [SerializeField] float minimumEnemySpawnCooldown;
 
+    [SerializeField] List <GameObject> waypoints;
+
     float spawnTime;
     float enemySpawnCooldown;
     float lastTimeSpawn;
@@ -45,6 +47,7 @@ public class EnemySpawner : MonoBehaviour
         if(gameTime > spawnTime && gameTime > lastTimeSpawn + enemySpawnCooldown)
         {
             GameObject enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity) as GameObject;
+            enemy.GetComponent<EnemyMovement>().Waypoints = waypoints;
             lastTimeSpawn = gameTime;
             spawnCount++;
             if(spawnCount >= currSpawnSize)

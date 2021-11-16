@@ -53,7 +53,7 @@ public class Projectile : MonoBehaviour
         {
             shotHit = true;
             animatorReference.SetTrigger("Hit");
-            objectThatEntered.GetComponent<EnemyTest>().TakeDamage(damage);
+            objectThatEntered.GetComponent<EnemyLife>().TakeDamage(damage);
             CommandDestruction();
         }
     }

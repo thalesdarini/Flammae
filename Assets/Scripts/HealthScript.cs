@@ -32,4 +32,6 @@ abstract public class HealthScript : MonoBehaviour
             isBuffed = true;
         }
     }
+
+    public abstract void TakeDamage(float amountOfDamage);
 }

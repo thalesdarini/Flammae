@@ -4,23 +4,24 @@ using UnityEngine;
 
 public class LaneBehavior : MonoBehaviour
 {
+    public List<GameObject> FoesInLane { get => foesInLane; }
+    List<GameObject> foesInLane;
 
-    public bool playerInLane;
     // Start is called before the first frame update
     void Start()
     {
-        playerInLane = false;
+        foesInLane = new List<GameObject>();
     }
 
     void OnTriggerEnter2D(Collider2D otherCollider){
-        if(otherCollider.name == "Player"){
-            playerInLane = true;
+        if(otherCollider.tag == "Player" || otherCollider.tag == "Infernais"){
+            foesInLane.Add(otherCollider.gameObject);
         }
     }
 
     void OnTriggerExit2D(Collider2D otherCollider){
-        if(otherCollider.name == "Player"){
-            playerInLane = false;
+        if(otherCollider.tag == "Player" || otherCollider.tag == "Infernais"){
+            foesInLane.Remove(otherCollider.gameObject);
         }
     }
 }

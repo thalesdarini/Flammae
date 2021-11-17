@@ -41775,11 +41775,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6910400774131425868, guid: 392e7b3c33048be4fbea0ec453a667e7, type: 3}
       propertyPath: maximumSpawnSize
-      value: 40
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 6910400774131425868, guid: 392e7b3c33048be4fbea0ec453a667e7, type: 3}
       propertyPath: spawnSizeIncrease
-      value: 3
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6910400774131425868, guid: 392e7b3c33048be4fbea0ec453a667e7, type: 3}
       propertyPath: waypoints.Array.size

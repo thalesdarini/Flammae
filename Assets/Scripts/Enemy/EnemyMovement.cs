@@ -19,9 +19,7 @@ public class EnemyMovement : MonoBehaviour
     BoxCollider2D waypointArea;
     Vector3 nextPosition;
 
-    bool playerDetected = false;
-    [SerializeField]
-    public Transform playerPosition;
+    public List<Transform> currentTargets;
 
     LaneBehavior laneBehavior;
     SwordmanAttack swordmanAttack;
@@ -38,8 +36,7 @@ public class EnemyMovement : MonoBehaviour
         sRenderer = GetComponent<SpriteRenderer>();
         laneBehavior = FindObjectOfType<LaneBehavior>();
         swordmanAttack = FindObjectOfType<SwordmanAttack>();
-
-        playerPosition = GameObject.FindGameObjectWithTag("Player").transform;
+        currentTargets = new List<Transform>();
     }
 
     void Update()
@@ -50,8 +47,18 @@ public class EnemyMovement : MonoBehaviour
     //Verifica se há um player a ser atacado.
     //Senão vai até o próximo waypoint.
     void CheckNextMovement(){
-        if(playerDetected && laneBehavior.playerInLane) MoveTowardsPlayer();
-        else MoveTowardsWaypoint();
+        
+        if(swordmanAttack.IsAttacking == false){
+            if(currentTargets.Count != 0){
+                foreach(Transform target in currentTargets){
+                    if(laneBehavior.FoesInLane.Contains(target.gameObject)){
+                        MoveTowardsFoe(target);
+                    }
+                    else MoveTowardsWaypoint();
+                }
+            }
+            else MoveTowardsWaypoint();
+        }
     }
 
     //Select random transform inside waypoint bounds.
@@ -67,29 +74,31 @@ public class EnemyMovement : MonoBehaviour
         return boxCollider.transform.TransformPoint( point );
     }
 
-    void MoveTowardsPlayer(){
+    void MoveTowardsFoe(Transform target){
+
+        currentTargets.RemoveAll(item => item == null);
 
         //Flip sprite if player is on the left side.
-        if(this.transform.position.x - playerPosition.position.x > 0) {
+        if(this.transform.position.x - target.position.x > 0) {
             sRenderer.flipX = true;
         }
 
         else sRenderer.flipX = false;
 
         //Function on Swordman can attack
-        if(swordmanAttack.CanAttack()){    //Ataca
-            swordmanAttack.AttackPlayer();
+        if(swordmanAttack.CanAttack(target)){    //Ataca
+            swordmanAttack.AttackPlayer(target.gameObject);
         }
-        else{//Move
-            transform.position = Vector2.MoveTowards(this.transform.position, playerPosition.position, speed * Time.deltaTime);
+        else{
+            transform.position = Vector2.MoveTowards(this.transform.position,target.position, speed * Time.deltaTime);
             moveAnimation.SetBool("isMoving", true);
+
         }
     }
 
     void MoveTowardsWaypoint()
     {
         transform.position = Vector2.MoveTowards(this.transform.position, nextPosition, speed * Time.deltaTime);
-        //rb2d.velocity = (nextPosition - transform.position).normalized * speed;
 		if ((nextPosition - transform.position).magnitude < 0.2f) {
 			waypointIndex += 1;
             if(waypointIndex > waypoints.Count-1){
@@ -119,16 +128,17 @@ public class EnemyMovement : MonoBehaviour
 
     //Upon entering the collider, enemies will follow player.
     void OnTriggerEnter2D(Collider2D otherCollider){
-        if(otherCollider.name == "Player"){
-            playerDetected = true;
+
+        if(otherCollider.tag == "Player" || otherCollider.tag == "Infernais"){
+            currentTargets.Add(otherCollider.transform);
         }
     }
 
     //When Player leaves area of agro, enemies go back to their root, searching the nearest waypoint.
     //It goes to the next waypoint if possible, to guarantee enemy does not go backwards.
     void OnTriggerExit2D(Collider2D otherCollider){
-        if(otherCollider.name == "Player"){
-            playerDetected = false;
+        if(otherCollider.tag == "Player" || otherCollider.tag == "Infernais"){
+            currentTargets.Remove(otherCollider.transform);
 
             //Go to the next nearest waypoint
             float minDist = Mathf.Infinity;

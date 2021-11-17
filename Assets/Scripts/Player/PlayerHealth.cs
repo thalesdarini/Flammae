@@ -52,7 +52,7 @@ public class PlayerHealth : HealthScript
         CharacterList.playersAlive.Remove(gameObject);
     }
 
-    public void TakeDamage(float amountOfDamage)
+    public override void TakeDamage(float amountOfDamage)
     {
         GetComponent<Animator>().SetTrigger("Damage");
 

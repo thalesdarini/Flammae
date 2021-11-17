@@ -19,22 +19,39 @@ public class EnemyMovement : MonoBehaviour
     BoxCollider2D waypointArea;
     Vector3 nextPosition;
 
+    bool playerDetected = false;
+    [SerializeField]
+    public Transform playerPosition;
+
+    LaneBehavior laneBehavior;
+    SwordmanAttack swordmanAttack;
+
     // Start is called before the first frame update
     void Start()
     {
         waypointIndex = 0;
         waypointArea = waypoints[waypointIndex].GetComponent<BoxCollider2D>();
         nextPosition = GetRandomPointInsideCollider(waypointArea);
+
         rb2d = GetComponent<Rigidbody2D>();
         moveAnimation = GetComponent<Animator>();
         sRenderer = GetComponent<SpriteRenderer>();
+        laneBehavior = FindObjectOfType<LaneBehavior>();
+        swordmanAttack = FindObjectOfType<SwordmanAttack>();
+
+        playerPosition = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     void Update()
     {
-        MoveTowardsWaypoint();
-        print(waypointIndex);
-        print(nextPosition);
+        CheckNextMovement();
+    }
+
+    //Verifica se há um player a ser atacado.
+    //Senão vai até o próximo waypoint.
+    void CheckNextMovement(){
+        if(playerDetected && laneBehavior.playerInLane) MoveTowardsPlayer();
+        else MoveTowardsWaypoint();
     }
 
     //Select random transform inside waypoint bounds.
@@ -50,29 +67,83 @@ public class EnemyMovement : MonoBehaviour
         return boxCollider.transform.TransformPoint( point );
     }
 
+    void MoveTowardsPlayer(){
+
+        //Flip sprite if player is on the left side.
+        if(this.transform.position.x - playerPosition.position.x > 0) {
+            sRenderer.flipX = true;
+        }
+
+        else sRenderer.flipX = false;
+
+        //Function on Swordman can attack
+        if(swordmanAttack.CanAttack()){    //Ataca
+            swordmanAttack.AttackPlayer();
+        }
+        else{//Move
+            transform.position = Vector2.MoveTowards(this.transform.position, playerPosition.position, speed * Time.deltaTime);
+            moveAnimation.SetBool("isMoving", true);
+        }
+    }
+
     void MoveTowardsWaypoint()
     {
-        rb2d.velocity = (nextPosition - transform.position).normalized * speed;
+        transform.position = Vector2.MoveTowards(this.transform.position, nextPosition, speed * Time.deltaTime);
+        //rb2d.velocity = (nextPosition - transform.position).normalized * speed;
 		if ((nextPosition - transform.position).magnitude < 0.2f) {
 			waypointIndex += 1;
             if(waypointIndex > waypoints.Count-1){
                 EnemyReachesEnd();
             }
             else{
-                waypointArea = waypoints[waypointIndex].GetComponent<BoxCollider2D>();
-                nextPosition = GetRandomPointInsideCollider(waypointArea);
+                getNextPosition();
             }
 		}
 
         moveAnimation.SetBool("isMoving", true);
         
-        if(rb2d.velocity.x < 0) {
+        if(this.transform.position.x - nextPosition.x > 0) {
             sRenderer.flipX = true;
         }
         else sRenderer.flipX = false;
     }
 
+    void getNextPosition(){
+        waypointArea = waypoints[waypointIndex].GetComponent<BoxCollider2D>();
+        nextPosition = GetRandomPointInsideCollider(waypointArea);
+    }
+
     void EnemyReachesEnd(){
         Destroy(gameObject);
+    }
+
+    //Upon entering the collider, enemies will follow player.
+    void OnTriggerEnter2D(Collider2D otherCollider){
+        if(otherCollider.name == "Player"){
+            playerDetected = true;
+        }
+    }
+
+    //When Player leaves area of agro, enemies go back to their root, searching the nearest waypoint.
+    //It goes to the next waypoint if possible, to guarantee enemy does not go backwards.
+    void OnTriggerExit2D(Collider2D otherCollider){
+        if(otherCollider.name == "Player"){
+            playerDetected = false;
+
+            //Go to the next nearest waypoint
+            float minDist = Mathf.Infinity;
+
+            for (int i = 0; i < waypoints.Count; i++)
+            {
+                float dist = Vector3.Distance(waypoints[i].transform.position, transform.position);
+                if(dist < minDist){
+                    waypointIndex = i;
+                    minDist = dist;
+                }
+                i++;
+            }
+            if(waypointIndex <= waypoints.Count-1) waypointIndex++;
+            getNextPosition();
+        }
     }
 }

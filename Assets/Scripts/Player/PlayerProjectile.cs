@@ -41,14 +41,17 @@ public class PlayerProjectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Convert the object's layer to a bitfield for comparison
-        int objLayerMask = 1 << collision.gameObject.layer;
-
-        if ((enemyLayerMask.value & objLayerMask) > 0) // collided with enemy
+        if (!collision.isTrigger)
         {
-            collision.gameObject.GetComponent<EnemyHealth>().TakeDamage(damage);
-        }
+            // Convert the object's layer to a bitfield for comparison
+            int objLayerMask = 1 << collision.gameObject.layer;
 
-        Destroy(gameObject);
+            if ((enemyLayerMask.value & objLayerMask) > 0) // collided with enemy
+            {
+                collision.gameObject.GetComponent<EnemyHealth>().TakeDamage(damage);
+            }
+
+            Destroy(gameObject);
+        }
     }
 }

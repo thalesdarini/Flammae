@@ -49,9 +49,6 @@ public class PlayerAttack : AttackScript
         spriteRenderer = GetComponent<SpriteRenderer>();
         playerMovement = GetComponent<PlayerMovement>();
         animator = GetComponent<Animator>();
-
-        animator.SetFloat("m_melee", 1 / meleeAttackDuration);
-        animator.SetFloat("m_ranged", 1 / rangedAttackDuration);
     }
 
     // Update is called once per frame
@@ -78,6 +75,9 @@ public class PlayerAttack : AttackScript
                     animator.SetBool("attacking", true);
                     animator.SetTrigger("melee_attack");
 
+                    animator.SetFloat("m_melee", 1 / meleeAttackDuration);
+                    animator.SetFloat("m_ranged", 1 / rangedAttackDuration);
+
                     attackTimePassed = meleeAttackDuration; // begin first attack
                 }
                 else // used to play next attack animation
@@ -96,6 +96,9 @@ public class PlayerAttack : AttackScript
                     isAttacking = true;
                     animator.SetBool("attacking", true);
                     animator.SetTrigger("ranged_attack");
+
+                    animator.SetFloat("m_melee", 1 / meleeAttackDuration);
+                    animator.SetFloat("m_ranged", 1 / rangedAttackDuration);
 
                     attackTimePassed = rangedAttackDuration; // begin first attack
                 }

@@ -9,7 +9,7 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] float soulDropRange;
     [SerializeField] GameObject soulPrefab;
     [SerializeField] float deathTime;
-    [SerializeField] float stunTimer = 0.0f;
+    [SerializeField] float stunTimer;
 
     Animator enemyLifeAnimation;
     EnemyMovement enemyMovement;
@@ -27,6 +27,8 @@ public class EnemyHealth : MonoBehaviour
         enemyLifeAnimation = GetComponent<Animator>();
         enemyMovement = GetComponent<EnemyMovement>();
         isKilled = false;
+        enemyLifeAnimation.SetFloat("dieMult", 1 / deathTime);
+        enemyLifeAnimation.SetFloat("stunMult", 1 / stunTimer);
     }
     
     // Update is called once per frame
@@ -38,17 +40,6 @@ public class EnemyHealth : MonoBehaviour
                 enemyLifeAnimation.SetBool("takeDamage", false);
             }
         }
-        if(isKilled == true){
-            deathTime -= Time.deltaTime;
-            if(deathTime <= 0){
-                Destroy(gameObject);
-            }
-        }
-    }
-
-    void OnDestroy()
-    {
-        CharacterList.enemiesAlive.Remove(gameObject);
     }
 
     //Deducts amout of damage to health - Upon reaching zero, dies
@@ -86,5 +77,7 @@ public class EnemyHealth : MonoBehaviour
         enemyLifeAnimation.SetBool("isMoving", false);
 
         isKilled = true;
+        CharacterList.enemiesAlive.Remove(gameObject);
+        Destroy(gameObject, deathTime);
     }
 }

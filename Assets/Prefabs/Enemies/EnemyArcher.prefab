@@ -106,7 +106,7 @@ MonoBehaviour:
   soulDropRange: 1
   soulPrefab: {fileID: 4136523645166467772, guid: 67724d3d7671d5440af9815d17088495, type: 3}
   deathTime: 2.1
-  stunTimer: 0.4
+  stunTimer: 0.3
 --- !u!114 &8537160375964751672
 MonoBehaviour:
   m_ObjectHideFlags: 0

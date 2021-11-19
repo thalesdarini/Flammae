@@ -4,75 +4,112 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [Header("Enemies")]
-    [SerializeField] GameObject enemyPrefab;
+    [Header("Enemy Prefabs")]
+    [SerializeField] GameObject knightPrefab;
+    [SerializeField] GameObject archerPrefab;
+    [SerializeField] GameObject giantPrefab;
+    [SerializeField] GameObject roguePrefab;
+    [SerializeField] GameObject priestPrefab;
 
-    [Header("Wave Times")]
-    [SerializeField] float firstWaveStartingTime;
-    [SerializeField] float timeBetweenWaves;
+    [SerializeField] List<Wave> waves;
+    [SerializeField] List<GameObject> pathWaypoints;
+    [SerializeField] LaneBehavior walkingLane;
 
-    [Header("Wave Sizes")]
-    [SerializeField] int initialSpawnSize;
-    [SerializeField] int spawnSizeIncrease;
-    [SerializeField] int maximumSpawnSize;
+    List<GameObject> enemiesToSpawn;
+    int waveIndex;
+    float nextSpawnTime;
+    float delayBeforePreparationTimeStart = 5f;
+    bool prepared;
+    bool spawning;
 
-    [Header("Enemy Spawn Cooldown")]
-    [SerializeField] float initialEnemySpawnCooldown;
-    [SerializeField] float enemySpawnCooldownReduction;
-    [SerializeField] float minimumEnemySpawnCooldown;
+    public delegate void WaveStatusUpdateAction();
+    public event WaveStatusUpdateAction PreparationTimeBegin;
+    public event WaveStatusUpdateAction WaveStart;
 
-    [SerializeField] List <GameObject> waypoints;
-
-    float spawnTime;
-    float enemySpawnCooldown;
-    float lastTimeSpawn;
-    float gameTime;
-    int spawnCount;
-    int currSpawnSize;
-
+    // Start is called before the first frame update
     void Start()
     {
-        spawnTime = firstWaveStartingTime;
-        enemySpawnCooldown = initialEnemySpawnCooldown;
-        lastTimeSpawn = firstWaveStartingTime - enemySpawnCooldown;
-        gameTime = 0f;
-        spawnCount = 0;
-        currSpawnSize = initialSpawnSize;
+        enemiesToSpawn = new List<GameObject>();
+        waveIndex = -1;
+        nextSpawnTime = 0f;
+        prepared = false;
+        spawning = false;
     }
 
-    void FixedUpdate()
+    // Update is called once per frame
+    void Update()
     {
-        gameTime += Time.deltaTime;
-
-        if(gameTime > spawnTime && gameTime > lastTimeSpawn + enemySpawnCooldown)
+        if (!prepared && !spawning && CharacterList.enemiesAlive.Count == 0 && waveIndex < waves.Count - 1)
         {
-            GameObject enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity) as GameObject;
-            enemy.GetComponent<EnemyMovement>().Waypoints = waypoints;
-            lastTimeSpawn = gameTime;
-            spawnCount++;
-            if(spawnCount >= currSpawnSize)
-            {
-                spawnCount = 0;
-                spawnTime += timeBetweenWaves;
+            Invoke(nameof(PrepareWave), delayBeforePreparationTimeStart);
+            prepared = true;
+        }
+        if (enemiesToSpawn.Count > 0 && Time.time >= nextSpawnTime)
+        {
+            SendWave();
+        }
+    }
 
-                if (enemySpawnCooldown - enemySpawnCooldownReduction >= minimumEnemySpawnCooldown)
-                {
-                    enemySpawnCooldown -= enemySpawnCooldownReduction;
-                }
-                else
-                {
-                    enemySpawnCooldown = minimumEnemySpawnCooldown;
-                }
+    void PrepareWave()
+    {
+        waveIndex++;
+        nextSpawnTime = Time.time + waves[waveIndex].preparationTimeBeforeWave;
+        PrepareEnemiesToSpawn();
+        //PreparationTimeBegin();
+    }
 
-                if (currSpawnSize + spawnSizeIncrease <= maximumSpawnSize)
-                {
-                    currSpawnSize += spawnSizeIncrease;
-                }
-                else
-                {
-                    currSpawnSize = maximumSpawnSize;
-                }
-            }
+    void SendWave()
+    {
+        if (!spawning)
+        {
+            //WaveStart();
+            spawning = true;
+        }
+
+        SpawnEnemy();
+        nextSpawnTime = Time.time + waves[waveIndex].enemySpawnCooldown;
+
+        if (enemiesToSpawn.Count == 0)
+        {
+            spawning = false;
+            prepared = false;
+        }
+    }
+
+    void PrepareEnemiesToSpawn()
+    {
+        PutEnemyPrefabAmmountOnListOfEnemiesToSpawn(knightPrefab, waves[waveIndex].numberOfKnights);
+        PutEnemyPrefabAmmountOnListOfEnemiesToSpawn(archerPrefab, waves[waveIndex].numberOfArchers);
+        PutEnemyPrefabAmmountOnListOfEnemiesToSpawn(giantPrefab, waves[waveIndex].numberOfGiants);
+        PutEnemyPrefabAmmountOnListOfEnemiesToSpawn(roguePrefab, waves[waveIndex].numberOfRogues);
+        PutEnemyPrefabAmmountOnListOfEnemiesToSpawn(priestPrefab, waves[waveIndex].numberOfPriests);
+        ShuffleList(enemiesToSpawn);
+    }
+
+    void SpawnEnemy()
+    {
+        GameObject enemy = Instantiate(enemiesToSpawn[0], transform.position, Quaternion.identity);
+        enemy.GetComponent<EnemyMovement>().Waypoints = pathWaypoints;
+        enemy.GetComponent<EnemyMovement>().LaneBehavior = walkingLane;
+        enemiesToSpawn.RemoveAt(0);
+    }
+
+    void PutEnemyPrefabAmmountOnListOfEnemiesToSpawn(GameObject enemyPrefab, int ammount)
+    {
+        for (int i = 0; i < ammount; i++)
+        {
+            enemiesToSpawn.Add(enemyPrefab);
+        }
+    }
+
+    void ShuffleList(List<GameObject> list)
+    {
+        for (int i = 0; i < list.Count; i++)
+        {
+            GameObject temp = list[i];
+            int randomIndex = Random.Range(i, list.Count);
+            list[i] = list[randomIndex];
+            list[randomIndex] = temp;
         }
     }
 }

@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyLife : MonoBehaviour
+public class EnemyHealth : MonoBehaviour
 {
-
     [SerializeField] float health;
     [SerializeField] int soulDrop;
     [SerializeField] float soulDropRange;
@@ -17,23 +16,26 @@ public class EnemyLife : MonoBehaviour
     float maxSpeed;
     bool isKilled;
 
-    //On Start - Create gameObject
     void Awake()
     {
         CharacterList.enemiesAlive.Add(gameObject);
     }
 
-    void Start(){
+    // Start is called before the first frame update
+    void Start()
+    {
         enemyLifeAnimation = GetComponent<Animator>();
         enemyMovement = GetComponent<EnemyMovement>();
         isKilled = false;
     }
 
-    void Update(){
+    // Update is called once per frame
+    void Update()
+    {
         if(isKilled == false && stunTimer > 0){
             stunTimer -= Time.deltaTime;
             if(stunTimer <= 0){
-                enemyMovement.speed = maxSpeed;
+                enemyMovement.Speed = maxSpeed;
             }
         }
         if(isKilled == true){
@@ -44,7 +46,6 @@ public class EnemyLife : MonoBehaviour
         }
     }
 
-    //On Destroy - Remove gameObject
     void OnDestroy()
     {
         CharacterList.enemiesAlive.Remove(gameObject);
@@ -54,17 +55,19 @@ public class EnemyLife : MonoBehaviour
     //Damage animation is played
     public void TakeDamage(float amountOfDamage)
     {
-
         if(isKilled == false){
             health -= amountOfDamage;
-            maxSpeed = enemyMovement.speed;
-            enemyMovement.speed = 0.01f;
+            maxSpeed = enemyMovement.Speed;
+            enemyMovement.Speed = 0.01f;
             stunTimer = 0.4f;
 
-            enemyLifeAnimation.SetTrigger("takeDamage");
             if (health <= 0)
             {
                 Die();
+            }
+            else
+            {
+                enemyLifeAnimation.SetTrigger("takeDamage");
             }
         }
     }

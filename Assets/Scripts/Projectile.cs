@@ -49,11 +49,11 @@ public class Projectile : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D objectThatEntered)
     {
-        if (objectThatEntered.gameObject == target && !shotHit)
+        if (!objectThatEntered.isTrigger && objectThatEntered.gameObject == target && !shotHit)
         {
             shotHit = true;
             animatorReference.SetTrigger("Hit");
-            objectThatEntered.GetComponent<EnemyLife>().TakeDamage(damage);
+            objectThatEntered.GetComponent<EnemyHealth>().TakeDamage(damage);
             CommandDestruction();
         }
     }

@@ -4,25 +4,24 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
+    [SerializeField] float speed;
 
-    public List<GameObject> Waypoints { set => waypoints = value; }
-
-    [SerializeField] public float speed;
+    int waypointIndex;
+    List<GameObject> waypoints;
+    LaneBehavior laneBehavior;
+    BoxCollider2D waypointArea;
+    Vector3 nextPosition;
 
     Rigidbody2D rb2d;
     Animator moveAnimation;
     SpriteRenderer sRenderer;
+    EnemyAttack enemyAttack;
 
-    List<GameObject> waypoints;
-    int waypointIndex;
+    List<Transform> currentTargets;
 
-    BoxCollider2D waypointArea;
-    Vector3 nextPosition;
-
-    public List<Transform> currentTargets;
-
-    LaneBehavior laneBehavior;
-    SwordmanAttack swordmanAttack;
+    public float Speed { get => speed; set => speed = value; }
+    public List<GameObject> Waypoints { set => waypoints = value; }
+    public LaneBehavior LaneBehavior { get => laneBehavior; set => laneBehavior = value; }
 
     // Start is called before the first frame update
     void Start()
@@ -34,11 +33,12 @@ public class EnemyMovement : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         moveAnimation = GetComponent<Animator>();
         sRenderer = GetComponent<SpriteRenderer>();
-        laneBehavior = FindObjectOfType<LaneBehavior>();
-        swordmanAttack = FindObjectOfType<SwordmanAttack>();
+        enemyAttack = GetComponent<EnemyAttack>();
+
         currentTargets = new List<Transform>();
     }
 
+    // Update is called once per frame
     void Update()
     {
         CheckNextMovement();
@@ -46,18 +46,22 @@ public class EnemyMovement : MonoBehaviour
 
     //Verifica se há um player a ser atacado.
     //Senão vai até o próximo waypoint.
-    void CheckNextMovement(){
-        
-        if(swordmanAttack.IsAttacking == false){
+    void CheckNextMovement()
+    {
+        if(enemyAttack.IsAttacking == false){
             if(currentTargets.Count != 0){
                 foreach(Transform target in currentTargets){
-                    if(laneBehavior.FoesInLane.Contains(target.gameObject)){
-                        MoveTowardsFoe(target);
+                    if (enemyAttack.CanAttack(target)){
+                        enemyAttack.Attack(target.gameObject);
+                        return;
                     }
-                    else MoveTowardsWaypoint();
+                    else if (laneBehavior.FoesInLane.Contains(target.gameObject)){
+                        MoveTowardsFoe(target);
+                        return;
+                    }
                 }
             }
-            else MoveTowardsWaypoint();
+            MoveTowardsWaypoint();
         }
     }
 
@@ -74,32 +78,26 @@ public class EnemyMovement : MonoBehaviour
         return boxCollider.transform.TransformPoint( point );
     }
 
-    void MoveTowardsFoe(Transform target){
-
+    void MoveTowardsFoe(Transform target)
+    {
         currentTargets.RemoveAll(item => item == null);
 
+        rb2d.velocity = (target.position - transform.position).normalized * speed;
+        moveAnimation.SetBool("isMoving", true);
+
         //Flip sprite if player is on the left side.
-        if(this.transform.position.x - target.position.x > 0) {
+        if (target.position.x - transform.position.x < 0) {
             sRenderer.flipX = true;
         }
-
         else sRenderer.flipX = false;
-
-        //Function on Swordman can attack
-        if(swordmanAttack.CanAttack(target)){    //Ataca
-            swordmanAttack.AttackPlayer(target.gameObject);
-        }
-        else{
-            transform.position = Vector2.MoveTowards(this.transform.position,target.position, speed * Time.deltaTime);
-            moveAnimation.SetBool("isMoving", true);
-
-        }
     }
 
     void MoveTowardsWaypoint()
     {
-        transform.position = Vector2.MoveTowards(this.transform.position, nextPosition, speed * Time.deltaTime);
-		if ((nextPosition - transform.position).magnitude < 0.2f) {
+        rb2d.velocity = (nextPosition - transform.position).normalized * speed;
+        moveAnimation.SetBool("isMoving", true);
+
+        if ((nextPosition - transform.position).magnitude < 0.2f) {
 			waypointIndex += 1;
             if(waypointIndex > waypoints.Count-1){
                 EnemyReachesEnd();
@@ -109,26 +107,26 @@ public class EnemyMovement : MonoBehaviour
             }
 		}
 
-        moveAnimation.SetBool("isMoving", true);
-        
-        if(this.transform.position.x - nextPosition.x > 0) {
+        if (nextPosition.x - transform.position.x < 0) {
             sRenderer.flipX = true;
         }
         else sRenderer.flipX = false;
     }
 
-    void getNextPosition(){
+    void EnemyReachesEnd()
+    {
+        Destroy(gameObject);
+    }
+
+    void getNextPosition()
+    {
         waypointArea = waypoints[waypointIndex].GetComponent<BoxCollider2D>();
         nextPosition = GetRandomPointInsideCollider(waypointArea);
     }
 
-    void EnemyReachesEnd(){
-        Destroy(gameObject);
-    }
-
     //Upon entering the collider, enemies will follow player.
-    void OnTriggerEnter2D(Collider2D otherCollider){
-
+    void OnTriggerEnter2D(Collider2D otherCollider)
+    {
         if(otherCollider.tag == "Player" || otherCollider.tag == "Infernais"){
             currentTargets.Add(otherCollider.transform);
         }
@@ -136,7 +134,8 @@ public class EnemyMovement : MonoBehaviour
 
     //When Player leaves area of agro, enemies go back to their root, searching the nearest waypoint.
     //It goes to the next waypoint if possible, to guarantee enemy does not go backwards.
-    void OnTriggerExit2D(Collider2D otherCollider){
+    void OnTriggerExit2D(Collider2D otherCollider)
+    {
         if(otherCollider.tag == "Player" || otherCollider.tag == "Infernais"){
             currentTargets.Remove(otherCollider.transform);
 

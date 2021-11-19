@@ -108,7 +108,7 @@ public class PlayerAttack : AttackScript
         {
             if (cd != null)
             {
-                cd.gameObject.GetComponent<EnemyLife>().TakeDamage(damage);
+                cd.gameObject.GetComponent<EnemyHealth>().TakeDamage(damage);
             }
         }
     }

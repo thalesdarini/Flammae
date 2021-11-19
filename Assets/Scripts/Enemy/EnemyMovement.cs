@@ -4,26 +4,26 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
+    [SerializeField] float defaultSpeed;
 
-    public List<GameObject> Waypoints { set => waypoints = value; }
-    //public List<Transform> CurrentTargets { get => currentTargets; }
-
-    [SerializeField] public float speed;
+    int waypointIndex;
+    List<GameObject> waypoints;
+    LaneBehavior laneBehavior;
+    BoxCollider2D waypointArea;
+    Vector3 nextPosition;
 
     Rigidbody2D rb2d;
     Animator moveAnimation;
     SpriteRenderer sRenderer;
+    EnemyAttack enemyAttack;
 
-    public List<Transform> currentTargets;
-    List<GameObject> waypoints;
-    int waypointIndex;
+    List<Transform> currentTargets;
+    float speed;
 
-    BoxCollider2D waypointArea;
-    Vector3 nextPosition;
-
-    LaneBehavior laneBehavior;
-    SwordmanAttack swordmanAttack;
-    ArcherAttack archerAttack;
+    public float DefaultSpeed { get => defaultSpeed; }
+    public float Speed { set => speed = value; }
+    public List<GameObject> Waypoints { set => waypoints = value; }
+    public LaneBehavior LaneBehavior { get => laneBehavior; set => laneBehavior = value; }
 
     // Start is called before the first frame update
     void Start()
@@ -35,44 +35,36 @@ public class EnemyMovement : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         moveAnimation = GetComponent<Animator>();
         sRenderer = GetComponent<SpriteRenderer>();
-        laneBehavior = FindObjectOfType<LaneBehavior>();
-        swordmanAttack = FindObjectOfType<SwordmanAttack>();
-        archerAttack = FindObjectOfType<ArcherAttack>();
+        enemyAttack = GetComponent<EnemyAttack>();
+
         currentTargets = new List<Transform>();
+        speed = defaultSpeed;
     }
 
+    // Update is called once per frame
     void Update()
     {
         CheckNextMovement();
     }
 
-    bool checkIfAttacking(){
-        switch(this.name){
-            case "EnemySwordman(Clone)":
-                return swordmanAttack.IsAttacking;
-            
-            case "EnemyArcher(Clone)":
-                return archerAttack.IsAttacking;
-        }
-
-        return true;
-    }
-
     //Verifica se há um player a ser atacado.
     //Senão vai até o próximo waypoint.
-    void CheckNextMovement(){
-        
-        //Lógica de movimentação
-        if(!checkIfAttacking()){      //Se estiver atacando, não se move;
-            if(currentTargets.Count != 0){  //Se não tiver alvos, move para o próximo waypoint
-                foreach(Transform target in currentTargets){    //Checa se os alvos estão na lane, se não estiverem, move para o próximo waypoint.
-                    if(laneBehavior.FoesInLane.Contains(target.gameObject)){
-                        MoveTowardsFoe(target);
+    void CheckNextMovement()
+    {
+        if(enemyAttack.IsAttacking == false){
+            if(currentTargets.Count != 0){
+                foreach(Transform target in currentTargets){
+                    if (enemyAttack.CanAttack(target)){
+                        enemyAttack.Attack(target.gameObject);
+                        return;
                     }
-                    else MoveTowardsWaypoint();
+                    else if (laneBehavior.FoesInLane.Contains(target.gameObject)){
+                        MoveTowardsFoe(target);
+                        return;
+                    }
                 }
             }
-            else MoveTowardsWaypoint();
+            MoveTowardsWaypoint();
         }
     }
 
@@ -89,34 +81,18 @@ public class EnemyMovement : MonoBehaviour
         return boxCollider.transform.TransformPoint( point );
     }
 
-    void MoveTowardsFoe(Transform target){
-
+    void MoveTowardsFoe(Transform target)
+    {
         currentTargets.RemoveAll(item => item == null);
 
+        rb2d.velocity = (target.position - transform.position).normalized * speed;
+        moveAnimation.SetBool("isMoving", true);
+
         //Flip sprite if player is on the left side.
-        if(this.transform.position.x - target.position.x > 0) {
+        if (target.position.x - transform.position.x < 0) {
             sRenderer.flipX = true;
         }
-
         else sRenderer.flipX = false;
-
-        switch(this.name){
-            case "EnemySwordman(Clone)":
-                //Function on SwordmanAttack
-                if(swordmanAttack.CanAttack(target)){    //Ataca
-                    swordmanAttack.AttackFoe(target.gameObject);
-                }
-                else Move(target.position);
-                break;
-            
-            case "EnemyArcher(Clone)":
-                //Function on ArcherAttack
-                if(archerAttack.CanAttack(target)){    //Ataca
-                    archerAttack.AttackFoe(target.gameObject);
-                }
-                else Move(target.position);
-                break;
-        }
     }
 
     void MoveTowardsWaypoint()
@@ -131,8 +107,8 @@ public class EnemyMovement : MonoBehaviour
                 getNextPosition();
             }
 		}
-        
-        if(this.transform.position.x - nextPosition.x > 0) {
+
+        if (nextPosition.x - transform.position.x < 0) {
             sRenderer.flipX = true;
         }
         else sRenderer.flipX = false;
@@ -140,7 +116,7 @@ public class EnemyMovement : MonoBehaviour
 
     //Makes object moves towards a target.
     void Move(Vector3 target){
-        transform.position = Vector2.MoveTowards(this.transform.position, target, speed * Time.deltaTime);
+        rb2d.velocity = (target - transform.position).normalized * speed;
         moveAnimation.SetBool("isMoving", true);
     }
 
@@ -149,13 +125,11 @@ public class EnemyMovement : MonoBehaviour
         nextPosition = GetRandomPointInsideCollider(waypointArea);
     }
 
-    void EnemyReachesEnd(){
-        Destroy(gameObject);
-    }
+    void EnemyReachesEnd() Destroy(gameObject);
 
     //Upon entering the collider, enemies will follow player.
-    void OnTriggerEnter2D(Collider2D otherCollider){
-
+    void OnTriggerEnter2D(Collider2D otherCollider)
+    {
         if(otherCollider.tag == "Player" || otherCollider.tag == "Infernais"){
             currentTargets.Add(otherCollider.transform);
         }
@@ -163,7 +137,8 @@ public class EnemyMovement : MonoBehaviour
 
     //When Player leaves area of agro, enemies go back to their root, searching the nearest waypoint.
     //It goes to the next waypoint if possible, to guarantee enemy does not go backwards.
-    void OnTriggerExit2D(Collider2D otherCollider){
+    void OnTriggerExit2D(Collider2D otherCollider)
+    {
         if(otherCollider.tag == "Player" || otherCollider.tag == "Infernais"){
             currentTargets.Remove(otherCollider.transform);
 

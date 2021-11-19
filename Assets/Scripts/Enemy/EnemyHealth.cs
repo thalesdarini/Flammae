@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyLife : MonoBehaviour
+public class EnemyHealth : MonoBehaviour
 {
-
     [SerializeField] float health;
     [SerializeField] int soulDrop;
     [SerializeField] float soulDropRange;
@@ -15,26 +14,29 @@ public class EnemyLife : MonoBehaviour
     Animator enemyLifeAnimation;
     EnemyMovement enemyMovement;
     float stunTimeRemaining = 0.0f;
-    float maxSpeed;
+    float stunTimer = 0.0f;
+    float deathTime = 1.0f;
     bool isKilled;
 
-    //On Start - Create gameObject
     void Awake()
     {
         CharacterList.enemiesAlive.Add(gameObject);
     }
 
-    void Start(){
+    // Start is called before the first frame update
+    void Start()
+    {
         enemyLifeAnimation = GetComponent<Animator>();
         enemyMovement = GetComponent<EnemyMovement>();
         isKilled = false;
     }
-
+    
+    // Update is called once per frame
     void Update(){
         if(isKilled == false && stunTimeRemaining > 0){
             stunTimeRemaining -= Time.deltaTime;
             if(stunTimeRemaining <= 0){
-                enemyMovement.speed = maxSpeed;
+                enemyMovement.Speed = enemyMovement.DefaultSpeed;
                 enemyLifeAnimation.SetBool("takeDamage", false);
             }
         }
@@ -46,7 +48,6 @@ public class EnemyLife : MonoBehaviour
         }
     }
 
-    //On Destroy - Remove gameObject
     void OnDestroy()
     {
         CharacterList.enemiesAlive.Remove(gameObject);
@@ -58,7 +59,6 @@ public class EnemyLife : MonoBehaviour
     {
         if(isKilled == false){
             health -= amountOfDamage;
-            maxSpeed = enemyMovement.speed;
             enemyMovement.speed = 0.01f;
             stunTimeRemaining = stunTimer;
 
@@ -66,6 +66,10 @@ public class EnemyLife : MonoBehaviour
             if (health <= 0)
             {
                 Die();
+            }
+            else
+            {
+                enemyLifeAnimation.SetTrigger("takeDamage");
             }
         }
     }

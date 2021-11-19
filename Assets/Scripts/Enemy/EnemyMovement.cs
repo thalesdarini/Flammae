@@ -6,6 +6,7 @@ public class EnemyMovement : MonoBehaviour
 {
 
     public List<GameObject> Waypoints { set => waypoints = value; }
+    //public List<Transform> CurrentTargets { get => currentTargets; }
 
     [SerializeField] public float speed;
 
@@ -13,16 +14,16 @@ public class EnemyMovement : MonoBehaviour
     Animator moveAnimation;
     SpriteRenderer sRenderer;
 
+    public List<Transform> currentTargets;
     List<GameObject> waypoints;
     int waypointIndex;
 
     BoxCollider2D waypointArea;
     Vector3 nextPosition;
 
-    public List<Transform> currentTargets;
-
     LaneBehavior laneBehavior;
     SwordmanAttack swordmanAttack;
+    ArcherAttack archerAttack;
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +37,7 @@ public class EnemyMovement : MonoBehaviour
         sRenderer = GetComponent<SpriteRenderer>();
         laneBehavior = FindObjectOfType<LaneBehavior>();
         swordmanAttack = FindObjectOfType<SwordmanAttack>();
+        archerAttack = FindObjectOfType<ArcherAttack>();
         currentTargets = new List<Transform>();
     }
 
@@ -44,13 +46,26 @@ public class EnemyMovement : MonoBehaviour
         CheckNextMovement();
     }
 
+    bool checkIfAttacking(){
+        switch(this.name){
+            case "EnemySwordman(Clone)":
+                return swordmanAttack.IsAttacking;
+            
+            case "EnemyArcher(Clone)":
+                return archerAttack.IsAttacking;
+        }
+
+        return true;
+    }
+
     //Verifica se há um player a ser atacado.
     //Senão vai até o próximo waypoint.
     void CheckNextMovement(){
         
-        if(swordmanAttack.IsAttacking == false){
-            if(currentTargets.Count != 0){
-                foreach(Transform target in currentTargets){
+        //Lógica de movimentação
+        if(!checkIfAttacking()){      //Se estiver atacando, não se move;
+            if(currentTargets.Count != 0){  //Se não tiver alvos, move para o próximo waypoint
+                foreach(Transform target in currentTargets){    //Checa se os alvos estão na lane, se não estiverem, move para o próximo waypoint.
                     if(laneBehavior.FoesInLane.Contains(target.gameObject)){
                         MoveTowardsFoe(target);
                     }
@@ -85,20 +100,28 @@ public class EnemyMovement : MonoBehaviour
 
         else sRenderer.flipX = false;
 
-        //Function on Swordman can attack
-        if(swordmanAttack.CanAttack(target)){    //Ataca
-            swordmanAttack.AttackPlayer(target.gameObject);
-        }
-        else{
-            transform.position = Vector2.MoveTowards(this.transform.position,target.position, speed * Time.deltaTime);
-            moveAnimation.SetBool("isMoving", true);
-
+        switch(this.name){
+            case "EnemySwordman(Clone)":
+                //Function on SwordmanAttack
+                if(swordmanAttack.CanAttack(target)){    //Ataca
+                    swordmanAttack.AttackFoe(target.gameObject);
+                }
+                else Move(target.position);
+                break;
+            
+            case "EnemyArcher(Clone)":
+                //Function on ArcherAttack
+                if(archerAttack.CanAttack(target)){    //Ataca
+                    archerAttack.AttackFoe(target.gameObject);
+                }
+                else Move(target.position);
+                break;
         }
     }
 
     void MoveTowardsWaypoint()
     {
-        transform.position = Vector2.MoveTowards(this.transform.position, nextPosition, speed * Time.deltaTime);
+        Move(nextPosition);
 		if ((nextPosition - transform.position).magnitude < 0.2f) {
 			waypointIndex += 1;
             if(waypointIndex > waypoints.Count-1){
@@ -108,13 +131,17 @@ public class EnemyMovement : MonoBehaviour
                 getNextPosition();
             }
 		}
-
-        moveAnimation.SetBool("isMoving", true);
         
         if(this.transform.position.x - nextPosition.x > 0) {
             sRenderer.flipX = true;
         }
         else sRenderer.flipX = false;
+    }
+
+    //Makes object moves towards a target.
+    void Move(Vector3 target){
+        transform.position = Vector2.MoveTowards(this.transform.position, target, speed * Time.deltaTime);
+        moveAnimation.SetBool("isMoving", true);
     }
 
     void getNextPosition(){

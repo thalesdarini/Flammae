@@ -9,11 +9,12 @@ public class EnemyLife : MonoBehaviour
     [SerializeField] int soulDrop;
     [SerializeField] float soulDropRange;
     [SerializeField] GameObject soulPrefab;
+    [SerializeField] float deathTime;
+    [SerializeField] float stunTimer = 0.0f;
 
     Animator enemyLifeAnimation;
     EnemyMovement enemyMovement;
-    float stunTimer = 0.0f;
-    float deathTime = 1.0f;
+    float stunTimeRemaining = 0.0f;
     float maxSpeed;
     bool isKilled;
 
@@ -30,10 +31,11 @@ public class EnemyLife : MonoBehaviour
     }
 
     void Update(){
-        if(isKilled == false && stunTimer > 0){
-            stunTimer -= Time.deltaTime;
-            if(stunTimer <= 0){
+        if(isKilled == false && stunTimeRemaining > 0){
+            stunTimeRemaining -= Time.deltaTime;
+            if(stunTimeRemaining <= 0){
                 enemyMovement.speed = maxSpeed;
+                enemyLifeAnimation.SetBool("takeDamage", false);
             }
         }
         if(isKilled == true){
@@ -54,14 +56,13 @@ public class EnemyLife : MonoBehaviour
     //Damage animation is played
     public void TakeDamage(float amountOfDamage)
     {
-
         if(isKilled == false){
             health -= amountOfDamage;
             maxSpeed = enemyMovement.speed;
             enemyMovement.speed = 0.01f;
-            stunTimer = 0.4f;
+            stunTimeRemaining = stunTimer;
 
-            enemyLifeAnimation.SetTrigger("takeDamage");
+            enemyLifeAnimation.SetBool("takeDamage", true);
             if (health <= 0)
             {
                 Die();
@@ -79,6 +80,9 @@ public class EnemyLife : MonoBehaviour
             Instantiate(soulPrefab, transform.position + randomDisplacement, Quaternion.Euler(0, 0, 0));
         }
         enemyLifeAnimation.SetTrigger("dies");
+        enemyLifeAnimation.SetBool("takeDamage", false);
+        enemyLifeAnimation.SetBool("isMoving", false);
+
         isKilled = true;
     }
 }

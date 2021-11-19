@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwordmanAttack : MonoBehaviour
+public class ArcherAttack : MonoBehaviour
 {
-    public bool IsAttacking { get => isAttacking; }
+public bool IsAttacking { get => isAttacking; }
 
     Animator attackAnimation;
 
@@ -36,7 +36,6 @@ public class SwordmanAttack : MonoBehaviour
     }
 
     public bool CanAttack(Transform target){
-        //Can only attack if distance is short and cooldown is up
 
         if(Vector2.Distance(this.transform.position, target.position) < attackRange 
             && attackCooldownRemaining <= 0.0f 

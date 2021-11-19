@@ -13,7 +13,6 @@ public class EnemyHealth : MonoBehaviour
     EnemyMovement enemyMovement;
     float stunTimer = 0.0f;
     float deathTime = 1.0f;
-    float maxSpeed;
     bool isKilled;
 
     void Awake()
@@ -35,7 +34,7 @@ public class EnemyHealth : MonoBehaviour
         if(isKilled == false && stunTimer > 0){
             stunTimer -= Time.deltaTime;
             if(stunTimer <= 0){
-                enemyMovement.Speed = maxSpeed;
+                enemyMovement.Speed = enemyMovement.DefaultSpeed;
             }
         }
         if(isKilled == true){
@@ -57,7 +56,6 @@ public class EnemyHealth : MonoBehaviour
     {
         if(isKilled == false){
             health -= amountOfDamage;
-            maxSpeed = enemyMovement.Speed;
             enemyMovement.Speed = 0.01f;
             stunTimer = 0.4f;
 

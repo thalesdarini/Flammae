@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    [SerializeField] float speed;
+    [SerializeField] float defaultSpeed;
 
     int waypointIndex;
     List<GameObject> waypoints;
@@ -18,8 +18,10 @@ public class EnemyMovement : MonoBehaviour
     EnemyAttack enemyAttack;
 
     List<Transform> currentTargets;
+    float speed;
 
-    public float Speed { get => speed; set => speed = value; }
+    public float DefaultSpeed { get => defaultSpeed; }
+    public float Speed { set => speed = value; }
     public List<GameObject> Waypoints { set => waypoints = value; }
     public LaneBehavior LaneBehavior { get => laneBehavior; set => laneBehavior = value; }
 
@@ -36,6 +38,7 @@ public class EnemyMovement : MonoBehaviour
         enemyAttack = GetComponent<EnemyAttack>();
 
         currentTargets = new List<Transform>();
+        speed = defaultSpeed;
     }
 
     // Update is called once per frame

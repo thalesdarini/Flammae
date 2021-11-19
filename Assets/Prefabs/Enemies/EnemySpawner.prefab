@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   knightPrefab: {fileID: 4931511481406329025, guid: 335d9d72f2376914baf030e02f1c777c, type: 3}
-  archerPrefab: {fileID: 0}
+  archerPrefab: {fileID: 5730649778783155622, guid: 1c472dad0b6815748ade31554d03044d, type: 3}
   giantPrefab: {fileID: 0}
   roguePrefab: {fileID: 0}
   priestPrefab: {fileID: 0}

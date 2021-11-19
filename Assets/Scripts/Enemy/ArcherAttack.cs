@@ -2,20 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArcherAttack : MonoBehaviour
+public class ArcherAttack : EnemyAttack
 {
-public bool IsAttacking { get => isAttacking; }
+    [SerializeField] float attackCooldown;
+    [SerializeField] float attackRange;
 
+    Rigidbody2D rb2d;
     Animator attackAnimation;
-
-    [SerializeField]
-    float attackCooldown;
-
-    [SerializeField]
-    float attackRange;
     
+    EnemyMovement enemyMovement;
     float attackCooldownRemaining;
-    bool isAttacking;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +20,8 @@ public bool IsAttacking { get => isAttacking; }
         isAttacking = false;
         attackCooldownRemaining = 0.0f;
         attackAnimation = GetComponent<Animator>();
+        enemyMovement = GetComponent<EnemyMovement>();
+        rb2d = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -35,7 +34,7 @@ public bool IsAttacking { get => isAttacking; }
         }
     }
 
-    public bool CanAttack(Transform target){
+    public override bool CanAttack(Transform target){
 
         if(Vector2.Distance(this.transform.position, target.position) < attackRange 
             && attackCooldownRemaining <= 0.0f 
@@ -44,14 +43,13 @@ public bool IsAttacking { get => isAttacking; }
         return false;
     }
 
-    public void AttackFoe(GameObject target){
+    public override void Attack(GameObject target){
         //Activates Cooldown and set enemy as isAttacking
+        rb2d.velocity = Vector2.zero;
         attackCooldownRemaining += attackCooldown;
         isAttacking = true;
 
         attackAnimation.SetBool("isMoving", false);
         attackAnimation.SetTrigger("attack");
-
-        
     }
 }

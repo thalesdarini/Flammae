@@ -14,8 +14,6 @@ public class EnemyHealth : MonoBehaviour
     Animator enemyLifeAnimation;
     EnemyMovement enemyMovement;
     float stunTimeRemaining = 0.0f;
-    float stunTimer = 0.0f;
-    float deathTime = 1.0f;
     bool isKilled;
 
     void Awake()
@@ -59,7 +57,7 @@ public class EnemyHealth : MonoBehaviour
     {
         if(isKilled == false){
             health -= amountOfDamage;
-            enemyMovement.speed = 0.01f;
+            enemyMovement.Speed = 0.01f;
             stunTimeRemaining = stunTimer;
 
             enemyLifeAnimation.SetBool("takeDamage", true);

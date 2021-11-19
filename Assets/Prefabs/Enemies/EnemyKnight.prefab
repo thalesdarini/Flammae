@@ -72,19 +72,15 @@ GameObject:
   m_Component:
   - component: {fileID: 4931511481406329031}
   - component: {fileID: 4931511481406329024}
-  - component: {fileID: 2516104742576763604}
   - component: {fileID: -2310845945806312755}
+  - component: {fileID: 2516104742576763604}
   - component: {fileID: 6777081493577970781}
   - component: {fileID: 4607792815912948150}
   - component: {fileID: 2575742730416558109}
   - component: {fileID: 5883857734086217733}
   - component: {fileID: -156027904972744630}
   m_Layer: 6
-<<<<<<< HEAD:Assets/Prefabs/Enemies/EnemySwordman.prefab
-  m_Name: EnemySwordman
-=======
-  m_Name: Knight
->>>>>>> 0d72a80428255203dca9e8341ed9b3df609c92c6:Assets/Prefabs/Enemies/Knight.prefab
+  m_Name: EnemyKnight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -156,30 +152,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
---- !u!114 &2516104742576763604
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4931511481406329025}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11e427b93e527b14ab69123650c01fd7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-<<<<<<< HEAD:Assets/Prefabs/Enemies/EnemySwordman.prefab
-  health: 20
-  soulDrop: 2
-  soulDropRange: 1
-  soulPrefab: {fileID: 4136523645166467772, guid: 67724d3d7671d5440af9815d17088495, type: 3}
-  deathTime: 1.2
-  stunTimer: 0.4
 --- !u!114 &-2310845945806312755
-=======
-  defaultSpeed: 2.2
---- !u!114 &2516104742576763604
->>>>>>> 0d72a80428255203dca9e8341ed9b3df609c92c6:Assets/Prefabs/Enemies/Knight.prefab
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -188,18 +161,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 4931511481406329025}
   m_Enabled: 1
   m_EditorHideFlags: 0
-<<<<<<< HEAD:Assets/Prefabs/Enemies/EnemySwordman.prefab
   m_Script: {fileID: 11500000, guid: c6cdbb09b64e28b4790cd1d908646800, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2.2
-  currentTargets: []
-=======
+  defaultSpeed: 2.2
+--- !u!114 &2516104742576763604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4931511481406329025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6d0caca428e9e2348badc42bf2170ce9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attackCooldown: 2
->>>>>>> 0d72a80428255203dca9e8341ed9b3df609c92c6:Assets/Prefabs/Enemies/Knight.prefab
+  attackRange: 1.2
 --- !u!114 &6777081493577970781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,15 +191,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd9e79dd98e12bf48b2d42de0bc2af06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD:Assets/Prefabs/Enemies/EnemySwordman.prefab
-  attackCooldown: 2.5
-  attackRange: 1.2
-=======
   health: 20
   soulDrop: 2
   soulDropRange: 1
   soulPrefab: {fileID: 4136523645166467772, guid: 67724d3d7671d5440af9815d17088495, type: 3}
->>>>>>> 0d72a80428255203dca9e8341ed9b3df609c92c6:Assets/Prefabs/Enemies/Knight.prefab
+  deathTime: 1.8
+  stunTimer: 0.4
 --- !u!50 &4607792815912948150
 Rigidbody2D:
   serializedVersion: 4

@@ -125,7 +125,9 @@ public class EnemyMovement : MonoBehaviour
         nextPosition = GetRandomPointInsideCollider(waypointArea);
     }
 
-    void EnemyReachesEnd() Destroy(gameObject);
+    void EnemyReachesEnd(){
+        Destroy(gameObject);
+    }
 
     //Upon entering the collider, enemies will follow player.
     void OnTriggerEnter2D(Collider2D otherCollider)

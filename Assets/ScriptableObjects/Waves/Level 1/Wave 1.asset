@@ -15,7 +15,7 @@ MonoBehaviour:
   preparationTimeBeforeWave: 5
   enemySpawnCooldown: 1
   numberOfKnights: 10
-  numberOfArchers: 0
+  numberOfArchers: 10
   numberOfGiants: 0
   numberOfRogues: 0
   numberOfPriests: 0

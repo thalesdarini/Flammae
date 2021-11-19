@@ -87,9 +87,13 @@ public class PlayerMovement : MovementScript
     private void FlipSprite()
     {
         if (moveDirection.x > 0)
-            spriteRenderer.flipX = false;
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
         else if (moveDirection.x < 0)
-            spriteRenderer.flipX = true;
+        {
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
     }
 
     IEnumerator StartDash()

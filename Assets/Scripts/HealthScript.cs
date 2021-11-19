@@ -33,5 +33,5 @@ abstract public class HealthScript : MonoBehaviour
         }
     }
 
-    public abstract void TakeDamage(float amountOfDamage);
+    abstract public void TakeDamage(float amountOfDamage);
 }

@@ -97,6 +97,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1230278872159663772}
+  - {fileID: 448111686094987348}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -245,10 +246,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b37e5c52443de314781651a7cde3b853, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultDamage: 4
-  sword: {fileID: 1230278872159663773}
-  attackTimeInputTolerance: 0.25
-  attackDuration: 0.4
+  defaultMeleeDamage: 4
+  defaultRangedDamage: 6
   enemyFilter:
     useTriggers: 0
     useLayerMask: 1
@@ -263,7 +262,16 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
+  sword: {fileID: 1230278872159663773}
+  meleeTimeInputTolerance: 0.25
+  meleeAttackDuration: 0.4
   meleeMaxEnemiesHit: 5
+  projectilePrefab: {fileID: 521996329597514647, guid: 6641e7e64ea175c4fabe8e59bdf51c25, type: 3}
+  projectilePlace: {fileID: 3317056039287578180}
+  rangedTimeInputTolerance: 0.25
+  rangedAttackDuration: 0.8
+  projectileSpeed: 4
+  projectileTravelDistance: 5
 --- !u!114 &5998035931535173570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -292,3 +300,33 @@ MonoBehaviour:
   defaultMaxHealth: 20
   respawnPosition: {fileID: 0}
   respawnTime: 5
+--- !u!1 &3317056039287578180
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 448111686094987348}
+  m_Layer: 3
+  m_Name: ProjectilePlace
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &448111686094987348
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3317056039287578180}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.46875, y: -0.21875, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1230278872506735238}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -5,9 +5,11 @@ using UnityEngine;
 abstract public class AttackScript : MonoBehaviour
 {
     [Header("Attack")]
-    [SerializeField] float defaultDamage;
+    [SerializeField] float defaultMeleeDamage;
+    [SerializeField] float defaultRangedDamage;
 
-    protected float damage;
+    protected float meleeDamage;
+    protected float rangedDamage;
     bool isBuffed;
 
     public bool IsBuffed { get => isBuffed; }
@@ -15,15 +17,17 @@ abstract public class AttackScript : MonoBehaviour
     // Start is called before the first frame update
     virtual protected void Start()
     {
-        damage = defaultDamage;
+        meleeDamage = defaultMeleeDamage;
+        rangedDamage = defaultRangedDamage;
         isBuffed = false;
     }
 
     public void AttackModify(float buff)
     {
-        damage += buff;
+        meleeDamage += buff;
+        rangedDamage += buff;
 
-        if(damage == defaultDamage)
+        if(meleeDamage == defaultMeleeDamage && rangedDamage == defaultRangedDamage)
         {
             isBuffed = false;
         }

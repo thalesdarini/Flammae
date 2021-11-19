@@ -5,16 +5,26 @@ using UnityEngine;
 
 public class PlayerAttack : AttackScript
 {
+    [SerializeField] ContactFilter2D enemyFilter;
+
     [Header("Sword attack")]
     [SerializeField] GameObject sword;
-    [SerializeField] float attackTimeInputTolerance;
-    [SerializeField] float attackDuration;
-    [SerializeField] ContactFilter2D enemyFilter;
+    [SerializeField] float meleeTimeInputTolerance;
+    [SerializeField] float meleeAttackDuration;
     [SerializeField] int meleeMaxEnemiesHit;
+
+    [Header("Ranged attack")]
+    [SerializeField] GameObject projectilePrefab;
+    [SerializeField] GameObject projectilePlace;
+    [SerializeField] float rangedTimeInputTolerance;
+    [SerializeField] float rangedAttackDuration;
+    [SerializeField] float projectileSpeed;
+    [SerializeField] float projectileTravelDistance;
 
     // Input variables
     Vector2 aimDirection;
-    float swordAttackTimeInput = -1f; // just below 0 so it doesn't start attacking
+    float meleeAttackTimeInput = -1f; // just below 0 so it doesn't start attacking
+    float rangedAttackTimeInput = -1f;
 
     // Current state variables
     bool canAttack = true;
@@ -29,7 +39,7 @@ public class PlayerAttack : AttackScript
     PlayerMovement playerMovement;
     Animator animator;
 
-    public float Damage { get => damage; }
+    public float Damage { get => meleeDamage; }
 
     // Start is called before the first frame update
     override protected void Start()
@@ -39,6 +49,9 @@ public class PlayerAttack : AttackScript
         spriteRenderer = GetComponent<SpriteRenderer>();
         playerMovement = GetComponent<PlayerMovement>();
         animator = GetComponent<Animator>();
+
+        animator.SetFloat("m_melee", 1 / meleeAttackDuration);
+        animator.SetFloat("m_ranged", 1 / rangedAttackDuration);
     }
 
     // Update is called once per frame
@@ -48,33 +61,52 @@ public class PlayerAttack : AttackScript
 
         if (!playerMovement.IsDashing && canAttack)
         {
-            MeleeAttack();
+            ManageAttack();
         }
     }
 
-    private void MeleeAttack()
+    private void ManageAttack()
     {
         attackTimePassed -= Time.deltaTime;
         if (attackTimePassed < 0) // not attacking anymore
         {
-            if (Time.time <= swordAttackTimeInput) // has input for first or next attack
+            if (Time.time <= meleeAttackTimeInput) // has input for first or next melee attack
             {
                 if (!isAttacking)
                 {
                     isAttacking = true;
-                    animator.SetFloat("m_attack", 1 / attackDuration);
                     animator.SetBool("attacking", true);
+                    animator.SetTrigger("melee_attack");
 
-                    attackTimePassed = attackDuration; // begin first attack
+                    attackTimePassed = meleeAttackDuration; // begin first attack
                 }
                 else // used to play next attack animation
                 {
-                    animator.SetTrigger("attack");
+                    animator.SetTrigger("melee_attack");
 
-                    attackTimePassed += attackDuration; // begin next attack
+                    attackTimePassed += meleeAttackDuration; // begin next attack
                 }
                 
                 SwordAttack();
+            }
+            else if (Time.time <= rangedAttackTimeInput) // has input for first or next ranged attack
+            {
+                if (!isAttacking)
+                {
+                    isAttacking = true;
+                    animator.SetBool("attacking", true);
+                    animator.SetTrigger("ranged_attack");
+
+                    attackTimePassed = rangedAttackDuration; // begin first attack
+                }
+                else // play ranged attack animation again
+                {
+                    animator.SetTrigger("ranged_attack");
+
+                    attackTimePassed += rangedAttackDuration; // begin next attack
+                }
+
+                PrepareRangedAttack();
             }
             else // no more inputs for attack, stop
             {
@@ -92,13 +124,11 @@ public class PlayerAttack : AttackScript
         // Position collider and flip sprite
         if (aimDirection.x >= 0)
         {
-            sword.transform.localRotation = Quaternion.Euler(0, 0, 0);
-            spriteRenderer.flipX = false;
+            transform.rotation = Quaternion.Euler(0, 0, 0);
         }
         else
         {
-            sword.transform.localRotation = Quaternion.Euler(0, 0, 180);
-            spriteRenderer.flipX = true;
+            transform.rotation = Quaternion.Euler(0, 180, 0);
         }
 
         // Check for enemies hit
@@ -108,9 +138,28 @@ public class PlayerAttack : AttackScript
         {
             if (cd != null)
             {
-                cd.gameObject.GetComponent<EnemyHealth>().TakeDamage(damage);
+                cd.gameObject.GetComponent<EnemyHealth>().TakeDamage(meleeDamage);
             }
         }
+    }
+
+    private void PrepareRangedAttack()
+    {
+        // Position projectile place and flip sprite
+        if (aimDirection.x >= 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        else
+        {
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
+    }
+
+    public void ThrowProjectile()
+    {
+        GameObject proj = Instantiate(projectilePrefab, projectilePlace.transform.position, Quaternion.identity);
+        proj.GetComponent<PlayerProjectile>().SetProperties(rangedDamage, aimDirection, projectileSpeed, projectileTravelDistance);
     }
 
     public void StopAttack(bool stopIt)
@@ -132,7 +181,11 @@ public class PlayerAttack : AttackScript
 
         if (Input.GetButtonDown("Fire1"))
         {
-            swordAttackTimeInput = Time.time + attackTimeInputTolerance;
+            meleeAttackTimeInput = Time.time + meleeTimeInputTolerance;
+        }
+        else if (Input.GetButtonDown("Fire2"))
+        {
+            rangedAttackTimeInput = Time.time + rangedTimeInputTolerance;
         }
     }
 }

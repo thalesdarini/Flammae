@@ -269,9 +269,9 @@ MonoBehaviour:
   projectilePrefab: {fileID: 521996329597514647, guid: 6641e7e64ea175c4fabe8e59bdf51c25, type: 3}
   projectilePlace: {fileID: 3317056039287578180}
   rangedTimeInputTolerance: 0.25
-  rangedAttackDuration: 0.8
-  projectileSpeed: 4
-  projectileTravelDistance: 5
+  rangedAttackDuration: 0.6
+  projectileSpeed: 16
+  projectileTravelDistance: 10
 --- !u!114 &5998035931535173570
 MonoBehaviour:
   m_ObjectHideFlags: 0

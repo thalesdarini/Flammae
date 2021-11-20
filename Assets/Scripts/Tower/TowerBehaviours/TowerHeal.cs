@@ -40,6 +40,11 @@ public class TowerHeal : TowerBehaviour
 
     void UpdateHealState()
     {
+        if (playerBeingHealed != null && !CharacterList.playersAlive.Contains(playerBeingHealed.gameObject))
+        {
+            ResetHealStateAndIndicator(playerBeingHealed);
+        }
+
         foreach (GameObject currentPlayer in CharacterList.playersAlive)
         {
             PlayerHealth currentPlayerHealthScript = currentPlayer.GetComponent<PlayerHealth>();
@@ -58,14 +63,9 @@ public class TowerHeal : TowerBehaviour
 
     void RemoveHealState()
     {
-        foreach (GameObject currentPlayer in CharacterList.playersAlive)
+        if (playerBeingHealed != null)
         {
-            PlayerHealth currentPlayerHealthScript = currentPlayer.GetComponent<PlayerHealth>();
-
-            if (playerBeingHealed == currentPlayerHealthScript)
-            {
-                ResetHealStateAndIndicator(currentPlayerHealthScript);
-            }
+            ResetHealStateAndIndicator(playerBeingHealed);
         }
     }
 

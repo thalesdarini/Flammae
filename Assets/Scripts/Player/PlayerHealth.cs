@@ -18,6 +18,7 @@ public class PlayerHealth : HealthScript
     // Cached references
     PlayerMovement playerMovement;
     PlayerAttack playerAttack;
+    PlayerSoulCounter playerSoulCounter;
     Animator animator;
     Rigidbody2D rb2D;
 
@@ -34,6 +35,7 @@ public class PlayerHealth : HealthScript
         healthPercentual = 0.2f;
         playerMovement = GetComponent<PlayerMovement>();
         playerAttack = GetComponent<PlayerAttack>();
+        playerSoulCounter = GetComponent<PlayerSoulCounter>();
         animator = GetComponent<Animator>();
         rb2D = GetComponent<Rigidbody2D>();
     }
@@ -48,13 +50,20 @@ public class PlayerHealth : HealthScript
 
     void OnDestroy()
     {
-        CharacterList.alliesAlive.Remove(gameObject);
-        CharacterList.playersAlive.Remove(gameObject);
+        if (CharacterList.alliesAlive.Contains(gameObject))
+        {
+            CharacterList.alliesAlive.Remove(gameObject);
+        }
+
+        if (CharacterList.playersAlive.Contains(gameObject))
+        {
+            CharacterList.playersAlive.Remove(gameObject);
+        }
     }
 
     public override void TakeDamage(float amountOfDamage)
     {
-        GetComponent<Animator>().SetTrigger("Damage");
+        animator.SetTrigger("Damage");
 
         healthPercentual -= amountOfDamage / maxHealth;
 
@@ -70,7 +79,10 @@ public class PlayerHealth : HealthScript
         animator.SetBool("dead", true);
         playerMovement.PauseMovement(true);
         playerAttack.StopAttack(true);
-        GetComponent<PlayerSoulCounter>().LoseSouls(GetComponent<PlayerSoulCounter>().NumSouls / 2);
+        playerSoulCounter.LoseSouls(playerSoulCounter.NumSouls / 2);
+
+        CharacterList.alliesAlive.Remove(gameObject);
+        CharacterList.playersAlive.Remove(gameObject);
 
         yield return new WaitForSeconds(respawnTime);
         Respawn();
@@ -84,6 +96,9 @@ public class PlayerHealth : HealthScript
         playerAttack.StopAttack(false);
         animator.SetBool("dead", false);
         rb2D.simulated = true;
+
+        CharacterList.alliesAlive.Add(gameObject);
+        CharacterList.playersAlive.Add(gameObject);
 
         // teleport
         transform.position = respawnPosition.position;

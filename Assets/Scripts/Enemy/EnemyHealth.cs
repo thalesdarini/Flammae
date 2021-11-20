@@ -11,6 +11,7 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] float deathTime;
     [SerializeField] float stunTimer;
 
+    Rigidbody2D rb2d;
     Animator enemyLifeAnimation;
     EnemyMovement enemyMovement;
     float stunTimeRemaining = 0.0f;
@@ -24,11 +25,12 @@ public class EnemyHealth : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        rb2d = GetComponent<Rigidbody2D>();
         enemyLifeAnimation = GetComponent<Animator>();
-        enemyMovement = GetComponent<EnemyMovement>();
-        isKilled = false;
         enemyLifeAnimation.SetFloat("dieMult", 1 / deathTime);
         enemyLifeAnimation.SetFloat("stunMult", 1 / stunTimer);
+        enemyMovement = GetComponent<EnemyMovement>();
+        isKilled = false;
     }
     
     // Update is called once per frame
@@ -36,9 +38,17 @@ public class EnemyHealth : MonoBehaviour
         if(isKilled == false && stunTimeRemaining > 0){
             stunTimeRemaining -= Time.deltaTime;
             if(stunTimeRemaining <= 0){
-                enemyMovement.Speed = enemyMovement.DefaultSpeed;
+                enemyMovement.CanMove = true;
                 enemyLifeAnimation.SetBool("takeDamage", false);
             }
+        }
+    }
+
+    void OnDestroy()
+    {
+        if (CharacterList.enemiesAlive.Contains(gameObject))
+        {
+            CharacterList.enemiesAlive.Remove(gameObject);
         }
     }
 
@@ -46,9 +56,11 @@ public class EnemyHealth : MonoBehaviour
     //Damage animation is played
     public void TakeDamage(float amountOfDamage)
     {
-        if(isKilled == false){
+        if (isKilled == false)
+        {
             health -= amountOfDamage;
-            enemyMovement.Speed = 0.01f;
+            rb2d.velocity = Vector2.zero;
+            enemyMovement.CanMove = false;
             stunTimeRemaining = stunTimer;
 
             enemyLifeAnimation.SetBool("takeDamage", true);
@@ -66,7 +78,9 @@ public class EnemyHealth : MonoBehaviour
     //Die, drops souls, destroy object...
     void Die()
     {
-        //TODO: Enemy Die Animation
+        isKilled = true;
+        CharacterList.enemiesAlive.Remove(gameObject);
+
         for (int i = 0; i < soulDrop; i++)
         {
             Vector3 randomDisplacement = new Vector3(Random.Range(-soulDropRange, soulDropRange), Random.Range(-soulDropRange / 2, soulDropRange / 2), 0);
@@ -76,8 +90,6 @@ public class EnemyHealth : MonoBehaviour
         enemyLifeAnimation.SetBool("takeDamage", false);
         enemyLifeAnimation.SetBool("isMoving", false);
 
-        isKilled = true;
-        CharacterList.enemiesAlive.Remove(gameObject);
         Destroy(gameObject, deathTime);
     }
 }

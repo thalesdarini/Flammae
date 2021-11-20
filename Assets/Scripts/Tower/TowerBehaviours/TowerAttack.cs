@@ -36,7 +36,7 @@ public class TowerAttack : TowerBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (currentTarget == null)
+        if (currentTarget == null || !CharacterList.enemiesAlive.Contains(currentTarget))
         {
             SetNewTarget();
         }

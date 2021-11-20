@@ -12,16 +12,15 @@ public class ArcherAttack : EnemyAttack
     
     EnemyMovement enemyMovement;
     float attackCooldownRemaining;
-    
 
     // Start is called before the first frame update
     void Start()
     {
         isAttacking = false;
-        attackCooldownRemaining = 0.0f;
+        rb2d = GetComponent<Rigidbody2D>();
         attackAnimation = GetComponent<Animator>();
         enemyMovement = GetComponent<EnemyMovement>();
-        rb2d = GetComponent<Rigidbody2D>();
+        attackCooldownRemaining = 0.0f;
     }
 
     // Update is called once per frame

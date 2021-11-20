@@ -26,7 +26,10 @@ public class PlayerSoulCounter : MonoBehaviour
         {
             numSouls -= number;
         }
-        numSouls = 0;
+        else
+        {
+            numSouls = 0;
+        }
     }
 
     public bool SpendSouls(int number)

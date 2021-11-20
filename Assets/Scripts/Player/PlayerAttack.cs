@@ -39,7 +39,8 @@ public class PlayerAttack : AttackScript
     PlayerMovement playerMovement;
     Animator animator;
 
-    public float Damage { get => meleeDamage; }
+    public float MeleeDamage { get => meleeDamage; }
+    public float RangedDamage { get => rangedDamage; }
 
     // Start is called before the first frame update
     override protected void Start()

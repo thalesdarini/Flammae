@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    [SerializeField] float defaultSpeed;
+    [SerializeField] float speed;
 
     int waypointIndex;
     List<GameObject> waypoints;
@@ -18,10 +18,9 @@ public class EnemyMovement : MonoBehaviour
     EnemyAttack enemyAttack;
 
     List<Transform> currentTargets;
-    float speed;
+    bool canMove;
 
-    public float DefaultSpeed { get => defaultSpeed; }
-    public float Speed { set => speed = value; }
+    public bool CanMove { set => canMove = value; }
     public List<GameObject> Waypoints { set => waypoints = value; }
     public LaneBehavior LaneBehavior { get => laneBehavior; set => laneBehavior = value; }
 
@@ -38,22 +37,30 @@ public class EnemyMovement : MonoBehaviour
         enemyAttack = GetComponent<EnemyAttack>();
 
         currentTargets = new List<Transform>();
-        speed = defaultSpeed;
+        canMove = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        CheckNextMovement();
+        if (canMove)
+        {
+            CheckNextMovement();
+        }
     }
 
     //Verifica se há um player a ser atacado.
     //Senão vai até o próximo waypoint.
     void CheckNextMovement()
     {
-        if(enemyAttack.IsAttacking == false){
-            if(currentTargets.Count != 0){
-                foreach(Transform target in currentTargets){
+        if(enemyAttack.IsAttacking == false)
+        {
+            currentTargets.RemoveAll(item => item == null);
+
+            if (currentTargets.Count != 0)
+            {
+                foreach(Transform target in currentTargets)
+                {
                     if (enemyAttack.CanAttack(target)){
                         enemyAttack.Attack(target.gameObject);
                         return;
@@ -83,10 +90,7 @@ public class EnemyMovement : MonoBehaviour
 
     void MoveTowardsFoe(Transform target)
     {
-        currentTargets.RemoveAll(item => item == null);
-
-        rb2d.velocity = (target.position - transform.position).normalized * speed;
-        moveAnimation.SetBool("isMoving", true);
+        Move(target.position);
 
         //Flip sprite if player is on the left side.
         if (target.position.x - transform.position.x < 0) {
@@ -98,6 +102,7 @@ public class EnemyMovement : MonoBehaviour
     void MoveTowardsWaypoint()
     {
         Move(nextPosition);
+
 		if ((nextPosition - transform.position).magnitude < 0.2f) {
 			waypointIndex += 1;
             if(waypointIndex > waypoints.Count-1){
@@ -115,17 +120,17 @@ public class EnemyMovement : MonoBehaviour
     }
 
     //Makes object moves towards a target.
-    void Move(Vector3 target){
+    void Move(Vector3 target) {
         rb2d.velocity = (target - transform.position).normalized * speed;
         moveAnimation.SetBool("isMoving", true);
     }
 
-    void getNextPosition(){
+    void getNextPosition() {
         waypointArea = waypoints[waypointIndex].GetComponent<BoxCollider2D>();
         nextPosition = GetRandomPointInsideCollider(waypointArea);
     }
 
-    void EnemyReachesEnd(){
+    void EnemyReachesEnd() {
         Destroy(gameObject);
     }
 

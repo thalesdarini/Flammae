@@ -33,10 +33,14 @@ public class TowerBuff : TowerBehaviour
     // Update is called once per frame
     void Update()
     {
+        UpdateBuffsOnDeadAllies();
+
         if (Time.time >= nextTimeToPulse)
         {
             Pulse();
         }
+
+        alliesBuffedByThisTower.RemoveAll(item => item == null);
     }
 
     void OnDestroy()
@@ -58,11 +62,11 @@ public class TowerBuff : TowerBehaviour
         {
             nextTimeToPulse = Time.time + delayBetweenPulses * 0.75f;
             Destroy(pulseWave);
-            UpdateBuffs();
+            UpdateBuffsOnLivingAllies();
         }
     }
 
-    void UpdateBuffs()
+    void UpdateBuffsOnLivingAllies()
     {
         foreach (GameObject currentAlly in CharacterList.alliesAlive)
         {
@@ -80,16 +84,28 @@ public class TowerBuff : TowerBehaviour
         }
     }
 
+    void UpdateBuffsOnDeadAllies()
+    {
+        for (int i = alliesBuffedByThisTower.Count - 1; i > -1; i--)
+        {
+            GameObject buffedAlly = alliesBuffedByThisTower[i];
+            bool isDead = !CharacterList.alliesAlive.Contains(buffedAlly);
+
+            if (isDead)
+            {
+                ResetBuffAndIndicator(buffedAlly);
+            }
+        }
+    }
+
     void RemoveAllBuffs()
     {
-        foreach (GameObject currentAlly in CharacterList.alliesAlive)
-        {
-            bool alreadyBuffedByThisTower = alliesBuffedByThisTower.Contains(currentAlly);
+        alliesBuffedByThisTower.RemoveAll(item => item == null);
 
-            if (alreadyBuffedByThisTower)
-            {
-                ResetBuffAndIndicator(currentAlly);
-            }
+        for (int i = alliesBuffedByThisTower.Count - 1; i > -1; i--)
+        {
+            GameObject buffedAlly = alliesBuffedByThisTower[i];
+            ResetBuffAndIndicator(buffedAlly);
         }
     }
 

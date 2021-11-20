@@ -18,6 +18,6 @@ public class UINumSoulsText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        soulText.text = "Almas: " + playerReference.NumSouls;
+        soulText.text = playerReference.NumSouls.ToString();
     }
 }

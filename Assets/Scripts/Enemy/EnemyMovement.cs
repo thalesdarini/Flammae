@@ -161,7 +161,7 @@ public class EnemyMovement : MonoBehaviour
                 }
                 i++;
             }
-            if(waypointIndex <= waypoints.Count-1) waypointIndex++;
+            if(waypointIndex < waypoints.Count-1) waypointIndex++;
             getNextPosition();
         }
     }

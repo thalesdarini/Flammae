@@ -23,8 +23,8 @@ public class EnemySpawner : MonoBehaviour
     bool spawning;
 
     public delegate void WaveStatusUpdateAction();
-    public event WaveStatusUpdateAction PreparationTimeBegin;
-    public event WaveStatusUpdateAction WaveStart;
+    //public event WaveStatusUpdateAction PreparationTimeBegin;
+    //public event WaveStatusUpdateAction WaveStart;
 
     // Start is called before the first frame update
     void Start()

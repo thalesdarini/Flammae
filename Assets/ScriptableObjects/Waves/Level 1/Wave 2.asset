@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17d71c17491f4234199abf1f9a62dcfe, type: 3}
   m_Name: Wave 2
   m_EditorClassIdentifier: 
-  preparationTimeBeforeWave: 10
-  enemySpawnCooldown: 1
-  numberOfKnights: 15
-  numberOfArchers: 10
+  preparationTimeBeforeWave: 60
+  enemySpawnCooldown: 0.3
+  numberOfKnights: 0
+  numberOfArchers: 20
   numberOfGiants: 0
   numberOfRogues: 0
   numberOfPriests: 0

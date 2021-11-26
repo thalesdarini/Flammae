@@ -8,7 +8,7 @@ public class TowerButtonHandler : MonoBehaviour
     TowerUpgrader towerUpgrader;
 
     // Start is called before the first frame update
-    private void Start()
+    void Start()
     {
         towerBuilder = transform.parent.parent.Find("AreaToInteract").gameObject.GetComponent<TowerBuilder>();
         towerUpgrader = transform.parent.parent.Find("AreaToInteract").gameObject.GetComponent<TowerUpgrader>();

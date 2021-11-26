@@ -40,8 +40,7 @@ public class EnemyMovement : MonoBehaviour
         canMove = true;
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (canMove)
         {

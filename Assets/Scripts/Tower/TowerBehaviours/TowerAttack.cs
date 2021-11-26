@@ -10,7 +10,7 @@ public class TowerAttack : TowerBehaviour
     [SerializeField] GameObject projectilePrefab;
 
     GameObject currentTarget;
-    List<GameObject> projectiles;
+    List<TowerProjectile> projectiles;
     float nextTimeToReload;
     bool charging;
     bool charged;
@@ -19,15 +19,15 @@ public class TowerAttack : TowerBehaviour
     {
         shootingRange = range;
         shotsPerSec = 1 / (delayToReloadTime + reloadTime);
-        projectileDamage = projectilePrefab.GetComponent<Projectile>().Damage;
-        projectileSpeed = projectilePrefab.GetComponent<Projectile>().Speed;
+        projectileDamage = projectilePrefab.GetComponent<TowerProjectile>().Damage;
+        projectileSpeed = projectilePrefab.GetComponent<TowerProjectile>().Speed;
     }
 
     // Start is called before the first frame update
     void Start()
     {
         currentTarget = null;
-        projectiles = new List<GameObject>();
+        projectiles = new List<TowerProjectile>();
         nextTimeToReload = Time.time + delayToReloadTime;
         charging = false;
         charged = false;
@@ -73,11 +73,11 @@ public class TowerAttack : TowerBehaviour
                 }
                 if (currentTarget == null)
                 {
-                    projectiles[i].GetComponent<Projectile>().CommandDestruction();
+                    projectiles[i].CommandDestruction();
                 }
                 else
                 {
-                    projectiles[i].GetComponent<Projectile>().Target = currentTarget;
+                    projectiles[i].Target = currentTarget;
                 }
             }
         }
@@ -88,7 +88,7 @@ public class TowerAttack : TowerBehaviour
         if (!charging)
         {
             charging = true;
-            projectiles.Insert(0, Instantiate(projectilePrefab, transform.position + Vector3.up * (transform.localScale.y) * 0.7f, Quaternion.Euler(0, 0, 0)));
+            projectiles.Insert(0, Instantiate(projectilePrefab, transform.position + Vector3.up * (transform.localScale.y) * 0.7f, Quaternion.Euler(0, 0, 0)).GetComponent<TowerProjectile>());
         }
 
         projectiles[0].transform.localScale = Vector3.Lerp(new Vector3(0f, 0f, 1f), projectilePrefab.transform.localScale, (Time.time - nextTimeToReload) / reloadTime);
@@ -104,7 +104,7 @@ public class TowerAttack : TowerBehaviour
     {
         nextTimeToReload = Time.time + delayToReloadTime;
         charged = false;
-        projectiles[0].GetComponent<Projectile>().Target = currentTarget;
+        projectiles[0].Target = currentTarget;
     }
 
     void DestroyProjectileNotShot()
@@ -113,7 +113,7 @@ public class TowerAttack : TowerBehaviour
         {
             if (projectiles[0] != null)
             {
-                projectiles[0].GetComponent<Projectile>().CommandDestruction();
+                projectiles[0].CommandDestruction();
             }
             projectiles.RemoveAll(item => item == null);
         }

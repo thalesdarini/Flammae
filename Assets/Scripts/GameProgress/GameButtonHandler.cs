@@ -24,11 +24,13 @@ public class GameButtonHandler : MonoBehaviour
 
     public void OptionsButtonPressed()
     {
+        SoundManager.instance.PlaySoundEffect(SoundManager.button, 1);
         optionsWindowUI.SetActive(true);
     }
 
     public void OptionsOKButtonPressed()
     {
+        SoundManager.instance.PlaySoundEffect(SoundManager.button, 1);
         optionsWindowUI.SetActive(false);
     }
 

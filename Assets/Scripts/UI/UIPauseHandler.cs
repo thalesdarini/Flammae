@@ -41,6 +41,7 @@ public class UIPauseHandler : MonoBehaviour
 
     public void ResumeButtonPressed()
     {
+        SoundManager.instance.PlaySoundEffect(SoundManager.button, 1);
         Unpause();
     }
 

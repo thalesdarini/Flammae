@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class LevelChanger : MonoBehaviour
 {
     Animator fadeAnimation;
-    string levelToLoad;
+    int levelToLoad;
 
     // Start is called before the first frame update
     void Start()
@@ -14,14 +14,21 @@ public class LevelChanger : MonoBehaviour
         fadeAnimation = GetComponent<Animator>();
     }
 
-    public void ChangeToLevel(string levelName)
+    public void ChangeTo(int levelIndex)
     {
-        levelToLoad = levelName;
+        levelToLoad = levelIndex;
         fadeAnimation.SetTrigger("LevelEnd");
     }
 
     public void FadeOutComplete()
     {
-        SceneManager.LoadScene(levelToLoad);
+        if (levelToLoad != -1)
+        {
+            SceneManager.LoadScene(levelToLoad);
+        }
+        else
+        {
+            Application.Quit();
+        }
     }
 }

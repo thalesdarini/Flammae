@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameButtonHandler : MonoBehaviour
 {
+    [SerializeField] LevelChanger levelChanger;
+
     GameObject optionsWindowUI;
     GameObject areYouSureWindowUI;
 
@@ -13,6 +15,11 @@ public class GameButtonHandler : MonoBehaviour
     {
         optionsWindowUI = transform.parent.Find("OptionsWindow").gameObject;
         areYouSureWindowUI = transform.parent.Find("AreYouSureWindow").gameObject;
+    }
+    
+    public void PlayButtonPressed()
+    {
+        levelChanger.ChangeTo(1);
     }
 
     public void OptionsButtonPressed()
@@ -37,13 +44,14 @@ public class GameButtonHandler : MonoBehaviour
 
     public void QuitYesButtonPressed()
     {
-        if (SceneManager.GetActiveScene().name == "Menu")
+        if (SceneManager.GetActiveScene().buildIndex == 0)
         {
-            Application.Quit();
+            levelChanger.ChangeTo(-1);
         }
         else
         {
-            SceneManager.LoadScene("Menu");
+            Time.timeScale = 1;
+            levelChanger.ChangeTo(0);
         }
     }
 

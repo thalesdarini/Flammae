@@ -5,12 +5,16 @@ using UnityEngine;
 public class UIPauseHandler : MonoBehaviour
 {
     GameObject pauseWindowUI;
+    GameObject optionsWindowUI;
+    GameObject areYouSureWindowUI;
     bool isPaused;
 
     // Start is called before the first frame update
     void Start()
     {
         pauseWindowUI = transform.Find("PauseWindow").gameObject;
+        optionsWindowUI = transform.Find("PauseWindow").Find("Window").Find("OptionsWindow").gameObject;
+        areYouSureWindowUI = transform.Find("PauseWindow").Find("Window").Find("AreYouSureWindow").gameObject;
         isPaused = false;
     }
 
@@ -37,18 +41,12 @@ public class UIPauseHandler : MonoBehaviour
 
     public void ResumeButtonPressed()
     {
-        if (isPaused)
-        {
-            Unpause();
-        }
+        Unpause();
     }
 
     public void DarkAreaClicked()
     {
-        if (isPaused)
-        {
-            Unpause();
-        }
+        Unpause();
     }
 
     void Pause()
@@ -61,6 +59,8 @@ public class UIPauseHandler : MonoBehaviour
     void Unpause()
     {
         Time.timeScale = 1;
+        optionsWindowUI.SetActive(false);
+        areYouSureWindowUI.SetActive(false);
         pauseWindowUI.SetActive(false);
         isPaused = false;
     }

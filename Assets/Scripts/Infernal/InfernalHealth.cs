@@ -2,17 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InfernalHealth : MonoBehaviour
+public class InfernalHealth : HealthScript
 {
-    // Start is called before the first frame update
-    void Start()
+    private float healthPercentual = 1f;
+
+    void Awake()
     {
-        
+        CharacterList.alliesAlive.Add(gameObject);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDestroy()
     {
-        
+        CharacterList.alliesAlive.Remove(gameObject);
+    }
+
+    override protected void Start()
+    {
+        base.Start();
+    }
+
+    public override void TakeDamage(float amountOfDamage)
+    {
+        healthPercentual -= amountOfDamage / maxHealth;
+
+        if (healthPercentual <= 0)
+        {
+            //StartCoroutine(Die());
+        }
     }
 }

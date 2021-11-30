@@ -279,9 +279,9 @@ MonoBehaviour:
   infernalPrefab: {fileID: 8359488428091048564, guid: fb8ef94140e32eb459582a320a118075, type: 3}
   summonCost: 10
   summonCooldown: 15
-  summonDuration: 2.5
+  summonDuration: 1
   numberOfInfernals: 4
-  summonCircleRange: 2.2
+  summonCircleRange: 3
   laneLayer:
     serializedVersion: 2
     m_Bits: 2048

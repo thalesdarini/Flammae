@@ -43133,6 +43133,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 69.75439
       objectReference: {fileID: 0}
+    - target: {fileID: 1481391970949838437, guid: 3841e899e14e84d40bf95ecf8ea4d661, type: 3}
+      propertyPath: orthographic size
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 1481391971393545296, guid: 3841e899e14e84d40bf95ecf8ea4d661, type: 3}
       propertyPath: m_Follow
       value: 

@@ -79,6 +79,7 @@ public class LevelManager : MonoBehaviour
         int currentWaveIndex = CurrentWave() - 1;
         if (!wasWaveCountAlreadyShown[currentWaveIndex])
         {
+            SoundManager.instance.ChangeMusic(SoundManager.fastTrack);
             wasWaveCountAlreadyShown[currentWaveIndex] = true;
             waveStartUI.UpdateText();
             waveStartAnimation.SetTrigger("Play");
@@ -90,6 +91,7 @@ public class LevelManager : MonoBehaviour
         int currentWaveIndex = CurrentWave() - 1;
         if (!wasPreparationTimeAlreadyShown[currentWaveIndex])
         {
+            SoundManager.instance.ChangeMusic(SoundManager.calmTrack);
             wasPreparationTimeAlreadyShown[currentWaveIndex] = true;
             preparationStartUI.UpdateText();
             preparationStartAnimation.SetTrigger("Play");
@@ -98,6 +100,7 @@ public class LevelManager : MonoBehaviour
 
     void PlayerLost()
     {
+        SoundManager.instance.ChangeMusic(SoundManager.calmTrack);
         gameLostAnimation.SetTrigger("Play");
         Invoke(nameof(ResetLevelAfterSomeTime), 0.5f);
     }
@@ -109,6 +112,7 @@ public class LevelManager : MonoBehaviour
 
     void PlayerWon()
     {
+        SoundManager.instance.ChangeMusic(SoundManager.calmTrack);
         gameWonAnimation.SetTrigger("Play");
         Invoke(nameof(NextLevelAfterSomeTime), 0.5f);
     }

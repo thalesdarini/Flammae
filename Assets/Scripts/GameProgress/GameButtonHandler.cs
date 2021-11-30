@@ -19,18 +19,19 @@ public class GameButtonHandler : MonoBehaviour
     
     public void PlayButtonPressed()
     {
+        SoundManager.instance.PlaySoundEffect(SoundManager.button, 1.2f);
         levelChanger.ChangeTo(1);
     }
 
     public void OptionsButtonPressed()
     {
-        SoundManager.instance.PlaySoundEffect(SoundManager.button, 1);
+        SoundManager.instance.PlaySoundEffect(SoundManager.button, 1.2f);
         optionsWindowUI.SetActive(true);
     }
 
     public void OptionsOKButtonPressed()
     {
-        SoundManager.instance.PlaySoundEffect(SoundManager.button, 1);
+        SoundManager.instance.PlaySoundEffect(SoundManager.button, 1.2f);
         optionsWindowUI.SetActive(false);
     }
 
@@ -41,11 +42,13 @@ public class GameButtonHandler : MonoBehaviour
 
     public void QuitButtonPressed()
     {
+        SoundManager.instance.PlaySoundEffect(SoundManager.button, 1.2f);
         areYouSureWindowUI.SetActive(true);
     }
 
     public void QuitYesButtonPressed()
     {
+        SoundManager.instance.PlaySoundEffect(SoundManager.button, 1.2f);
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
             levelChanger.ChangeTo(-1);
@@ -53,12 +56,14 @@ public class GameButtonHandler : MonoBehaviour
         else
         {
             Time.timeScale = 1;
+            SoundManager.instance.ChangeMusic(SoundManager.calmTrack);
             levelChanger.ChangeTo(0);
         }
     }
 
     public void QuitNoButtonPressed()
     {
+        SoundManager.instance.PlaySoundEffect(SoundManager.button, 1.2f);
         areYouSureWindowUI.SetActive(false);
     }
 

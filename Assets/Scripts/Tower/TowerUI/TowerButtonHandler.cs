@@ -16,26 +16,31 @@ public class TowerButtonHandler : MonoBehaviour
 
     public void BuildSpecificTowerPressed()
     {
+        SoundManager.instance.PlaySoundEffect(SoundManager.button, 1.2f);
         towerBuilder.BuildSpecificTower();
     }
 
     public void NextTowerPressed()
     {
+        SoundManager.instance.PlaySoundEffect(SoundManager.button, 1);
         towerBuilder.NextTower();
     }
 
     public void PreviousTowerPressed()
     {
+        SoundManager.instance.PlaySoundEffect(SoundManager.button, 1);
         towerBuilder.PreviousTower();
     }
 
     public void UpgradeTowerPressed()
     {
+        SoundManager.instance.PlaySoundEffect(SoundManager.button, 1.2f);
         towerUpgrader.UpgradeTower();
     }
 
     public void DeconstructTowerPressed()
     {
+        SoundManager.instance.PlaySoundEffect(SoundManager.button, 1.2f);
         towerUpgrader.DeconstructTower();
     }
 

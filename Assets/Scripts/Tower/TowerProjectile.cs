@@ -9,6 +9,7 @@ public class TowerProjectile : MonoBehaviour
 
     GameObject target;
     Animator animatorReference;
+    AudioSource soundEffect;
     bool shotFired;
     bool shotHit;
     bool destructionCommanded;
@@ -22,6 +23,7 @@ public class TowerProjectile : MonoBehaviour
     {
         target = null;
         animatorReference = transform.Find("Animation").GetComponent<Animator>();
+        soundEffect = GetComponent<AudioSource>();
         shotFired = false;
         shotHit = false;
         destructionCommanded = false;
@@ -35,7 +37,9 @@ public class TowerProjectile : MonoBehaviour
             if (!shotFired)
             {
                 shotFired = true;
+                soundEffect.Stop();
                 animatorReference.SetTrigger("Shoot");
+                soundEffect.PlayOneShot(SoundManager.fireball, 5);
             }
             transform.Translate((target.transform.position - transform.position).normalized * speed * Time.deltaTime, Space.World);
             transform.localEulerAngles = Vector3.forward * Vector2.SignedAngle(Vector2.up, target.transform.position - transform.position);
@@ -53,6 +57,7 @@ public class TowerProjectile : MonoBehaviour
         {
             shotHit = true;
             animatorReference.SetTrigger("Hit");
+            soundEffect.PlayOneShot(SoundManager.explosion, 0.2f);
             objectThatEntered.GetComponent<EnemyHealth>().TakeDamage(damage);
             CommandDestruction();
         }

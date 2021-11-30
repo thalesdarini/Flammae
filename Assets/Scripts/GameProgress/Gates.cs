@@ -35,7 +35,10 @@ public class Gates : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         Destroy(enemy);
-        durability--;
+        if (durability > 0)
+        {
+            durability--;
+        }
         if (durability <= 0)
         {
             GateInvaded();

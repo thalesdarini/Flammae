@@ -40,14 +40,6 @@ public class PlayerHealth : HealthScript
         rb2D = GetComponent<Rigidbody2D>();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            StartCoroutine(Die());
-        }
-    }
-
     void OnDestroy()
     {
         if (CharacterList.alliesAlive.Contains(gameObject))

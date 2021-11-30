@@ -5,6 +5,10 @@ using UnityEngine;
 public class InfernalHealth : HealthScript
 {
     private float healthPercentual = 1f;
+    private float deadDuration = 1f;
+    private bool dead = false;
+
+    public bool Dead { get => dead; }
 
     void Awake()
     {
@@ -25,9 +29,17 @@ public class InfernalHealth : HealthScript
     {
         healthPercentual -= amountOfDamage / maxHealth;
 
-        if (healthPercentual <= 0)
+        if (healthPercentual <= 0 && !dead)
         {
-            //StartCoroutine(Die());
+            Die();
         }
+    }
+
+    private void Die()
+    {
+        GetComponent<Animator>().SetTrigger("die");
+        dead = true;
+        GetComponent<Rigidbody2D>().simulated = false;
+        Destroy(gameObject, deadDuration);
     }
 }

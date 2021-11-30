@@ -15,6 +15,7 @@ public class ArcherAttack : EnemyAttack
 
     Rigidbody2D rb2d;
     Animator attackAnimation;
+    AudioSource soundEffect;
     
     EnemyMovement enemyMovement;
     float attackCooldownRemaining;
@@ -29,6 +30,7 @@ public class ArcherAttack : EnemyAttack
         rb2d = GetComponent<Rigidbody2D>();
         attackAnimation = GetComponent<Animator>();
         enemyMovement = GetComponent<EnemyMovement>();
+        soundEffect = GetComponent<AudioSource>();
         currentTarget = null;
         attackCooldownRemaining = 0.0f;
     }
@@ -46,6 +48,7 @@ public class ArcherAttack : EnemyAttack
             damageDelayRemaining -= Time.deltaTime;
             if(damageDelayRemaining <= 0){
                 aimDirection = currentTarget.position - arrowPlace.transform.position;
+                soundEffect.PlayOneShot(SoundManager.bowShoot, 5);
                 ShootArrow();
             }
         }

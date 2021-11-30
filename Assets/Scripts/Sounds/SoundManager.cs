@@ -23,7 +23,7 @@ public class SoundManager : MonoBehaviour
     #endregion
 
     public static AudioClip calmTrack, fastTrack;
-    public static AudioClip buff, buffStart, button, explosion, fireball, firewall, heal, healEnd, soul;
+    public static AudioClip battlecry, bowShoot, buff, buffStart, button, explosion, fireball, firewall, heal, healEnd, soul, swordAttack;
     public static float soundEffectsVolume;
 
     // referenciar componentes pelo Editor
@@ -41,17 +41,20 @@ public class SoundManager : MonoBehaviour
         SetVolumeFromPlayerPrefs(); // inicializa volumes com 
 
         // Load tracks
-        calmTrack = Resources.Load<AudioClip>("calmTrack");
-        fastTrack = Resources.Load<AudioClip>("fastTrack");
+        battlecry = Resources.Load<AudioClip>("battlecry");
+        bowShoot = Resources.Load<AudioClip>("bowShoot");
         buff = Resources.Load<AudioClip>("buff");
         buffStart = Resources.Load<AudioClip>("buffStart"); 
         button = Resources.Load<AudioClip>("button");
+        calmTrack = Resources.Load<AudioClip>("calmTrack");
         explosion = Resources.Load<AudioClip>("explosion");
+        fastTrack = Resources.Load<AudioClip>("fastTrack");
         fireball = Resources.Load<AudioClip>("fireball");
         firewall = Resources.Load<AudioClip>("firewall");
         heal = Resources.Load<AudioClip>("heal"); 
         healEnd = Resources.Load<AudioClip>("healEnd"); 
         soul = Resources.Load<AudioClip>("soul");
+        swordAttack = Resources.Load<AudioClip>("swordAttack");
     }
 
     public void ChangeMusic(AudioClip track)

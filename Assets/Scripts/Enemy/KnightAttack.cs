@@ -18,6 +18,7 @@ public class KnightAttack : EnemyAttack
     Rigidbody2D rb2d;
     Animator attackAnimation;
     PolygonCollider2D swordCollider;
+    AudioSource soundEffect;
     
     EnemyMovement enemyMovement;
     float attackCooldownRemaining;
@@ -33,7 +34,9 @@ public class KnightAttack : EnemyAttack
         rb2d = GetComponent<Rigidbody2D>();
         attackAnimation = GetComponent<Animator>();
         enemyMovement = GetComponent<EnemyMovement>();
+        soundEffect = GetComponent<AudioSource>();
         attackCooldownRemaining = 0.0f;
+        soundEffect.PlayOneShot(SoundManager.battlecry, 10);
     }
 
     // Update is called once per frame
@@ -49,6 +52,7 @@ public class KnightAttack : EnemyAttack
             damageDelayRemaining -= Time.deltaTime;
             if(damageDelayRemaining <= 0){
                 doDamage();
+                soundEffect.PlayOneShot(SoundManager.swordAttack, 5);
                 attacksRemaining -= 1;
                 if(attacksRemaining > 0) damageDelayRemaining = timeBetweenAttacks;
             }

@@ -14,6 +14,7 @@ public class InfernalAttack : AttackScript
 
     // cached variables
     Animator animator;
+    InfernalHealth infernalHealth;
 
     public bool IsAttacking { get => isAttacking; }
 
@@ -22,8 +23,17 @@ public class InfernalAttack : AttackScript
         base.Start();
         animator = GetComponent<Animator>();
         animator.SetFloat("m_attack", 1 / attackRate);
+        infernalHealth = GetComponent<InfernalHealth>();
     }
 
+    private void Update()
+    {
+        if (currentTarget == null || infernalHealth.Dead)
+        {
+            StopAttacking();
+        }
+    }
+    
     public void StartAttacking(GameObject enemy)
     {
         isAttacking = true;
@@ -31,17 +41,10 @@ public class InfernalAttack : AttackScript
         animator.SetBool("attacking", true);
     }
 
-    private void Update()
-    {
-        if (currentTarget == null)
-        {
-            StopAttacking();
-        }
-    }
-
     private void StopAttacking()
     {
         isAttacking = false;
+        currentTarget = null;
         animator.SetBool("attacking", false);
     }
 

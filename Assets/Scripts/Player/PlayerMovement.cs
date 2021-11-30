@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class PlayerMovement : MovementScript
 {
+    [Header("Movement multipliers")]
+    [SerializeField] [Range(0f, 1f)] float whileAttackingMultiplier;
+    [SerializeField] [Range(0f, 1f)] float whileSummoningMultiplier;
+
     [Header("Dash")]
     [SerializeField] float dashSpeed;
     [SerializeField] float dashDistance;
@@ -27,9 +31,6 @@ public class PlayerMovement : MovementScript
     Rigidbody2D rb2D;
     PlayerAttack playerAttack;
     Animator animator;
-    SpriteRenderer spriteRenderer;
-
-    public float MovementSpeed { get => movementSpeed; }
 
     // Start is called before the first frame update
     override protected void Start()
@@ -38,7 +39,6 @@ public class PlayerMovement : MovementScript
         rb2D = GetComponent<Rigidbody2D>();
         playerAttack = GetComponent<PlayerAttack>();
         animator = GetComponent<Animator>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -51,7 +51,7 @@ public class PlayerMovement : MovementScript
     {
         if (canMove)
         {
-            if (dashAvailable && dashKey && !playerAttack.IsAttacking)
+            if (dashAvailable && dashKey && !playerAttack.IsAttacking && !playerAttack.IsSummoning)
             {
                 StartCoroutine(StartDash());
             }
@@ -123,7 +123,14 @@ public class PlayerMovement : MovementScript
 
     void Move()
     {
-        rb2D.velocity = moveDirection * movementSpeed;
+        float speed = movementSpeed;
+
+        if (playerAttack.IsAttacking)
+            speed *= whileAttackingMultiplier;
+        else if (playerAttack.IsSummoning)
+            speed *= whileSummoningMultiplier;
+
+        rb2D.velocity = moveDirection * speed;
     }
 
     public void PauseMovement(bool pauseIt)

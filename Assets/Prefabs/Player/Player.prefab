@@ -232,7 +232,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4efe4b6e019e39b4d8dcdeaaa8858980, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultMovementSpeed: 5
+  defaultMovementSpeed: 6
+  whileAttackingMultiplier: 0.1
+  whileSummoningMultiplier: 0
   dashSpeed: 20
   dashDistance: 4.3
   dashCooldown: 0.8
@@ -274,6 +276,15 @@ MonoBehaviour:
   rangedAttackDuration: 0.6
   projectileSpeed: 16
   projectileTravelDistance: 10
+  infernalPrefab: {fileID: 8359488428091048564, guid: fb8ef94140e32eb459582a320a118075, type: 3}
+  summonCost: 10
+  summonCooldown: 15
+  summonDuration: 2.5
+  numberOfInfernals: 4
+  summonCircleRange: 2.2
+  laneLayer:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!114 &5998035931535173570
 MonoBehaviour:
   m_ObjectHideFlags: 0

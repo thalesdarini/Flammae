@@ -43127,7 +43127,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1481391970949838436, guid: 3841e899e14e84d40bf95ecf8ea4d661, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.4245924
+      value: 1.4245914
       objectReference: {fileID: 0}
     - target: {fileID: 1481391970949838436, guid: 3841e899e14e84d40bf95ecf8ea4d661, type: 3}
       propertyPath: m_LocalPosition.z
@@ -43137,21 +43137,17 @@ PrefabInstance:
       propertyPath: m_Follow
       value: 
       objectReference: {fileID: 1280820841}
+    - target: {fileID: 1481391971393545297, guid: 3841e899e14e84d40bf95ecf8ea4d661, type: 3}
+      propertyPath: m_Name
+      value: CM Zoomed In
+      objectReference: {fileID: 0}
     - target: {fileID: 1481391971393545311, guid: 3841e899e14e84d40bf95ecf8ea4d661, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.535098
       objectReference: {fileID: 0}
     - target: {fileID: 1481391971393545311, guid: 3841e899e14e84d40bf95ecf8ea4d661, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.4245924
-      objectReference: {fileID: 0}
-    - target: {fileID: 1481391972368490269, guid: 3841e899e14e84d40bf95ecf8ea4d661, type: 3}
-      propertyPath: m_ScreenX
-      value: 0.49999997
-      objectReference: {fileID: 0}
-    - target: {fileID: 1481391972368490269, guid: 3841e899e14e84d40bf95ecf8ea4d661, type: 3}
-      propertyPath: m_DeadZoneWidth
-      value: 0.13696599
+      value: 1.4245914
       objectReference: {fileID: 0}
     - target: {fileID: 2130936818455022902, guid: 3841e899e14e84d40bf95ecf8ea4d661, type: 3}
       propertyPath: m_RootOrder
@@ -43197,9 +43193,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3389399419893618976, guid: 3841e899e14e84d40bf95ecf8ea4d661, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.5350976
+      objectReference: {fileID: 0}
+    - target: {fileID: 3389399419893618976, guid: 3841e899e14e84d40bf95ecf8ea4d661, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.4245918
+      objectReference: {fileID: 0}
     - target: {fileID: 4164411189208851440, guid: 3841e899e14e84d40bf95ecf8ea4d661, type: 3}
       propertyPath: m_Name
       value: Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 6044253796940628795, guid: 3841e899e14e84d40bf95ecf8ea4d661, type: 3}
+      propertyPath: m_Follow
+      value: 
+      objectReference: {fileID: 1280820841}
+    - target: {fileID: 6604693692794895232, guid: 3841e899e14e84d40bf95ecf8ea4d661, type: 3}
+      propertyPath: m_Name
+      value: CM Zoomed Out
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3841e899e14e84d40bf95ecf8ea4d661, type: 3}

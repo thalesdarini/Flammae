@@ -78,7 +78,7 @@ public class PlayerHealth : HealthScript
         rb2D.simulated = false;
         animator.SetBool("dead", true);
         playerMovement.PauseMovement(true);
-        playerAttack.StopAttack(true);
+        playerAttack.StopAction(true);
         playerSoulCounter.LoseSouls(playerSoulCounter.NumSouls / 2);
 
         CharacterList.alliesAlive.Remove(gameObject);
@@ -93,7 +93,7 @@ public class PlayerHealth : HealthScript
         // reset everything
         healthPercentual = 1;
         playerMovement.PauseMovement(false);
-        playerAttack.StopAttack(false);
+        playerAttack.StopAction(false);
         animator.SetBool("dead", false);
         rb2D.simulated = true;
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerAttack : AttackScript
 {
@@ -21,23 +22,37 @@ public class PlayerAttack : AttackScript
     [SerializeField] float projectileSpeed;
     [SerializeField] float projectileTravelDistance;
 
+    [Header("Summoning")]
+    [SerializeField] GameObject infernalPrefab;
+    [SerializeField] int summonCost;
+    [SerializeField] float summonCooldown;
+    [SerializeField] float summonDuration;
+    [SerializeField] int numberOfInfernals;
+    [SerializeField] float summonCircleRange;
+    [SerializeField] LayerMask laneLayer;
+
     // Input variables
     Vector2 aimDirection;
     float meleeAttackTimeInput = -1f; // just below 0 so it doesn't start attacking
     float rangedAttackTimeInput = -1f;
+    bool summonKey = false;
 
     // Current state variables
-    bool canAttack = true;
+    bool canTakeAction = true;
     bool isAttacking = false;
     float attackTimePassed = 0;
+    bool isSummoning = false;
+    bool summonAvailable = true;
+    Coroutine ongoingSummoning; 
 
     public bool IsAttacking { get => isAttacking; }
+    public bool IsSummoning { get => isSummoning; }
 
     // Cached references
     PolygonCollider2D swordCollider;
-    SpriteRenderer spriteRenderer;
     PlayerMovement playerMovement;
     Animator animator;
+    PlayerSoulCounter playerSoulCounter;
 
     public float MeleeDamage { get => meleeDamage; }
     public float RangedDamage { get => rangedDamage; }
@@ -47,9 +62,9 @@ public class PlayerAttack : AttackScript
     {
         base.Start();
         swordCollider = sword.GetComponent<PolygonCollider2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
         playerMovement = GetComponent<PlayerMovement>();
         animator = GetComponent<Animator>();
+        playerSoulCounter = GetComponent<PlayerSoulCounter>();
     }
 
     // Update is called once per frame
@@ -57,10 +72,44 @@ public class PlayerAttack : AttackScript
     {
         ManageInput();
 
-        if (!playerMovement.IsDashing && canAttack)
+        if (!playerMovement.IsDashing && canTakeAction)
         {
-            ManageAttack();
+            if (!isAttacking && summonAvailable && summonKey)
+                ManageSummoning();
+            if (!isSummoning)
+                ManageAttack();
         }
+    }
+
+    private void ManageSummoning()
+    {
+        if (Physics2D.OverlapPoint(transform.position, laneLayer) != null)
+        {
+            if (playerSoulCounter.SpendSouls(summonCost))
+            {
+                ongoingSummoning = StartCoroutine(Summon());
+            }
+        }
+    }
+
+    IEnumerator Summon()
+    {
+        summonAvailable = false;
+        isSummoning = true;
+        animator.SetBool("invoking", true);
+
+        for (int i = 0; i < numberOfInfernals; i++)
+        {
+            Vector3 r = UnityEngine.Random.insideUnitCircle * summonCircleRange;
+            Instantiate(infernalPrefab, transform.position + r, Quaternion.identity);
+
+            yield return new WaitForSeconds(summonDuration / numberOfInfernals);
+        }
+
+        isSummoning = false;
+        animator.SetBool("invoking", false);
+        yield return new WaitForSeconds(summonCooldown - summonDuration);
+        summonAvailable = true;
     }
 
     private void ManageAttack()
@@ -166,7 +215,7 @@ public class PlayerAttack : AttackScript
         proj.GetComponent<PlayerProjectile>().SetProperties(rangedDamage, aimDirection, projectileSpeed, projectileTravelDistance);
     }
 
-    public void StopAttack(bool stopIt)
+    public void StopAction(bool stopIt)
     {
         if (stopIt)
         {
@@ -174,8 +223,13 @@ public class PlayerAttack : AttackScript
             isAttacking = false;
             animator.SetBool("attacking", false);
             attackTimePassed = 0f;
+
+            StopCoroutine(ongoingSummoning);
+            isSummoning = false;
+            summonAvailable = true;
+            animator.SetBool("invoking", false);
         }
-        canAttack = !stopIt;
+        canTakeAction = !stopIt;
     }
 
     private void ManageInput()
@@ -183,13 +237,18 @@ public class PlayerAttack : AttackScript
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         aimDirection = mousePosition - transform.position;
 
-        if (Input.GetButtonDown("Fire1"))
+        if (!EventSystem.current.IsPointerOverGameObject())
         {
-            meleeAttackTimeInput = Time.time + meleeTimeInputTolerance;
+            if (Input.GetMouseButtonDown(0))
+            {
+                meleeAttackTimeInput = Time.time + meleeTimeInputTolerance;
+            }
+            else if (Input.GetMouseButtonDown(1))
+            {
+                rangedAttackTimeInput = Time.time + rangedTimeInputTolerance;
+            }
         }
-        else if (Input.GetButtonDown("Fire2"))
-        {
-            rangedAttackTimeInput = Time.time + rangedTimeInputTolerance;
-        }
+
+        summonKey = Input.GetKey(KeyCode.E);
     }
 }

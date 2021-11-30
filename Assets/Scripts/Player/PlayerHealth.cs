@@ -32,7 +32,7 @@ public class PlayerHealth : HealthScript
     override protected void Start()
     {
         base.Start();
-        healthPercentual = 0.2f;
+        healthPercentual = 1.0f;
         playerMovement = GetComponent<PlayerMovement>();
         playerAttack = GetComponent<PlayerAttack>();
         playerSoulCounter = GetComponent<PlayerSoulCounter>();

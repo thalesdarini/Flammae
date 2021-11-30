@@ -91,11 +91,14 @@ public class EnemyMovement : MonoBehaviour
     {
         Move(target.position);
 
-        //Flip sprite if player is on the left side.
-        if (target.position.x - transform.position.x < 0) {
-            sRenderer.flipX = true;
+        if (target.position.x - transform.position.x >= 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
         }
-        else sRenderer.flipX = false;
+        else
+        {
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
     }
 
     void MoveTowardsWaypoint()
@@ -112,10 +115,14 @@ public class EnemyMovement : MonoBehaviour
             }
 		}
 
-        if (nextPosition.x - transform.position.x < 0) {
-            sRenderer.flipX = true;
+        if (nextPosition.x - transform.position.x >= 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
         }
-        else sRenderer.flipX = false;
+        else
+        {
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
     }
 
     //Makes object moves towards a target.

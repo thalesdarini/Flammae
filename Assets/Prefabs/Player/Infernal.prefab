@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8359488428091048561}
   - component: {fileID: 8359488428091048560}
   - component: {fileID: 8359488428091048563}
+  - component: {fileID: 229515129641287720}
   m_Layer: 0
   m_Name: Infernal
   m_TagString: Untagged
@@ -117,7 +118,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7eb2d54aa436334abb064b7a0677a2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultMovementSpeed: 0
+  defaultMovementSpeed: 5
+  enemyLayer:
+    useTriggers: 0
+    useLayerMask: 1
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 64
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+  findRange: 6
+  closestDistanceToEnemy: 0.3
 --- !u!114 &8359488428091048560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,6 +147,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65269d32e71dbb543ae0c4435f0fc678, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultMeleeDamage: 8
+  defaultRangedDamage: 0
+  attackRate: 0.8
 --- !u!114 &8359488428091048563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,3 +162,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e8c19d90f067dd4aae4f2f96efc5db0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultMaxHealth: 10
+--- !u!50 &229515129641287720
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8359488428091048564}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4

@@ -44,16 +44,13 @@ public class ArcherArrow : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.isTrigger)
-        {
-            // Convert the object's layer to a bitfield for comparison
-            int objLayerMask = 1 << collision.gameObject.layer;
+        // Convert the object's layer to a bitfield for comparison
+        int objLayerMask = 1 << collision.gameObject.layer;
 
-            if ((playerLayerMask.value & objLayerMask) > 0 || (alliesLayerMask.value & objLayerMask) > 0) // collided with enemy
-            {
-                collision.gameObject.GetComponent<HealthScript>().TakeDamage(damage);
-                Destroy(gameObject);
-            }
+        if ((playerLayerMask.value & objLayerMask) > 0 || (alliesLayerMask.value & objLayerMask) > 0) // collided with enemy
+        {
+            collision.gameObject.GetComponent<HealthScript>().TakeDamage(damage);
+            Destroy(gameObject);
         }
     }
 }

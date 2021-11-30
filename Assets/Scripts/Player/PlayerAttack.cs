@@ -249,6 +249,6 @@ public class PlayerAttack : AttackScript
             }
         }
 
-        summonKey = Input.GetKey(KeyCode.E);
+        summonKey = Input.GetKey(KeyCode.R);
     }
 }

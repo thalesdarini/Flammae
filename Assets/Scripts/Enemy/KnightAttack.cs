@@ -64,8 +64,7 @@ public class KnightAttack : EnemyAttack
         {
             if (cd != null)
             {
-                if(cd.tag == "Player") cd.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
-                //if(cd.tag == "Infernais"); Adicionar Dano à infernais
+                cd.gameObject.GetComponent<HealthScript>().TakeDamage(damage);
             }
         }
     }

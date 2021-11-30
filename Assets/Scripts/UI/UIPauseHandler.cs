@@ -29,6 +29,7 @@ public class UIPauseHandler : MonoBehaviour
 
     public void PauseButtonPressed()
     {
+        SoundManager.instance.PlaySoundEffect(SoundManager.button, 1.2f);
         if (!isPaused)
         {
             Pause();
@@ -41,7 +42,7 @@ public class UIPauseHandler : MonoBehaviour
 
     public void ResumeButtonPressed()
     {
-        SoundManager.instance.PlaySoundEffect(SoundManager.button, 1);
+        SoundManager.instance.PlaySoundEffect(SoundManager.button, 1.2f);
         Unpause();
     }
 

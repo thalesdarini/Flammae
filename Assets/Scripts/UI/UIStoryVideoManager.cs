@@ -14,6 +14,7 @@ public class UIStoryVideoManager : MonoBehaviour
     {
         storyVideo = GetComponent<VideoPlayer>();
         storyVideo.loopPointReached += GoToNextScene;
+        Destroy(SoundManager.instance.gameObject);
     }
 
     void GoToNextScene(VideoPlayer video)

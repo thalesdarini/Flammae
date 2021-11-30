@@ -12,8 +12,6 @@ public class LevelChanger : MonoBehaviour
     void Start()
     {
         fadeAnimation = GetComponent<Animator>();
-        if (SceneManager.GetActiveScene().buildIndex == 1)
-            Destroy(SoundManager.instance.gameObject);
     }
 
     public void ChangeTo(int levelIndex)

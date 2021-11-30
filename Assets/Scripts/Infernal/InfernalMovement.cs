@@ -17,23 +17,28 @@ public class InfernalMovement : MovementScript
 
     // cached references
     InfernalAttack infernalAttack;
+    InfernalHealth infernalHealth;
 
     override protected void Start()
     {
         base.Start();
         infernalAttack = GetComponent<InfernalAttack>();
+        infernalHealth = GetComponent<InfernalHealth>();
     }
 
     private void Update()
     {
-        if (enemyFound == null)
+        if (!infernalHealth.Dead)
         {
-            if(!infernalAttack.IsAttacking)
-                LookForEnemy();
-        }
-        else
-        {
-            WalkToEnemy();
+            if (enemyFound == null)
+            {
+                if (!infernalAttack.IsAttacking)
+                    LookForEnemy();
+            }
+            else
+            {
+                WalkToEnemy();
+            }
         }
     }
 
@@ -62,6 +67,7 @@ public class InfernalMovement : MovementScript
                         }
                     }
                 }
+
                 enemyFound = results[closest].gameObject;
             }
         }

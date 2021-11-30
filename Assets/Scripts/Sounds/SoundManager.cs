@@ -81,7 +81,10 @@ public class SoundManager : MonoBehaviour
         PlayerPrefs.SetFloat("SoundEffectsVolume", volume);
         soundEffectsVolume = volume;
         soundEffectsAudioSource.volume = soundEffectsVolume;
-        SoundEffectsVolumePrefsUpdated();
+        if (SoundEffectsVolumePrefsUpdated != null)
+        {
+            SoundEffectsVolumePrefsUpdated();
+        }
     }
 
     public void SetVolumeFromPlayerPrefs()

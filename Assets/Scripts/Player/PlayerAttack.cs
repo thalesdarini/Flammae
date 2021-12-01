@@ -105,6 +105,7 @@ public class PlayerAttack : AttackScript
         summonAvailable = false;
         isSummoning = true;
         animator.SetBool("invoking", true);
+        SoundManager.instance.PlaySoundEffect(SoundManager.summoning, 1f);
 
         for (int i = 0; i < numberOfInfernals; i++)
         {
@@ -202,6 +203,8 @@ public class PlayerAttack : AttackScript
                 cd.gameObject.GetComponent<EnemyHealth>().TakeDamage(meleeDamage);
             }
         }
+
+        SoundManager.instance.PlaySoundEffect(SoundManager.slash, 1f);
     }
 
     private void PrepareRangedAttack()
@@ -232,7 +235,8 @@ public class PlayerAttack : AttackScript
             animator.SetBool("attacking", false);
             attackTimePassed = 0f;
 
-            StopCoroutine(ongoingSummoning);
+            if (ongoingSummoning != null)
+                StopCoroutine(ongoingSummoning);
             isSummoning = false;
             summonAvailable = true;
             animator.SetBool("invoking", false);

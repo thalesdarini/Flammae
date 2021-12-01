@@ -23,6 +23,7 @@ public class SoundManager : MonoBehaviour
     #endregion
 
     public static AudioClip calmTrack, fastTrack;
+    public static AudioClip infernal_fall, infernal_bite, player_death, cast, summoning, dash, slash;
     public static AudioClip battlecry, bowShoot, buff, buffStart, button, explosion, fireball, firewall, heal, healEnd, soul, swordAttack;
     public static float soundEffectsVolume;
 
@@ -55,6 +56,15 @@ public class SoundManager : MonoBehaviour
         healEnd = Resources.Load<AudioClip>("healEnd"); 
         soul = Resources.Load<AudioClip>("soul");
         swordAttack = Resources.Load<AudioClip>("swordAttack");
+        //player sounds
+        cast = Resources.Load<AudioClip>("cast");
+        slash = Resources.Load<AudioClip>("slash");
+        dash = Resources.Load<AudioClip>("dash");
+        summoning = Resources.Load<AudioClip>("summoning");
+        player_death = Resources.Load<AudioClip>("player_death");
+        //infernal sounds
+        infernal_bite = Resources.Load<AudioClip>("infernal_bite");
+        infernal_fall = Resources.Load<AudioClip>("infernal_fall");
     }
 
     public void ChangeMusic(AudioClip track)

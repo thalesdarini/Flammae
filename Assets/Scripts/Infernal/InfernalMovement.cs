@@ -18,12 +18,14 @@ public class InfernalMovement : MovementScript
     // cached references
     InfernalAttack infernalAttack;
     InfernalHealth infernalHealth;
+    Rigidbody2D rb2D;
 
     override protected void Start()
     {
         base.Start();
         infernalAttack = GetComponent<InfernalAttack>();
         infernalHealth = GetComponent<InfernalHealth>();
+        rb2D = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
@@ -32,6 +34,7 @@ public class InfernalMovement : MovementScript
         {
             if (enemyFound == null)
             {
+                rb2D.velocity = Vector2.zero;
                 if (!infernalAttack.IsAttacking)
                     LookForEnemy();
             }
@@ -49,7 +52,7 @@ public class InfernalMovement : MovementScript
         {
             findTimeCounter = 0f;
 
-            Collider2D[] results = new Collider2D[5];
+            Collider2D[] results = new Collider2D[7];
             int n = Physics2D.OverlapCircle(transform.position, findRange, enemyLayer, results);
             if (n != 0)
             {
@@ -57,14 +60,11 @@ public class InfernalMovement : MovementScript
                 float closestDistance = Mathf.Infinity;
                 for (int i = 0; i < n; i++)
                 {
-                    if (results[i] != null)
+                    float aux = Vector2.Distance(transform.position, results[i].transform.position);
+                    if (aux < closestDistance)
                     {
-                        float aux = Vector2.Distance(transform.position, results[i].transform.position);
-                        if (aux < closestDistance)
-                        {
-                            closest = i;
-                            closestDistance = aux;
-                        }
+                        closest = i;
+                        closestDistance = aux;
                     }
                 }
 
@@ -78,8 +78,11 @@ public class InfernalMovement : MovementScript
         Vector2 currentPosition = transform.position;
         Vector2 targetPosition = enemyFound.transform.position;
 
+        rb2D.velocity = Vector2.zero;
         if (Vector2.Distance(currentPosition, targetPosition) > closestDistanceToEnemy)
-            transform.position = Vector2.MoveTowards(currentPosition, targetPosition, movementSpeed * Time.deltaTime);
+        {
+            rb2D.velocity = (targetPosition - currentPosition).normalized * movementSpeed;
+        }
         else if (!infernalAttack.IsAttacking)
             infernalAttack.StartAttacking(enemyFound);
 

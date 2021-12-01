@@ -62,7 +62,7 @@ public class PlayerHealth : HealthScript
             StartCoroutine(Die());
         }
     }
-
+    
     IEnumerator Die()
     {
         rb2D.simulated = false;
@@ -73,6 +73,8 @@ public class PlayerHealth : HealthScript
 
         CharacterList.alliesAlive.Remove(gameObject);
         CharacterList.playersAlive.Remove(gameObject);
+
+        SoundManager.instance.PlaySoundEffect(SoundManager.player_death, 1f);
 
         yield return new WaitForSeconds(respawnTime);
         Respawn();

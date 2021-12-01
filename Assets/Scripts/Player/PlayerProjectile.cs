@@ -23,6 +23,11 @@ public class PlayerProjectile : MonoBehaviour
         propertiesSet = true;
     }
 
+    private void Start()
+    {
+        SoundManager.instance.PlaySoundEffect(SoundManager.cast, .4f);
+    }
+
     void Update()
     {
         if (propertiesSet)

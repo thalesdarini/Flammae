@@ -48,6 +48,10 @@ public class PlayerAttack : AttackScript
     public bool IsAttacking { get => isAttacking; }
     public bool IsSummoning { get => isSummoning; }
 
+    public bool SummonAvailable { get => summonAvailable; }
+    public float SummonCooldown { get => summonCooldown; }
+    public int SummonCost { get => summonCost; } 
+    
     // Cached references
     PolygonCollider2D swordCollider;
     PlayerMovement playerMovement;
@@ -90,6 +94,10 @@ public class PlayerAttack : AttackScript
                 ongoingSummoning = StartCoroutine(Summon());
             }
         }
+        else
+        {
+            FindObjectOfType<UISummonSkill>().ShowAlert();
+        }
     }
 
     IEnumerator Summon()
@@ -97,6 +105,7 @@ public class PlayerAttack : AttackScript
         summonAvailable = false;
         isSummoning = true;
         animator.SetBool("invoking", true);
+        SoundManager.instance.PlaySoundEffect(SoundManager.summoning, 1f);
 
         for (int i = 0; i < numberOfInfernals; i++)
         {
@@ -194,6 +203,8 @@ public class PlayerAttack : AttackScript
                 cd.gameObject.GetComponent<EnemyHealth>().TakeDamage(meleeDamage);
             }
         }
+
+        SoundManager.instance.PlaySoundEffect(SoundManager.slash, 1f);
     }
 
     private void PrepareRangedAttack()
@@ -224,7 +235,8 @@ public class PlayerAttack : AttackScript
             animator.SetBool("attacking", false);
             attackTimePassed = 0f;
 
-            StopCoroutine(ongoingSummoning);
+            if (ongoingSummoning != null)
+                StopCoroutine(ongoingSummoning);
             isSummoning = false;
             summonAvailable = true;
             animator.SetBool("invoking", false);
@@ -249,6 +261,6 @@ public class PlayerAttack : AttackScript
             }
         }
 
-        summonKey = Input.GetKey(KeyCode.R);
+        summonKey = Input.GetKey(KeyCode.Q);
     }
 }

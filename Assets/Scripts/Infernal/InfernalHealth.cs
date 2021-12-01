@@ -40,6 +40,7 @@ public class InfernalHealth : HealthScript
         GetComponent<Animator>().SetTrigger("die");
         dead = true;
         GetComponent<Rigidbody2D>().simulated = false;
+        SoundManager.instance.PlaySoundEffect(SoundManager.infernal_fall, 1f, transform.position);
         Destroy(gameObject, deadDuration);
     }
 }

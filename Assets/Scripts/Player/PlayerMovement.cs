@@ -102,6 +102,7 @@ public class PlayerMovement : MovementScript
         isDashing = true;
         dashDirection = facingDirection;
         animator.SetBool("isDashing", true);
+        SoundManager.instance.PlaySoundEffect(SoundManager.dash, 1f);
 
         //Let it be dashing until duration ends
         float dashDuration = dashDistance / dashSpeed;

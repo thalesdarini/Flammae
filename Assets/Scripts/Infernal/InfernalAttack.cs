@@ -15,6 +15,7 @@ public class InfernalAttack : AttackScript
     // cached variables
     Animator animator;
     InfernalHealth infernalHealth;
+    AudioSource audioSource;
 
     public bool IsAttacking { get => isAttacking; }
 
@@ -24,6 +25,7 @@ public class InfernalAttack : AttackScript
         animator = GetComponent<Animator>();
         animator.SetFloat("m_attack", 1 / attackRate);
         infernalHealth = GetComponent<InfernalHealth>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -52,5 +54,6 @@ public class InfernalAttack : AttackScript
     public void Attack()
     {
         currentTarget?.GetComponent<EnemyHealth>().TakeDamage(meleeDamage);
+        audioSource.PlayOneShot(SoundManager.infernal_bite, 1f);
     }
 }

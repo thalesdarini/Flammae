@@ -48,6 +48,10 @@ public class PlayerAttack : AttackScript
     public bool IsAttacking { get => isAttacking; }
     public bool IsSummoning { get => isSummoning; }
 
+    public bool SummonAvailable { get => summonAvailable; }
+    public float SummonCooldown { get => summonCooldown; }
+    public int SummonCost { get => summonCost; } 
+    
     // Cached references
     PolygonCollider2D swordCollider;
     PlayerMovement playerMovement;
@@ -89,6 +93,10 @@ public class PlayerAttack : AttackScript
             {
                 ongoingSummoning = StartCoroutine(Summon());
             }
+        }
+        else
+        {
+            FindObjectOfType<UISummonSkill>().ShowAlert();
         }
     }
 
@@ -249,6 +257,6 @@ public class PlayerAttack : AttackScript
             }
         }
 
-        summonKey = Input.GetKey(KeyCode.R);
+        summonKey = Input.GetKey(KeyCode.Q);
     }
 }

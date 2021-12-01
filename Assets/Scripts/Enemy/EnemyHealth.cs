@@ -89,6 +89,7 @@ public class EnemyHealth : MonoBehaviour
         enemyLifeAnimation.SetTrigger("dies");
         enemyLifeAnimation.SetBool("takeDamage", false);
         enemyLifeAnimation.SetBool("isMoving", false);
+        rb2d.simulated = false;
 
         Destroy(gameObject, deathTime);
     }

@@ -280,7 +280,7 @@ MonoBehaviour:
   summonCost: 10
   summonCooldown: 15
   summonDuration: 1
-  numberOfInfernals: 4
+  numberOfInfernals: 10
   summonCircleRange: 3
   laneLayer:
     serializedVersion: 2

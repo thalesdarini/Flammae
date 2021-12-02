@@ -325,10 +325,10 @@ MonoBehaviour:
   towerName: Grito de Ares
   towerBehaviourScript: {fileID: 4587600111758847037}
   towerPrefab: {fileID: 1304542104357237022}
-  constructionCost: 5
+  constructionCost: 10
   constructionTime: 1
   towerBuilderReference: {fileID: 2323064552734554948, guid: c0becc1a26833e346924562add3909c2, type: 3}
-  deconstructionBonus: 2
+  deconstructionBonus: 5
 --- !u!1 &2237507226960620337
 GameObject:
   m_ObjectHideFlags: 0

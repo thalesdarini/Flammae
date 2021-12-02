@@ -269,7 +269,7 @@ MonoBehaviour:
   sword: {fileID: 1230278872159663773}
   meleeTimeInputTolerance: 0.25
   meleeAttackDuration: 0.35
-  meleeMaxEnemiesHit: 5
+  meleeMaxEnemiesHit: 3
   projectilePrefab: {fileID: 521996329597514647, guid: 6641e7e64ea175c4fabe8e59bdf51c25, type: 3}
   projectilePlace: {fileID: 3317056039287578180}
   rangedTimeInputTolerance: 0.25
@@ -277,10 +277,10 @@ MonoBehaviour:
   projectileSpeed: 16
   projectileTravelDistance: 10
   infernalPrefab: {fileID: 8359488428091048564, guid: fb8ef94140e32eb459582a320a118075, type: 3}
-  summonCost: 10
+  summonCost: 8
   summonCooldown: 15
   summonDuration: 1
-  numberOfInfernals: 10
+  numberOfInfernals: 8
   summonCircleRange: 3
   laneLayer:
     serializedVersion: 2
@@ -297,7 +297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1434daf9826e0841b94ffd8db0b28fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingSouls: 20
+  startingSouls: 10
 --- !u!114 &7803978895578264075
 MonoBehaviour:
   m_ObjectHideFlags: 0

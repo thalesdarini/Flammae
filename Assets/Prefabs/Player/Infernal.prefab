@@ -198,7 +198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65269d32e71dbb543ae0c4435f0fc678, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultMeleeDamage: 8
+  defaultMeleeDamage: 4
   defaultRangedDamage: 0
   attackRate: 0.8
 --- !u!114 &8359488428091048563
@@ -213,7 +213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e8c19d90f067dd4aae4f2f96efc5db0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultMaxHealth: 10
+  defaultMaxHealth: 2.5
 --- !u!50 &2342008892391530035
 Rigidbody2D:
   serializedVersion: 4

@@ -662,10 +662,10 @@ MonoBehaviour:
   towerName: "Fogo do C\xE9rbero II"
   towerBehaviourScript: {fileID: 1416462718438537909}
   towerPrefab: {fileID: 1416462717787058890}
-  constructionCost: 5
+  constructionCost: 25
   constructionTime: 1
   towerBuilderReference: {fileID: 2323064552734554948, guid: c0becc1a26833e346924562add3909c2, type: 3}
-  deconstructionBonus: 3
+  deconstructionBonus: 12
 --- !u!1 &1416462718438537911
 GameObject:
   m_ObjectHideFlags: 0

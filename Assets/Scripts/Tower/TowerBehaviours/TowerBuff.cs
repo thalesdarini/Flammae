@@ -86,6 +86,8 @@ public class TowerBuff : TowerBehaviour
 
     void UpdateBuffsOnDeadAllies()
     {
+        alliesBuffedByThisTower.RemoveAll(item => item == null);
+
         for (int i = alliesBuffedByThisTower.Count - 1; i > -1; i--)
         {
             GameObject buffedAlly = alliesBuffedByThisTower[i];

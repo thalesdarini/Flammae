@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    [SerializeField] float health;
+    [SerializeField] float maxHealth;
     [SerializeField] int soulDrop;
     [SerializeField] float soulDropRange;
     [SerializeField] GameObject soulPrefab;
@@ -14,8 +15,13 @@ public class EnemyHealth : MonoBehaviour
     Rigidbody2D rb2d;
     Animator enemyLifeAnimation;
     EnemyMovement enemyMovement;
+    EnemyAttack enemyAttack;
+    Slider healthBar;
+    float currentHealth;
     float stunTimeRemaining = 0.0f;
     bool isKilled;
+
+    public bool IsKilled { get => isKilled; }
 
     void Awake()
     {
@@ -30,6 +36,10 @@ public class EnemyHealth : MonoBehaviour
         enemyLifeAnimation.SetFloat("dieMult", 1 / deathTime);
         enemyLifeAnimation.SetFloat("stunMult", 1 / stunTimer);
         enemyMovement = GetComponent<EnemyMovement>();
+        enemyAttack = GetComponent<EnemyAttack>();
+        healthBar = transform.Find("HealthCanvas").Find("HealthBar").GetComponent<Slider>();
+        currentHealth = maxHealth;
+        healthBar.value = 1f;
         isKilled = false;
     }
     
@@ -58,20 +68,24 @@ public class EnemyHealth : MonoBehaviour
     {
         if (isKilled == false)
         {
-            health -= amountOfDamage;
+            currentHealth -= amountOfDamage;
             rb2d.velocity = Vector2.zero;
             enemyMovement.CanMove = false;
+            enemyAttack.IsAttacking = false;
             stunTimeRemaining = stunTimer;
 
             enemyLifeAnimation.SetBool("takeDamage", true);
-            if (health <= 0)
+            if (currentHealth <= 0)
             {
+                currentHealth = 0;
                 Die();
             }
             else
             {
                 enemyLifeAnimation.SetTrigger("takeDamage");
             }
+
+            healthBar.value = currentHealth / maxHealth;
         }
     }
 

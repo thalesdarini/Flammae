@@ -21,6 +21,7 @@ public class KnightAttack : EnemyAttack
     AudioSource soundEffect;
     
     EnemyMovement enemyMovement;
+    EnemyHealth enemyHealth;
     float attackCooldownRemaining;
     float damageDelayRemaining;
     int attacksRemaining;
@@ -34,6 +35,7 @@ public class KnightAttack : EnemyAttack
         rb2d = GetComponent<Rigidbody2D>();
         attackAnimation = GetComponent<Animator>();
         enemyMovement = GetComponent<EnemyMovement>();
+        enemyHealth = GetComponent<EnemyHealth>();
         soundEffect = GetComponent<AudioSource>();
         attackCooldownRemaining = 0.0f;
         soundEffect.PlayOneShot(SoundManager.battlecry, 10);
@@ -48,7 +50,7 @@ public class KnightAttack : EnemyAttack
             if(attackCooldownRemaining <= 0.0f) isAttacking = false;
         }
 
-        if(isAttacking == true && damageDelayRemaining > 0.0f){
+        if(isAttacking == true && damageDelayRemaining > 0.0f && !enemyHealth.IsKilled){
             damageDelayRemaining -= Time.deltaTime;
             if(damageDelayRemaining <= 0){
                 doDamage();

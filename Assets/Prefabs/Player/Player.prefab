@@ -250,7 +250,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b37e5c52443de314781651a7cde3b853, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultMeleeDamage: 4
+  defaultMeleeDamage: 7
   defaultRangedDamage: 6
   enemyFilter:
     useTriggers: 0
@@ -268,7 +268,7 @@ MonoBehaviour:
     maxNormalAngle: 0
   sword: {fileID: 1230278872159663773}
   meleeTimeInputTolerance: 0.25
-  meleeAttackDuration: 0.4
+  meleeAttackDuration: 0.35
   meleeMaxEnemiesHit: 5
   projectilePrefab: {fileID: 521996329597514647, guid: 6641e7e64ea175c4fabe8e59bdf51c25, type: 3}
   projectilePlace: {fileID: 3317056039287578180}

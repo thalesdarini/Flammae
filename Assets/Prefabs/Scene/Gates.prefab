@@ -380,7 +380,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8738137923064173914}
-  - component: {fileID: 6258705205824148662}
+  - component: {fileID: 2603309894357564819}
   - component: {fileID: 9149193316149299707}
   m_Layer: 0
   m_Name: Gates
@@ -406,8 +406,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &6258705205824148662
-BoxCollider2D:
+--- !u!60 &2603309894357564819
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -416,10 +416,10 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.028164864, y: 0.10258007}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -429,9 +429,12 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 15.138237, y: 2.4704304}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: 7.518, y: 1.3596756}
+      - {x: -7.549131, y: 1.3377305}
+      - {x: -7.5528784, y: -1.1873968}
+      - {x: 7.5195384, y: -1.1611141}
 --- !u!114 &9149193316149299707
 MonoBehaviour:
   m_ObjectHideFlags: 0

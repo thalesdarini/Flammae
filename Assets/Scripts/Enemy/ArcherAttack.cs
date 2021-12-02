@@ -18,6 +18,7 @@ public class ArcherAttack : EnemyAttack
     AudioSource soundEffect;
     
     EnemyMovement enemyMovement;
+    EnemyHealth enemyHealth;
     float attackCooldownRemaining;
     float damageDelayRemaining;
     Transform currentTarget;
@@ -30,6 +31,7 @@ public class ArcherAttack : EnemyAttack
         rb2d = GetComponent<Rigidbody2D>();
         attackAnimation = GetComponent<Animator>();
         enemyMovement = GetComponent<EnemyMovement>();
+        enemyHealth = GetComponent<EnemyHealth>();
         soundEffect = GetComponent<AudioSource>();
         currentTarget = null;
         attackCooldownRemaining = 0.0f;
@@ -44,7 +46,7 @@ public class ArcherAttack : EnemyAttack
             if(attackCooldownRemaining <= 0.0f) isAttacking = false;
         }
 
-        if(isAttacking == true && damageDelayRemaining > 0.0f){
+        if(isAttacking == true && damageDelayRemaining > 0.0f && !enemyHealth.IsKilled){
             damageDelayRemaining -= Time.deltaTime;
             if(damageDelayRemaining <= 0){
                 aimDirection = currentTarget.position - arrowPlace.transform.position;

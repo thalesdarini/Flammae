@@ -1048,7 +1048,7 @@ MonoBehaviour:
   towerBehaviourScript: {fileID: 7335081854666976332}
   towerPrefab: {fileID: 3326971561582183675}
   constructionCost: 8
-  constructionTime: 1
+  constructionTime: 20
   towerBuilderReference: {fileID: 2323064552734554948, guid: c0becc1a26833e346924562add3909c2, type: 3}
   deconstructionBonus: 3
 --- !u!1 &4126592189692745806

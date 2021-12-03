@@ -18,6 +18,7 @@ public class LevelManager : MonoBehaviour
 
     bool[] wasWaveCountAlreadyShown;
     bool[] wasPreparationTimeAlreadyShown;
+    bool playerWon = false;
 
     // Start is called before the first frame update
     void Start()
@@ -48,9 +49,10 @@ public class LevelManager : MonoBehaviour
 
         if (isCurrentWaveOver)
         {
-            if (CurrentWave() == NumOfWaves())
+            if (CurrentWave() == NumOfWaves() && !playerWon)
             {
                 PlayerWon();
+                playerWon = true;
             }
         }
 

@@ -735,10 +735,10 @@ MonoBehaviour:
   towerName: Grito de Ares II
   towerBehaviourScript: {fileID: 457723757122260741}
   towerPrefab: {fileID: 1416462717787058890}
-  constructionCost: 15
+  constructionCost: 48
   constructionTime: 1
   towerBuilderReference: {fileID: 2323064552734554948, guid: c0becc1a26833e346924562add3909c2, type: 3}
-  deconstructionBonus: 7
+  deconstructionBonus: 24
 --- !u!1 &1416462718438537911
 GameObject:
   m_ObjectHideFlags: 0
@@ -863,8 +863,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   whichStat: Ataque
-  buffingAmount: 18
-  range: 30
+  buffingAmount: 33
+  range: 24
   delayBetweenPulses: 3
   indicatorParticlePrefab: {fileID: 5556275998370476087, guid: 1890e414e8dbd214c9cbd29e45f724c4, type: 3}
   pulsePrefab: {fileID: 744869459545516268, guid: 38fd15b4b584ad6419a615acc1a5690d, type: 3}

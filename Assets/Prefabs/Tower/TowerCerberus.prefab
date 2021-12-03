@@ -1429,7 +1429,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18af66f0e695c8d4397f88928706289d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 10
+  range: 16
   delayToReloadTime: 1.5
   reloadTime: 0.4
   projectilePrefab: {fileID: 66154720467920020, guid: f9105c0e6822c584fa9c53a7acedfa13, type: 3}

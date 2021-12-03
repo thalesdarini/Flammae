@@ -12,6 +12,7 @@ public class ArcherAttack : EnemyAttack
     [SerializeField] float projectileTravelDistance;
     [SerializeField] GameObject arrowPrefab;
     [SerializeField] GameObject arrowPlace;
+    [SerializeField] GameObject healthBar;
 
     Rigidbody2D rb2d;
     Animator attackAnimation;
@@ -78,10 +79,12 @@ public class ArcherAttack : EnemyAttack
         if (target.transform.position.x - transform.position.x >= 0)
         {
             transform.rotation = Quaternion.Euler(0, 0, 0);
+            healthBar.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
         else
         {
             transform.rotation = Quaternion.Euler(0, 180, 0);
+            healthBar.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
 
         attackAnimation.SetBool("isMoving", false);

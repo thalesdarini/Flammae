@@ -51,7 +51,7 @@ public class TowerProjectile : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter2D(Collider2D objectThatEntered)
+    void OnTriggerStay2D(Collider2D objectThatEntered)
     {
         if (!objectThatEntered.isTrigger && objectThatEntered.gameObject == target && !shotHit)
         {

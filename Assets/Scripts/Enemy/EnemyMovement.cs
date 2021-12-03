@@ -16,6 +16,7 @@ public class EnemyMovement : MonoBehaviour
     Animator moveAnimation;
     SpriteRenderer sRenderer;
     EnemyAttack enemyAttack;
+    [SerializeField] GameObject healthBar;
 
     List<Transform> currentTargets;
     bool canMove;
@@ -94,10 +95,12 @@ public class EnemyMovement : MonoBehaviour
         if (target.position.x - transform.position.x >= 0)
         {
             transform.rotation = Quaternion.Euler(0, 0, 0);
+            healthBar.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
         else
         {
             transform.rotation = Quaternion.Euler(0, 180, 0);
+            healthBar.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
 
@@ -118,10 +121,12 @@ public class EnemyMovement : MonoBehaviour
         if (nextPosition.x - transform.position.x >= 0)
         {
             transform.rotation = Quaternion.Euler(0, 0, 0);
+            healthBar.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
         else
         {
             transform.rotation = Quaternion.Euler(0, 180, 0);
+            healthBar.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
 

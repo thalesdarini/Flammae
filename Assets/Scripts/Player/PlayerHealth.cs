@@ -59,6 +59,7 @@ public class PlayerHealth : HealthScript
 
         if (healthPercentual <= 0)
         {
+            healthPercentual = 0f;
             StartCoroutine(Die());
         }
     }

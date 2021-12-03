@@ -1514,8 +1514,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   whichStat: Ataque
-  buffingAmount: 8
-  range: 15
+  buffingAmount: 6
+  range: 16
   delayBetweenPulses: 2
   indicatorParticlePrefab: {fileID: 5556275998370476087, guid: 1890e414e8dbd214c9cbd29e45f724c4, type: 3}
   pulsePrefab: {fileID: 744869459545516268, guid: 38fd15b4b584ad6419a615acc1a5690d, type: 3}

@@ -14,10 +14,11 @@ public class UIStoryVideoManager : MonoBehaviour
     {
         storyVideo = GetComponent<VideoPlayer>();
         storyVideo.loopPointReached += GoToNextScene;
-        Destroy(SoundManager.instance.gameObject);
+        if (SoundManager.instance != null)
+            Destroy(SoundManager.instance.gameObject);
     }
 
-    void GoToNextScene(VideoPlayer video)
+    public void GoToNextScene(VideoPlayer video)
     {
         levelChanger.ChangeTo(2);
     }

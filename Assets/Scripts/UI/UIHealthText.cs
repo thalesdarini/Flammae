@@ -18,6 +18,6 @@ public class UIHealthText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        healthText.text = (playerReference.MaxHealth * playerReference.HealthPercentual).ToString("F0");
+        healthText.text = Mathf.CeilToInt(playerReference.MaxHealth * playerReference.HealthPercentual).ToString();
     }
 }

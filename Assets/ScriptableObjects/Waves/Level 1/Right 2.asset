@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   preparationTimeBeforeWave: 10
   enemySpawnCooldown: 0.2
-  numberOfKnights: 10
-  numberOfArchers: 5
+  numberOfKnights: 4
+  numberOfArchers: 4
   numberOfGiants: 0
   numberOfRogues: 0
   numberOfPriests: 0

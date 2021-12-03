@@ -19,6 +19,7 @@ public class KnightAttack : EnemyAttack
     Animator attackAnimation;
     PolygonCollider2D swordCollider;
     AudioSource soundEffect;
+    [SerializeField] GameObject healthBar;
     
     EnemyMovement enemyMovement;
     EnemyHealth enemyHealth;
@@ -99,10 +100,12 @@ public class KnightAttack : EnemyAttack
         if (target.transform.position.x - transform.position.x >= 0)
         {
             transform.rotation = Quaternion.Euler(0, 0, 0);
+            healthBar.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
         else
         {
             transform.rotation = Quaternion.Euler(0, 180, 0);
+            healthBar.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
 
         attackAnimation.SetBool("isMoving", false);

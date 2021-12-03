@@ -250,8 +250,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b37e5c52443de314781651a7cde3b853, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultMeleeDamage: 7
-  defaultRangedDamage: 6
+  defaultMeleeDamage: 13
+  defaultRangedDamage: 20
   enemyFilter:
     useTriggers: 0
     useLayerMask: 1
@@ -275,13 +275,13 @@ MonoBehaviour:
   rangedTimeInputTolerance: 0.25
   rangedAttackDuration: 0.6
   projectileSpeed: 16
-  projectileTravelDistance: 10
+  projectileTravelDistance: 11
   infernalPrefab: {fileID: 8359488428091048564, guid: fb8ef94140e32eb459582a320a118075, type: 3}
-  summonCost: 8
+  summonCost: 15
   summonCooldown: 15
-  summonDuration: 1
-  numberOfInfernals: 8
-  summonCircleRange: 3
+  summonDuration: 1.5
+  numberOfInfernals: 10
+  summonCircleRange: 3.3
   laneLayer:
     serializedVersion: 2
     m_Bits: 2048
@@ -297,7 +297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1434daf9826e0841b94ffd8db0b28fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingSouls: 10
+  startingSouls: 0
 --- !u!114 &7803978895578264075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -310,9 +310,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e28e48199194cd43abbfe3b5b9f942a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultMaxHealth: 20
+  defaultMaxHealth: 100
   respawnPosition: {fileID: 0}
-  respawnTime: 5
+  respawnTime: 8.5
 --- !u!82 &7442161410463828618
 AudioSource:
   m_ObjectHideFlags: 0

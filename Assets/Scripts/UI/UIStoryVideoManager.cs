@@ -13,13 +13,17 @@ public class UIStoryVideoManager : MonoBehaviour
     void Start()
     {
         storyVideo = GetComponent<VideoPlayer>();
+        storyVideo.url = System.IO.Path.Combine(Application.streamingAssetsPath, "Story.mp4");
+        storyVideo.Play();
         storyVideo.loopPointReached += GoToNextScene;
         if (SoundManager.instance != null)
+        {
             Destroy(SoundManager.instance.gameObject);
+        }
     }
 
     public void GoToNextScene(VideoPlayer video)
     {
-        levelChanger.ChangeTo(2);
+        levelChanger.ChangeTo(3);
     }
 }

@@ -20,7 +20,7 @@ public class GameButtonHandler : MonoBehaviour
     public void PlayButtonPressed()
     {
         SoundManager.instance.PlaySoundEffect(SoundManager.button, 1.2f);
-        levelChanger.ChangeTo(1);
+        levelChanger.ChangeTo(2);
     }
 
     public void OptionsButtonPressed()
@@ -49,7 +49,7 @@ public class GameButtonHandler : MonoBehaviour
     public void QuitYesButtonPressed()
     {
         SoundManager.instance.PlaySoundEffect(SoundManager.button, 1.2f);
-        if (SceneManager.GetActiveScene().buildIndex == 0)
+        if (SceneManager.GetActiveScene().buildIndex == 1)
         {
             levelChanger.ChangeTo(-1);
         }
@@ -57,7 +57,7 @@ public class GameButtonHandler : MonoBehaviour
         {
             Time.timeScale = 1;
             SoundManager.instance.ChangeMusic(SoundManager.calmTrack);
-            levelChanger.ChangeTo(0);
+            levelChanger.ChangeTo(1);
         }
     }
 
